@@ -85,7 +85,7 @@ DATABASES = {
 }
 # 여기 변경
 # DATABASES = my_settings.DATABASES
-SECRET_KEY = my_settings.SECRET_KEY
+# SECRET_KEY = my_settings.SECRET_KEY
 
 
 # Password validation
