@@ -106,7 +106,7 @@ pre {
 pre code {
     display: block;
     background-color: rgb(34, 30, 30);
-    padding: 10px;
+    padding: 10px 10px 10px 30px;
     color: lightgray;
     font-size: 14px;
     line-height: 40px;

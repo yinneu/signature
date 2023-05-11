@@ -2,24 +2,49 @@
 "use strict"
 
 // 코드 박스 (Code copy)
+// const codeBlocks = document.querySelectorAll('.code-box');
+// codeBlocks.forEach((block) => {
+//   const code = block.querySelector('code');
+//   const copyButton = block.querySelector('.copy-button');
+
+//   copyButton.addEventListener('click', () => {
+//     // navigator.clipboard.writeText(code.innerText)
+//     navigator.clipboard.execCommand('copy')
+//     .then(() => {
+
+//       copyButton.innerHTML = "Copied!"
+//       setTimeout(() => {
+//         copyButton.innerHTML = "Copy";
+//       }, 1000);
+
+//     })
+//     .catch(err => {
+//       console.error('Failed to copy: ', err);
+//     })
+//   });
+// });
 const codeBlocks = document.querySelectorAll('.code-box');
 codeBlocks.forEach((block) => {
   const code = block.querySelector('code');
   const copyButton = block.querySelector('.copy-button');
 
-  copyButton.addEventListener('click', () => {
-    navigator.clipboard.writeText(code.innerText)
-    .then(() => {
+  const clipboard = new ClipboardJS(copyButton, {
+    text: function () {
+      return code.innerText;
+    }
+  });
 
-      copyButton.innerHTML = "Copied!"
-      setTimeout(() => {
-        copyButton.innerHTML = "Copy";
-      }, 1000);
+  clipboard.on('success', function (e) {
+    copyButton.innerHTML = "Copied!";
+    setTimeout(() => {
+      copyButton.innerHTML = "Copy";
+    }, 1000);
 
-    })
-    .catch(err => {
-      console.error('Failed to copy: ', err);
-    })
+    e.clearSelection();
+  });
+
+  clipboard.on('error', function (e) {
+    console.error('Failed to copy: ', e.action);
   });
 });
 
