@@ -155,3 +155,10 @@ MEDIA_URL = '/media/'
 #         },
 #     },
 # }
+
+
+ALLOWED_HOSTS = [
+    # ".ap-northeast-2.compute.amazonaws.com"
+    ".ap-northeast-1.compute.amazonaws.com"
+    # "http://ec2-35-78-49-27.ap-northeast-1.compute.amazonaws.com/"
+]
