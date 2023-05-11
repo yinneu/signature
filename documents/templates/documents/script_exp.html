@@ -1,0 +1,115 @@
+<!-- document \ script_exp.html  -->
+
+<!-- extends common/base.html -->
+{% extends 'common/base.html' %}
+
+<!-- title -->
+{% block title %} SIGNATURE {% endblock %}
+
+<!-- css -->
+{% block extra_css %}
+  <link rel="stylesheet" href="/static/css/document.css/?">
+  <link rel="stylesheet" href="/static/css/script_exp.css/?">
+  <link rel="stylesheet" href="/static/css/upload.css/??">
+{% endblock %}
+
+<!-- Navbar -->
+
+<!-- Contents -->
+{% block content %}
+
+  <!-- 설명 콘텐츠 영역 -->
+  <section id="main">
+
+    <!-- Intro -->
+    <div id="intro" class="contents">
+      <p>시그니처는 네트워크 트래픽 데이터를 수집하는 코드를 제공합니다.</p>
+      <!-- 아이콘 이미지들 -->
+      <img id="icons" src="/static/img/main/icons/document_icons.png" alt="document icons">
+    </div>
+
+    <!-- Packet 설명 -->
+    <!-- <div id="packet" class="contents">
+      <h2 class="font">PACKET</h2>
+      <hr>
+      <div class="explanation">
+          <p>패킷은 컴퓨터 네트워크에서 데이터를 전송하기 위해 나누어진 블록을 말합니다.</p>
+          <p>데이터를 전송할 때, 전체 데이터를 여러 개의 패킷으로 나누어서 보냅니다. 
+              이렇게 나누어 보내면, 전송 중에 일부 패킷이 손실되거나 손상되어도 전체 데이터가 손상되지 
+              않고 전송됩니다. 또한, 여러 사용자가 동시에 네트워크를 사용할 때, 각각의 패킷이 독립적으로 
+              전송되기 때문에 충돌 없이 데이터를 전송할 수 있습니다.</p>
+      </div>
+    </div> -->
+
+    <!-- 네트워크 트래픽 캡쳐 설명 -->
+    <div id="trafficCapture" class="contents">
+
+      <h2 class="font">Network Traffic Capture Code
+        <img class="download-icon download" src="/static/img/script_exp/download_icon.png" alt="">
+      </h2>
+      
+
+      <hr>
+      <h3 class="font">[Instructions for Use]</h3>
+      <div class="explanation">
+
+        <p>1. Scapy에서는 WinPcap을 사용하여 패킷 스니핑 및 송신을 지원합니다. WinPcap을 다운 받으세요.</p>
+        <p>&nbsp;&nbsp; WinPcap 다운로드 링크: <a href="http://www.winpcap.org/install/default.htm">www.winpcap.org/install/default.htm</a></p>
+
+        <p>2. 시그니처에서 제공하는 코드를 <span class="download underline">다운로드</span>합니다.</p>
+
+        <P>3. 이 코드에서는 scapy 라이브러리를 사용합니다. scapy 라이브러리를 설치하지 않았다면, 다음 명령어를 실행하세요.</P>
+        <div class="code-box">
+          <div class="code-header">
+            <div class="code-header-item code-type">Terminal</div>
+            <button class="code-header-item copy-button">Copy</button>
+          </div>
+          <pre>
+              <code>  pip install scapy</code>
+          </pre>
+        </div>
+
+        <!-- <p>3. Scapy에서는 WinPcap을 사용하여 패킷 스니핑 및 송신을 지원합니다. WinPcap을 다운 받으세요.</p>
+        <p>&nbsp;&nbsp; WinPcap 다운로드 링크: <a href="http://www.winpcap.org/install/default.htm">www.winpcap.org/install/default.htm</a></p> -->
+
+        <p>4. 코드를 실행하기 전, capture_time 변수를 수정하여 캡처할 시간을 조정할 수 있습니다.</p>
+        <div class="code-box">
+          <div class="code-header">
+            <div class="code-header-item code-type">Python</div>
+            <button class="code-header-item copy-button">Copy</button>
+          </div>
+          <pre>
+              <code> capture_time = 600  # 기본값: 600초(10분)</code>
+          </pre>
+        </div>
+
+        <!-- <p>capture_time 변수를 수정하여 캡처할 시간을 조정할 수 있습니다. 기본값은 600초(10분)입니다.</p> -->
+        <p>5. 코드를 실행하면, 캡처된 데이터는 현재 디렉토리의 "network_traffic.csv" 파일로 저장됩니다.</p>
+
+        <p>6. CSV 파일을 업로드합니다.</p>
+
+        <!-- Upload -->
+        <div id="upload" class="main-contents">
+          <!-- <h2 class="font upload-title">File Upload</h2> -->
+          <form action="{% url 'dashboard:dashboard' %}" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="upload-box">                  
+                  <input type="file" name="csv_file" class="upload">  
+                  <input type="submit" value="Submit" class="upload-btn">                               
+              </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+
+{% endblock %}
+
+<!-- footer -->
+
+{% block extra_script %} 
+  <script src="/static/javascript/script_exp.js"></script> 
+{% endblock %}

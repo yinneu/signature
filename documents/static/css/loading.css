@@ -1,0 +1,76 @@
+/* 로딩페이지 */
+
+#nprogress .spinner {
+    top: 20%;
+    right: 50%;
+}
+
+
+/* 로딩페이지 */
+#loadingScreen {
+    position: fixed;
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    opacity: 1;
+    z-index: 50;
+    /* background-image: url('/static/img/main/new_main_background2.png');
+    background-repeat: no-repeat;
+    background-position: center; */
+    background-color: black;
+}
+
+
+@keyframes fadeInOut {
+    0% {
+      opacity: 0;
+    }
+    10% {
+        opacity: 1;
+      }
+    60% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      display: none;
+    }
+  }
+
+
+.exp-item {
+    position: absolute;
+    display: none;
+    top: 50%;
+    left: 50%;
+    margin: 48px auto;
+    width: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    text-shadow: 0.5px 0.5px 1px var(--dark-grey);
+    animation: fadeInOut 5s linear;
+}
+
+
+.exp-item .keyword {
+    font-size: 34px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+
+.exp-item p {
+    margin-bottom: 20px;
+}
+
+/*  */
+.exp-item .exp {
+    font-size: 18px;
+    color: var(--light-grey);
+}
+
+/* 출처 */
+.exp-item .source {
+    font-size: 14px;
+    color: var(--dark-grey);
+}

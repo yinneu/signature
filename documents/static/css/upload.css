@@ -1,0 +1,91 @@
+/* document \ upload.css */
+
+/* Upload Section */
+#upload {
+    position: relative;
+    max-width: 700px;
+    min-width: 300px;
+    margin: 5px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 120px;
+    background-color: white;
+}
+
+#upload .upload-title {
+    margin: auto;
+}
+
+
+/* 파일 업로드와 submit 버튼 */
+#upload form {
+    margin: 0 auto;
+    color: #bfbebe;
+    width: 100%;
+}
+
+
+/* form 안의 업로드 박스 */
+.upload-box {
+    top: 18px;
+    width: 100%;
+    height: 40px;
+    background-color: #EEEEEE;
+    border-radius: 5px;
+    line-height: 40px;
+    margin: 0;
+}
+
+
+/* 실제 업로드란 : 파일 선택란 */
+.upload-box .upload {
+    position: relative;   
+    left: 50%;
+    color: #bfbebe;
+    text-align: center;
+    transform: translateX(-50%);
+}
+
+.upload-box .upload::file-selector-button {
+    text-align: center;
+    color: transparent;
+    border: none;
+    margin-right: 10px;
+    background-color: transparent;
+}
+
+/* 선택된 파일명 영역 */
+.upload-box .file-name {
+    position: relative;
+    text-align: center;
+}
+
+.upload-box .upload:hover {
+    cursor: pointer;
+    color: rgba(64, 64, 65, 0.796);
+}
+
+
+/* 파일 submit 버튼 */
+.upload-btn {
+    position: relative;
+    float: right;
+    width: 80px;
+    height: 28px;
+    padding: 2px 5px;
+    margin: 6px 10px;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    font-size: small;
+    text-align: center;
+    background-color: whitesmoke;
+    color: rgb(178, 177, 177);
+}
+
+.upload-btn:hover {
+    background-color: rgba(64, 64, 65, 0.796);
+    color: rgb(192, 186, 186);
+    cursor: pointer;
+}

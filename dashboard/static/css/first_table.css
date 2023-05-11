@@ -1,0 +1,115 @@
+/* dashboard first table section css */
+
+
+/* ///////////// 첫번째 그래프 영역 */
+
+/* 네트워크 망 */
+#graph_net {
+    top: 20px;
+    width: 490px;
+    height: 610px;
+}
+
+/* 정상 / 비정상 데이터 차트 */
+#att_ratio {
+    top: 20px;
+    /* left: 520px; */
+    left: 500px;
+    width: 542px;
+    height:280px;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+#att_ratio #graph_won {
+    top: 10px;
+    width: 254px;
+    height: 254px;
+    margin-top: 10px;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+}
+
+.table-title {
+    font-size: 16px;
+    margin: 16px 0 0;
+    font-weight: 600;
+}
+
+#att_ratio #won_table {
+    position: absolute;
+    top: 10px;
+    left: 260px;
+    width: 268px;
+    height: 254px;
+    border: 0.5px solid #595959;
+    text-align: center;
+}
+
+.table_box {
+    /* padding: 14px; */
+    display: flex;
+    flex-wrap: wrap;
+    width: 250px;
+    height: 180px;
+    margin: 16px auto 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.table_item {
+    width: 106px;
+    height: 78px;
+    border: 0.2px solid #9b9b9b80;
+    background-color: #59595974;
+    float: left;
+    margin: 6px;
+}
+
+.table_item p {
+    color: #F5C3CB;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 16px;
+}
+
+/* 유동 데이터 */
+.table_item .won_data {
+    font-size: 23px;
+    color: aliceblue;
+    margin-right: 3px;
+    font-weight: 500;
+}
+
+.table_item span:last-child {
+    color: #A6EC99;
+    font-size: 9.5px;
+    font-weight: 600;
+}
+
+
+
+/* 패킷 길이 빈도 (Bar) */
+#graph_pal {
+    top: 20px;
+    /* left: 1068px; */
+    left: 1052px;
+    width: 450px;
+    height:280px;
+    box-sizing: border-box;
+}
+
+/* bps */
+#graph_bps {
+    top: 310px;
+    /* left: 520px; */
+    left: 500px;
+    width: 495px;
+}
+
+#graph_pps {
+    top: 310px;
+    left: 1006px;
+    width: 495px;
+}

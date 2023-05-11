@@ -1,0 +1,170 @@
+<!-- document \ protocol_exp.html -->
+
+<!-- extends common/base.html -->
+{% extends 'common/base.html' %}
+
+<!-- title -->
+{% block title %} SIGNATURE {% endblock %}
+
+
+<!-- css -->
+{% block extra_css %}
+  <link rel="stylesheet" href="/static/css/document.css/?">
+  <link rel="stylesheet" href="/static/css/protocol_exp.css">
+{% endblock %}
+
+<!-- Navbar -->
+
+<!-- Contents -->
+{% block content %}
+
+  <section id="main">
+
+
+    <!-- 제목 박스 -->
+    <div class="title-box contents">
+      <h2 class="font">Protocol Type</h2>
+      <div class="sub-exp">
+        <p>주요 프로토콜 타입별 설명</p>
+        <p>Description by major protocol type</p>
+      </div>
+    </div>
+
+
+    <!-- 응용 / 표현 / 세션 계층  -->
+    <div class="layer-box contents">
+      <div class="sub-title"><p>[ 응용 / 표현 / 세션 계층 ]</p></div>
+
+      <div class="exp-box">
+        <p class="word">FTP(File Transfer Protocol)</p>
+        <p class="word-exp">: 인터넷 상에서 파일을 전송하기 위한 프로토콜로, 클라이언트와 서버 간에 파일 전송을 지원한다. 일반적으로 파일 업로드, 다운로드, 파일 및 디렉터리 생성, 수정, 삭제 등의 작업을 수행한다.
+        </p>
+      </div>
+      <div class="exp-box">
+        <p class="word">Telnet</p>
+        <p class="word-exp">: 원격 터미널 접속 프로토콜로, 클라이언트와 서버 간에 터미널 세션을 연결하여 원격 컴퓨터를 제어할 수 있다. Telnet은 원격 호스트에 접속하여 로그인하고 명령어를 실행할 수 있는 텍스트 기반의 인터페이스를 제공한다.
+        </p>
+      </div>
+      <div class="exp-box">
+        <p class="word">SSH(Secure Shell)</p>
+        <p class="word-exp">: 네트워크 프로토콜 중 하나로, 안전한 원격 접속을 가능하게 한다. Telnet과 달리 암호화된 터미널 세션을 제공하여, 사용자의 비밀번호나 데이터를 안전하게 전송할 수 있다. SSH는 원격 로그인, 파일 전송, 명령어 실행 등 다양한 기능을 제공한다.
+        </p>
+      </div>
+      <div class="exp-box">
+        <p class="word">DNS(Domain Name System)</p>
+        <p class="word-exp">: 인터넷 상에서 도메인 이름과 IP 주소를 변환하는 시스템이다. DNS는 사용자가 입력한 도메인 이름을 IP 주소로 변환하여, 해당 웹 서버에 접속할 수 있도록 한다. DNS는 전 세계적으로 분산되어 운영되며, 인터넷 상에서 가장 중요한 인프라 중 하나이다.
+        </p>
+      </div>
+      <div class="exp-box">
+        <p class="word">SNMP(Simple Network Management Protocol)</p>
+        <p class="word-exp">: 네트워크 장비들을 관리하기 위한 프로토콜로, 네트워크의 구성, 동작, 장애 등을 모니터링할 수 있다. SNMP는 네트워크 관리자가 네트워크 장비들의 상태를 확인하고 관리할 수 있도록 하며, 장비들의 정보를 수집하고 제어할 수 있다.
+        </p>
+      </div>
+      <div class="exp-box">
+        <p class="word">SMTP(Simple Mail Transfer Protocol)</p>
+        <p class="word-exp">: 인터넷 상에서 이메일을 전송하기 위한 프로토콜로, 이메일 클라이언트와 서버 간의 통신을 지원한다. SMTP는 이메일 메시지의 전송, 수신, 중계 등을 담당하며, 전 세계적으로 가장 널리 사용되는 이메일 프로토콜 중 하나이다.</p>
+      </div>
+
+    </div>
+
+
+
+    <!-- 전송 계층 -->
+    <div class="layer-box contents">
+      <div class="sub-title"><p>[ 전송 계층 ]</p></div>
+
+      <div class="exp-box">
+        <p class="word">TCP(Transmission Control Protocol)</p>
+        <p class="word-exp">: 전송 계층 프로토콜 중 하나로, 신뢰성 있는 데이터 전송을 지원한다. TCP는 데이터 전송을 위해 연결 지향적인 프로토콜로, 3-way handshake를 통해 연결 설정 후, 데이터 전송을 시작한다. 데이터를 패킷 단위로 분할하여 전송하며, 수신 측에서는 순서를 재조합하고 에러 검출 및 복구를 수행한다.</p>
+      </div>
+      <div class="exp-box">
+        <p class="word">UDP(User Datagram Protocol)</p>
+        <p class="word-exp">: 전송 계층 프로토콜 중 하나로, 비신뢰적인 데이터 전송을 지원한다. UDP는 연결 설정 과정이 없고, 데이터를 패킷 단위로 전송한다. 데이터 전송의 신뢰성보다는 빠른 속도를 중시하며, 에러 검출과 복구는 수행하지 않으며 게임, 스트리밍 등에서 실시간 데이터 전송을 위해 사용된다.
+        </p>
+      </div>
+      <div class="exp-box">
+        <p class="word-exp">TCP와 UDP의 차이점은 신뢰성과 속도이다. TCP는 데이터 전송의 신뢰성을 보장하기 위해 많은 오버헤드가 발생하여 전송 속도가 느리지만, 에러 검출과 복구를 수행하여 데이터의 신뢰성을 보장한다. 반면, UDP는 전송 속도가 빠르지만, 에러 검출과 복구를 수행하지 않으므로 데이터의 신뢰성이 떨어질 수 있다. 
+          <span> 즉, TCP는 파일 전송, 이메일 등의 신뢰성이 중요한 데이터 전송에 적합하며, UDP는 실시간 데이터 전송에 적합하다.</span></p>
+      </div>
+
+    </div>
+
+
+    <!-- 네트워크 계층 -->
+    <div class="layer-box contents">
+      <div class="sub-title"><p>[ 네트워크 계층 ]</p></div>
+
+      <div class="exp-box">
+        <p class="word">RIP(Routing Information Protocol)</p>
+        <p class="word-exp">: 네트워크 계층 프로토콜 중 하나로, 거리 벡터 알고리즘을 사용하여 최적의 경로를 찾아 라우팅 테이블을 구성한다. RIP는 라우터 간에 라우팅 정보를 주기적으로 교환하여 최적의 경로를 찾는다. 하지만, RIP는 라우팅 정보 교환을 위한 대역폭을 많이 사용하고, 라우팅 테이블이 작은 네트워크에 적합하다.</p>
+      </div>
+      <div class="exp-box">
+        <p class="word">OSPF(Open Shortest Path First)</p>
+        <p class="word-exp">: 네트워크 계층 프로토콜 중 하나로, 링크 상태 알고리즘을 사용하여 최적의 경로를 찾아 라우팅 테이블을 구성한다. OSPF는 라우터 간에 라우팅 정보를 교환하지만, RIP와 달리 링크 상태 정보만 교환하므로 대역폭을 적게 사용한다. 또한, OSPF는 다양한 링크 상태 정보를 고려하여 최적의 경로를 찾아내므로 대규모 네트워크에서 사용하기 적합하다.</p>
+      </div>
+      <div class="exp-box">
+        <p class="word">IGRP(Interior Gateway Routing Protocol)</p>
+        <p class="word-exp">: 네트워크 계층 프로토콜 중 하나로, 거리 벡터 알고리즘을 사용하여 최적의 경로를 찾아 라우팅 테이블을 구성한다. RIP와 유사한 기능을 수행하지만, RIP보다 효율적인 라우팅 테이블 구성 및 빠른 수렴 속도를 제공한다.</p>
+      </div>
+      <div class="exp-box">
+        <p class="word">IP(Internet Protocol)</p>
+        <p class="word-exp">: 네트워크 계층 프로토콜 중 하나로, 인터넷에서 데이터를 전송하기 위한 기본 프로토콜이다. IP는 패킷 전송을 위해 라우터 간의 경로 선택, 패킷 분할 및 조립, 에러 검출 등을 수행한다.</p>
+      </div>
+      <div class="exp-box">
+        <p class="word">ICMP(Internet Control Message Protocol)</p>
+        <p class="word-exp">: 네트워크 계층 프로토콜 중 하나로, IP 패킷 전송 과정에서 발생하는 문제를 해결하기 위한 프로토콜이다. ICMP는 에러 메시지 전송, 네트워크 도구인 ping과 traceroute 등에서 사용된다.
+        </p>
+      </div>
+      <div class="exp-box">
+        <p class="word">IGMP(Internet Group Management Protocol)</p>
+        <p class="word-exp">: 네트워크 계층 프로토콜 중 하나로, 멀티캐스트 그룹 관리를 위한 프로토콜이다. IGMP는 호스트와 라우터 간에 멀티캐스트 그룹에 가입하거나 이탈할 때 사용된다.
+        </p>
+      </div>
+      <div class="exp-box">
+        <p class="word">ARP(Address Resolution Protocol)</p>
+        <p class="word-exp">: 네트워크 계층과 데이터 링크 계층 사이에서 IP 주소를 물리적인 MAC 주소로 매핑하는 프로토콜이다. ARP는 브로드캐스트 패킷을 이용하여 네트워크 내에 MAC 주소를 조회하고, 캐시 메모리에 저장해 빠른 응답 속도를 제공한다.
+        </p>
+      </div>
+      <div class="exp-box">
+        <p class="word">RARP(Reverse Address Resolution Protocol)</p>
+        <p class="word-exp">: ARP와 반대로, 물리적인 MAC 주소를 IP 주소로 매핑하는 프로토콜이다. RARP는 주로 디스크리스 네트워크 등에서 사용되며, 부팅하는 호스트가 자신의 IP 주소를 모르는 경우 RARP 서버에 요청하여 IP 주소를 얻는다. 현재는 대부분의 운영체제가 DHCP(Dynamic Host Configuration Protocol)를 사용하여 IP 주소를 할당하므로, RARP는 거의 사용되지 않는다.</p>
+      </div>
+
+    </div>
+
+
+
+    <!-- 데이터링크 계층 -->
+    <div class="layer-box contents">
+      <div class="sub-title"><p>[ 데이터링크 계층 ]</p></div>
+
+      <div class="exp-box">
+        <p class="word">이더넷(Ethernet)</p>
+        <p class="word-exp">: 컴퓨터 네트워크에서 가장 널리 사용되는 기술로, 물리적인 연결과 데이터 전송을 담당하는 기술이다. 일반적으로 유선 LAN(Local Area Network)에서 사용되며, CSMA/CD(Carrier Sense Multiple Access with Collision Detection) 기술을 이용하여 충돌을 감지하고 데이터 전송 충돌을 해결한다.</p>
+      </div>
+      <div class="exp-box">
+        <p class="word">SDLC(Synchronous Data Link Control)</p>
+        <p class="word-exp">: IBM에서 개발한 동기식 데이터 링크 프로토콜로, 통신 회선을 통해 통신하는 표준 프로토콜이다. 흐름 제어, 오류 제어, 동기화를 위한 기능을 제공하여 데이터 전송의 안정성을 보장한다. 또한, HDLC(High-Level Data Link Control) 프로토콜의 기반으로 사용되어, 데이터 전송 속도와 효율성을 높일 수 있다.
+        </p>
+      </div>
+      <div class="exp-box">
+        <p class="word">TDMA(Time Division Multiple Access)</p>
+        <p class="word-exp">: 다중 접속 방식 중 하나로, 통신 채널을 시간 단위로 분할하여 여러 사용자가 동시에 이용할 수 있다. 이 방식은 하나의 채널을 시간적으로 분할하여 각 사용자가 독립적으로 사용할 수 있도록 하므로, 대역폭을 효율적으로 사용할 수 있다. TDMA는 3G, 4G 모바일 통신 시스템에서 사용되며, 위성 통신 시스템에서도 많이 사용된다.</p>
+      </div>
+
+    </div>
+
+
+
+
+  </section>
+
+
+{% endblock %}
+
+
+<!-- footer -->
+
+
+{% block extra_script %} 
+{% endblock %}

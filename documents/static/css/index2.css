@@ -1,0 +1,267 @@
+/* document \ index2.css */
+
+body {
+    background-color: black;
+    /* 나중에 미디어쿼리 처리 */
+    min-width: 350px;
+}
+
+/* Navbar border */
+#navbar {
+    border-top-color: black;
+    border-bottom-color: black;
+    /* border-color: black; */
+    box-shadow: none;
+}
+#nav-title {
+    display: none;
+}
+
+
+
+/* Main */
+#main-intro {
+    position: relative;
+    height: 1000px;
+    padding-top: 0;
+    background-image: url("/static/img/main/new_main_background2.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 1px 8px 10px var(--dark-grey);
+}
+
+#main-title {
+    position: absolute;
+    top: 300px;
+    color: white;
+    font-weight: 500;
+    font-size: 120px;
+
+}
+
+#main-subtitle {
+    position: absolute;
+    top: 290px;
+    color:  var(--dark-grey);
+    font-weight: 300;
+    font-size: 28px;
+
+}
+
+#detail-btn {
+    top: 520px;
+    position: absolute;
+    width: 160px;
+    height: 45px;
+    /* border: 3.5px solid #1187CF; */
+    border: 2.6px solid #1187CF;
+    background-color: transparent;
+    color: #1187CF;
+    line-height: 45px;
+    text-align: center;
+    /* font-size: 20px; */
+    font-size: 18px;
+    transition: all 0.35s ease-out;
+}
+
+#detail-btn:hover {
+    cursor: pointer;
+    color: var(--light-grey);
+    background-color: #1187CF;
+    border-radius: 4px;
+}
+
+
+.contents {
+    text-align: center;
+}
+
+
+
+/* Upload */
+#upload {
+    padding: 86px 10px;
+    margin: 0;
+    background-color: white;
+    /* text-align: center; */
+}
+#upload .upload-title {
+    margin: 0;
+    color: black;
+    font-size: 43px;
+}
+
+/* 파일 업로드란 */
+.upload-box {
+    /* width: 700px; */
+    min-width: 300px;
+    width: 60%;
+    height: 40px;
+    background-color: #EEEEEE;;
+    border-radius: 5px;
+    line-height: 40px;
+    margin: 21px auto;
+    box-shadow: 1px 1px 3px var(--light-grey);
+}
+form {
+    color: #bfbebe;
+}
+.upload-box input {
+    transform: translate(30%, 0);
+    color: #bfbebe;
+    margin: 0 auto;
+    text-align: center;
+}
+.upload-box input:hover {
+    cursor: pointer;
+}
+.upload-box input::file-selector-button {
+    display: none;
+}
+
+/* 분석하기 버튼 */
+.upload-btn {
+    width: 76px;
+    height: 34px;
+    background-color: transparent;
+    text-align: center;
+    border: 2px solid var(--light-grey);
+    border-radius: 3px;
+    padding: 2px 5px;
+    /* color: var(--dark-grey); */
+    color: #000;
+}
+.upload-btn:hover {
+    cursor: pointer;
+    background-color: var(--dark-grey);
+    color: var(--light-grey);
+    border: 2px solid var(--dark-grey);
+    transition: all 0.35s ease-in-out;
+}
+
+
+
+/* Explanation */
+#explanation {
+    color: #EEEEEE;
+    /* text-align: center; */
+}
+
+.exp-content{
+    padding: 40px 0;
+}
+
+.exp-text h2 {
+    margin: 46px 0;
+    font-weight: 600;
+}
+
+.exp-text p {
+    color: rgb(182, 182, 182);
+    margin: 4px 0;
+    font-weight: 500;
+}
+
+.exp-text h4{
+    margin-top: 36px;
+}
+
+.exp-imgs {
+    /* width: 380px; */
+    min-width: 280px;
+    width: 36%;
+    margin-top: 36px;
+}
+
+
+hr {
+    width: 80%;
+    margin: 0 auto;
+    color: var(--dark-grey);    /* IE */
+    border-color: var(--dark-grey);  /* 사파리 */
+    background-color: var(--dark-grey);   /* 크롬, 모질라 등, 기타 브라우저 */
+    
+}
+
+
+/* 키워드 설명 */
+#keywords {
+    /* text-align: center; */
+    /* margin-top: 42px; */
+    padding: 20px 0;
+}
+
+#keywords h2 {
+    margin: 40px 0 60px;
+    font-weight: 600;
+}
+
+.keyword-content {
+    text-align: center;
+    /* margin-top: 42px; */
+}
+
+.keyword-item {
+    margin: 36px;
+}
+
+.keyword-item h4 {
+    color: var(--light-grey);
+    text-decoration: underline;
+    font-size: 18px;
+}
+
+.keyword-item p {
+    margin: 5px;
+    color: rgb(182, 182, 182);
+    /* color: var(--dark-grey); */
+}
+
+
+
+/* Test Data Section */
+#test-data {
+    /* font */
+    padding: 20px 0;
+}
+
+#test-data h2 {
+    margin-bottom: 0;
+    font-weight: 600;
+}
+
+.test-content img {
+    width: 300px;
+    margin: 5% 0;
+}
+
+.link-btn {
+    width: 200px;
+    height: 24px;
+    border: 0.5px solid rgb(182, 182, 182);
+    border-radius: 3px;
+    text-align: center;
+    line-height: 20px;
+    padding: 3px 5px;
+    margin: 4px auto;
+    font-size: small;
+    color: rgb(182, 182, 182);
+}
+
+.link-btn:hover {
+    cursor: pointer;
+    color: black;
+    background-color: rgb(182, 182, 182);
+}
+
+.link-btn a {
+    color: rgb(182, 182, 182);
+}
+
+.link-btn:hover a {
+    color: black;
+    background-color: rgb(182, 182, 182);
+}

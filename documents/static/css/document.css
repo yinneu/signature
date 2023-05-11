@@ -1,0 +1,74 @@
+/* document \ document.css (메인페이지 제외한 모든 문서 페이지 공통 css) */
+
+:root {
+    --contents-font-color: #6e6e6e
+}
+
+
+/* 전체 콘텐츠 */
+#main {
+    padding: 200px 0 100px;
+}
+
+
+/* Intro 부분 */
+#intro {
+    height: 360px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#intro p {
+    margin: 10px 0 18px;
+    font-size: 26px;
+    font-weight: 900;
+}
+
+#icons {
+    /* width: 600px; */
+    width: 60%;
+    min-width: 300px;
+    margin: 30px 0;
+}
+
+/* 공통 */
+/* 설명파트 */
+.contents {
+    /* margin: 50px 10% 78px; */
+    /* margin: 50px 16% 78px; */
+    margin: 68px 16%;
+}
+
+/* 설명 파트별 title */
+.contents h2 {
+    margin: 6px 0;
+    font-size: 32px;
+    font-weight: 500;
+}
+
+/* 내부 설명 영역 */
+.explanation {
+    margin-top: 16px;
+}
+
+/* 내부 설명 영역 글씨 */
+.explanation p {
+    margin-top: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--contents-font-color);
+}
+
+
+
+/* to seript_exp.css */
+
+
+
+
+
+

@@ -1,0 +1,85 @@
+<!-- document \ attack_exp.html -->
+
+{% extends 'common/base.html' %}
+
+{% block title %} SIGNATURE {% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="/static/css/document.css/?">
+  <link rel="stylesheet" href="/static/css/attack_exp.css/?">
+{% endblock %}
+
+<!-- Navbar -->
+
+<!-- Contents -->
+{% block content %}
+
+
+<section id="main">
+
+  <div id="intro" class="contents">
+    <h1 class="font">Explanation by attack type</p>
+  </div>
+
+  <!-- 디도스 -->
+  <div class="attk_box contents">
+    <h3 class="font">DDoS ( Distributed Denial of Service Attack )</h3>
+    <p>분산 서비스 거부 공격(Distributed Denial of Service Attack)의 약어로, 인터넷 서비스를 무력화시키는 공격이다. 여러 컴퓨터 장치나 봇넷(Botnet)과 같은 네트워크를 사용하여 한 대상 서버 또는 네트워크에 대량의 데이터 패킷을 보내면서, 서버가 이를 처리할 수 없도록 만든다. 서버는 새로운 연결 요청을 처리하지 못하게 되고, 결과적으로 서비스 거부 상태가 발생한다.</p>
+  </div>
+
+
+  <div class="attk_box contents">
+    <h3 class="font">PortScan</h3>
+    <p>컴퓨터 또는 네트워크의 보안 취약점을 찾기 위해 사용되는 방법이다. 이는 다른 컴퓨터나 장치의 네트워크 포트를 스캔하여 어떤 포트가 열려 있는지 파악하는 과정이다.
+    </p>
+    <p>포트는 특정한 프로토콜을 통해 데이터가 이동할 수 있는 창구 역할을 하고, 네트워크 통신에서 중요한 역할을 한다. 포트들이 개방되어 있다면 해커들이 악성코드나 스팸 메시지 등의 공격을 실행할 수 있다.
+    </p>
+    <p>PortScan은 보안 전문가나 해커들이 사용하는 도구 중 하나이며, 일반적으로 TCP 또는 UDP 프로토콜을 사용하여 포트를 스캔한다. 스캔된 포트들은 이후 분석을 통해 어떠한 취약점이 존재하는지 파악하고, 해결함으로써 보안을 강화할 수 있다.</p>
+  </div>
+
+
+  <div class="attk_box contents">
+    <h3 class="font">Botnet Attack</h3>
+    <p>해커가 Botnet을 이용하여 악의적인 목적을 달성하는 걸 말한다. DDoS 공격, 스팸 메시지 전송, 악성코드 배포, 개인정보 탈취 등 다양한 공격 방식이 있다.
+    </p>
+    <p>DDoS 공격은 Botnet에 감염된 컴퓨터들이 한 대상 사이트나 서비스에 대량의 요청을 보내 서비스를 마비시키는 걸 말한다. 서비스를 이용하는 사용자들은 일시적으로나마 서비스 이용을 못한다. 대규모 DDoS 공격은 인터넷 전체의 대역폭을 차지할 정도로 대규모이며, 서비스 제공자에게 막대한 손실을 입힌다.
+    </p>
+    <p>스팸 메시지 전송은 Botnet에 감염된 컴퓨터들이 대량의 스팸 메시지를 전송하는 걸 말한다. 스팸 메시지를 보내는 컴퓨터들의 IP 주소가 다양하게 바뀌어 사용자들이 스팸 메시지를 차단하기 어렵다. 스팸 메시지를 받은 사용자들의 프라이버시는 침해 당한다.
+    </p>
+    <p>악성코드 배포는 Botnet에 감염된 컴퓨터들이 악성코드를 전파하는 걸 말한다. 사용자들의 컴퓨터를 감염시키고, 악성코드에 감염된 컴퓨터들을 이용하여 추가적인 공격을 실행하거나, 개인정보를 탈취하는 등의 악의적인 목적을 달성할 수 있다.</p>
+  </div>
+
+  <div class="attk_box contents">
+    <h3 class="font">Infiltration</h3>
+    <p>해커가 네트워크나 시스템에 침투하여 접근 권한을 얻고, 중요한 정보를 탈취하거나 파괴하는 공격을 말하며 다양한 방법으로 수행될 수 있다.
+    </p>
+    <p>예시로는 소셜 엔지니어링 기법을 이용하여 사용자의 정보를 수집하고, 해당 정보를 이용하여 네트워크나 시스템에 접근한다. 또는, 악성코드를 이용하여 시스템에 침투하여 관리자 권한을 획득하고 시스템을 조작하거나 중요한 정보를 탈취한다.</p>
+  </div>
+
+  <div class="attk_box contents">
+    <h3 class="font">FTP - Patator , SSH - Patator</h3>
+    <p>FTP나 SSH 서비스를 대상으로 하는 비밀번호 무차별 대입 공격(Brute-Force Attack) 기법이다. 해커가 자동화된 프로그램을 이용하여 대상 서버에 대해 대량의 비밀번호를 시도하여, 올바른 비밀번호를 찾아낸다.
+    </p>
+    <p>대상 서버의 취약성이 아닌, 단순히 사용자의 약한 비밀번호에 의존하여 공격을 수행한다. 보통 비밀번호 무차별 대입 공격과 연계하여 수행한다. 이 경우, 해커는 비밀번호 무차별 대입 공격을 통해 서버에 약한 비밀번호를 가진 계정을 찾아내고, Patator 공격을 이용하여 해당 계정에 로그인한다.</p>
+  </div>
+
+
+
+  <div class="attk_box contents">
+    <h3 class="font">Heartbleed</h3>
+    <p>OpenSSL 라이브러리에서 발견된 보안 취약점 중 하나로, SSL/TLS 암호화 프로토콜에서 사용하는 Heartbeat 확장 기능에서 발생한다. 확장 기능에서는 TLS 연결 상태를 유지하는 동안, 주고받는 메시지를 확인하기 위해 클라이언트와 서버 사이에서 주기적으로 작은 메시지를 교환한다. 이 과정에서 발생할 수 있는 메모리 오버플로우 취약점으로 인해, 공격자는 대상 서버의 메모리에 대한 액세스 권한을 획득할 수 있다. 악의적인 공격자는 대상 서버의 개인 정보, 비밀 키 등 중요한 데이터를 유출할 수 있다.</p>
+  </div>
+
+
+</section>
+
+
+
+{% endblock %}
+
+
+<!-- footer -->
+
+
+{% block extra_script %} 
+{% endblock %}

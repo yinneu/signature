@@ -1,0 +1,73 @@
+/*  dashboard comment css */
+/* 데이터 분석, 보안 솔루션 추천 */
+
+#comment {
+    width: 100%;
+    padding: 10px 0;
+    margin: 10px 0;
+}
+
+/* 카테고리별 영역 */
+.comment-item {
+    margin: 20px 0 70px;
+    width: 100%;
+}
+
+
+/* title */
+.comment-title {
+    color: var(--dark-yellow);
+    text-align: center;
+    font-size: 21px;
+    font-weight: 600;
+    margin: 4px 0 16px;
+    
+}
+
+/* 텍스트 영역 */
+.text-box {
+    /* width: 100%; */
+    /* height: 200px; */
+    padding: 1px 30px;
+    margin: 10px auto;
+    background-color: #5959594d;
+    box-sizing: content-box;
+    border: 1px solid rgba(255, 255, 255, 0.245);
+    color: var(--light-grey);
+}
+
+/* 텍스트 세부 분류*/
+.text-area {
+    margin: 22px 8px;
+}
+
+/* 글씨 */
+.text-area p {
+    margin: 16px 0;
+}
+
+.text-area span:not(.attk_y) {
+    font-weight: 600;
+    margin: 0 4px;
+}
+
+/* 부가 설명 */
+.sm-gr {
+    text-align: center;
+    color: var(--dark-grey);
+}
+
+.attk-t {
+    display: none;
+}
+
+.tb {
+    display: none;
+    margin: 60px 0;
+}
+
+.tb .source {
+    color: var(--dark-grey);
+    font-size: 12px;
+    margin-top: 8px;
+}

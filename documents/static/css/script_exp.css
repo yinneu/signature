@@ -1,0 +1,119 @@
+/* document/ script_exp.css */
+
+.contents {
+    margin: 68px 18%
+}
+
+
+/* 네트워크 트래픽 스크립트 다운 및 캡쳐 튜토리얼 */
+#intro p {
+    color: black;
+}
+
+
+
+/* 타이틀 */
+#trafficCapture h2 {
+    display: inline-block;
+    color: black;
+}
+
+/* 서브 타이틀 */
+#trafficCapture h3 {
+    width: 300px;
+    margin-top: 23px;
+    font-weight: 500;
+    font-size: 22px;
+    color: var(--contents-font-color);
+    
+}
+
+/* 다운로드 아이콘 */
+.download-icon {
+    position: absolute;
+    width: 45px;
+    float: left;
+    transform: translateY(7%);
+}
+
+/* 내부 설명 */
+#trafficCapture p {
+    margin-top: 30px;
+}
+
+/* 다운로드 영역 */
+.underline {
+    text-decoration: underline;
+}
+
+.download {
+    color: blue;
+}
+
+.download:hover {
+    cursor: pointer;
+    color: blueviolet;
+}
+
+
+/* 코드 박스 feat.채선생  */
+.code-box {
+    position: relative;
+    max-width: 700px;
+    min-width: 300px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 14px auto 18px;
+}
+
+.code-header {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 30px;
+    width: 100%;
+    background-color: rgb(64, 64, 65);
+    padding: 0 5px;
+}
+
+.code-header-item {
+    position: relative;
+    background-color: transparent;
+    border: none;
+    padding: 5px 10px;
+    color: rgb(192, 186, 186);
+    /* font-weight: 600; */
+}
+
+.code-type {
+    float: left;
+    font-size: 14px;
+    left: 10px;
+
+}
+
+.copy-button {
+    cursor: pointer;
+    float: right;
+}
+
+pre {
+    margin-top: 10px;
+    height: 78px;
+}
+
+pre code {
+    display: block;
+    background-color: rgb(34, 30, 30);
+    padding: 10px;
+    color: lightgray;
+    font-size: 14px;
+    line-height: 40px;
+    text-align: left;
+    height: 40px;
+    border: 1px solid transparent;
+    border-radius: 0 0 10px 10px;
+}
+
+

@@ -1,0 +1,124 @@
+<!-- document \ index.html (메인페이지) -->
+
+<!-- extends common/base.html -->
+{% extends 'common/base.html' %}
+
+<!-- title -->
+{% block title %} SIGNATURE {% endblock %}
+
+<!-- css -->
+{% block extra_css %}
+    <!-- 프로그래스바  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+    <!-- 페이지 스타일 -->
+    <link rel="stylesheet" href="/static/css/document.css/?">
+    <link rel="stylesheet" href="/static/css/index2.css">
+    <link rel="stylesheet" href="/static/css/loading.css">
+{% endblock %}
+
+<!-- Navbar -->
+
+
+<!-- Contents -->
+{% block content %}
+
+    {% include 'documents/loading.html' %}
+
+    <!-- Main -->
+    <div id="main-intro">
+        <!-- <img src="img/main/main_title.png" alt="title" class="main-title"> -->
+        <h4 id="main-subtitle" class="font">NETWORK TRAFFIC</h4>
+        <h2 id="main-title" class="font">SIGNATURE</h2>
+        <!-- <button class="detail-btn">자세히보기</button> -->
+        <div id="detail-btn">자세히보기</div>
+    </div>
+
+
+
+    <!-- Upload -->
+    <div id="upload" class="contents main_contents">
+        <h2 class="font upload-title">File Upload</h2>
+        <form id="upload_file" action="{% url 'dashboard:dashboard' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+            <div class="upload-box">                  
+                <input type="file" name="csv_file">                                 
+            </div>
+            <input type="submit" value="Submit" class="upload-btn font">
+        </form>
+    </div>
+
+
+    <!-- Explanation -->
+    <div id="explanation" class="contents main_contents">
+        <div class="exp-content">
+            <div class="exp-text">
+                <h2>시그니처는 네트워크 트래픽을 분석하고 시각화 합니다.</h2>
+                <p>사용자는 트래픽의 전체적인 정보를 쉽게 습득할 수 있으며,</p>
+                <p>공격유형이 파악되는 경우 맞춤형으로 보안 솔루션을 제공합니다.</p>
+                <h4>사이트에서 제공하는  모든 분석 정보는 PDF 다운로드가 가능합니다.</h4>
+            </div>
+            <img src="/static/img/main/icons/exp-charts.png" alt="" class="exp-imgs">
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Keyword -->
+    <div id="keywords" class="contents main-contents">
+        <h2 class="keyword-title">네트워크 트래픽 분석은 다양한 장점을 제공합니다.</h2>
+        <div class="keyword-content">
+            <div class="keyword-item">
+                <h4>네트워크 문제 식별</h4>
+                <p>: 네트워크 트래픽 분석을 통해 네트워크 상의 문제를 식별할 수 있습니다.</p>
+                <p>( 예 : 네트워크 병목 현상, 연결 문제, 패킷 유실 )</p>
+            </div>
+            <div class="keyword-item">
+                <h4>보안 강화</h4>
+                <p>: 네트워크 상에서 전송되는 데이터를 모니터링하고,</p>
+                <p>악성 코드나 공격을 식별하여 방어 조치를 취할 수 있어 보안 강화에 중요한 역할을 합니다.</p>
+            </div>
+            <div class="keyword-item">
+                <h4>성능 향상</h4>
+                <p>: 네트워크 병목 현상이나 지연 문제 등을 식별하고,</p>
+                <p>이를 해결하여 네트워크 성능을 최적화할 수 있습니다</p>
+            </div>
+            <div class="keyword-item">
+                <h4>운영 비용 절감</h4>
+                <p>: 네트워크 장비나 대역폭 요구량을 최적화하여,</p>
+                <p>네트워크 운영 비용을 절감할 수 있습니다.</p>
+            </div>
+            <div class="keyword-item">
+                <h4>디버깅</h4>
+                <p>: 소프트웨어나 애플리케이션의 오류를 찾아내는 데 도움이 되며,</p>
+                <p>개발자가 문제를 해결할 수 있도록 도와줍니다.</p>
+            </div>
+            <div class="keyword-item">
+                <h4>세부 정보 분석</h4>
+                <p>: 프로토콜, 포트 번호, IP 주소 등의 정보를 분석하여,</p>
+                <p>네트워크 상황을 파악할 수 있습니다.</p>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Test Data button -->
+    <section id="test-data" class="contents main-contents">
+        <div class="test-content">
+            <h2>네트워크 패킷을 캡쳐해서 자신의 데이터를 확인해보세요.</h2>
+            <img src="/static/img/main/icons/test_board.png" alt="">
+            <div class="link-btn upload-link-btn">파일업로드하기</div>
+            <a href="/script_exp"><div class="link-btn capture-link-btn">네트워크 패킷 캡쳐하기</div></a>
+        </div>
+    </section>
+
+{% endblock %}
+
+<!-- footer -->
+
+{% block extra_script %} 
+    <script src="/static/javascript/index.js"></script> 
+    <script src="/static/javascript/loading.js"></script>
+    
+{% endblock %}
