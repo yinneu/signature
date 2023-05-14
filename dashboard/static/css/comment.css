@@ -28,7 +28,7 @@
 .text-box {
     /* width: 100%; */
     /* height: 200px; */
-    padding: 1px 30px;
+    padding: 14px 30px;
     margin: 10px auto;
     background-color: #5959594d;
     box-sizing: content-box;
@@ -70,4 +70,29 @@
     color: var(--dark-grey);
     font-size: 12px;
     margin-top: 8px;
+}
+
+
+/* 공격 유형별 설명 및 테이블 */
+.text-box table {
+    width: 100%;
+    /* height: 0px; */
+    max-height: 200px;
+    overflow-y: scroll;
+}
+
+.attk_section {
+    margin: 40px 0 0 10px;
+}
+
+.attk_section .sm-gr {
+    color: rgba(255, 0, 0, 0.507);
+}
+
+.attk_box {
+    margin: 10px 0 30px;
+}
+
+.attk_box p {
+    margin: 10px 0;
 }

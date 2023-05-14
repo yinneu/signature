@@ -1,29 +1,29 @@
 "use strict"
 
 
-var bps = echarts.init(document.getElementById('graph_bps'), 'dark');
-var pps = echarts.init(document.getElementById('graph_pps'), 'dark');
-var iat = echarts.init(document.getElementById('graph_iat'), 'dark');
-var sig = echarts.init(document.getElementById('graph_sig'), 'dark');
-var qps = echarts.init(document.getElementById('graph_qps'), 'dark');
-var rps = echarts.init(document.getElementById('graph_rps'), 'dark');
-var scrpro = echarts.init(document.getElementById('graph_scrpro'), 'dark');
-var dstpro = echarts.init(document.getElementById('graph_dstpro'), 'dark');
-var pal = echarts.init(document.getElementById('graph_pal'), 'dark');
-var flag = echarts.init(document.getElementById('graph_flag'), 'dark');
-var net = echarts.init(document.getElementById('graph_net'), 'dark');
-var won = echarts.init(document.getElementById('graph_won'), 'dark');
+let bps = echarts.init(document.getElementById('graph_bps'), 'dark');
+let pps = echarts.init(document.getElementById('graph_pps'), 'dark');
+let iat = echarts.init(document.getElementById('graph_iat'), 'dark');
+let sig = echarts.init(document.getElementById('graph_sig'), 'dark');
+let qps = echarts.init(document.getElementById('graph_qps'), 'dark');
+let rps = echarts.init(document.getElementById('graph_rps'), 'dark');
+let scrpro = echarts.init(document.getElementById('graph_scrpro'), 'dark');
+let dstpro = echarts.init(document.getElementById('graph_dstpro'), 'dark');
+let pal = echarts.init(document.getElementById('graph_pal'), 'dark');
+let flag = echarts.init(document.getElementById('graph_flag'), 'dark');
+let net = echarts.init(document.getElementById('graph_net'), 'dark');
+let won = echarts.init(document.getElementById('graph_won'), 'dark');
 
 
 //series를 담을 리스트
-var sig_series = [];
-var bps_series = [];
-var pps_series = [];
-var iat_series = [];
-var qps_series = [];
-var rps_series = [];
-var scrpro_series = [];
-var dstpro_series = [];
+let sig_series = [];
+let bps_series = [];
+let pps_series = [];
+let iat_series = [];
+let qps_series = [];
+let rps_series = [];
+let scrpro_series = [];
+let dstpro_series = [];
 
 
 // 색 랜덤 지정
@@ -35,7 +35,6 @@ function getRandomColor() {
   }
   return "#"+(parseInt(Math.random()*0xffffff)).toString(16);
 }
-
 
 
 $.ajax({
@@ -50,11 +49,11 @@ $.ajax({
 
       console.log(data);
 
-            // 공격 데이터 시리즈 리스트 (딕셔너리)
-            var attacks = Object.keys(data.sig_attack);
-            var attlen = attacks.length;
-            // 시간
-            var time = data.bps_attack.map(function(item) { return item.Timestamp; })
+      // 공격 데이터 시리즈 리스트 (딕셔너리)
+      let attacks = Object.keys(data.sig_attack);
+      let attlen = attacks.length;
+      // 시간
+      let time = data.bps_attack.map(function(item) { return item.Timestamp; })
 
 
       //전체 트래픽 값
@@ -63,41 +62,53 @@ $.ajax({
 
       //normal
       const normal =  document.getElementById("normal");
-      normal.innerHTML = data.won[1].count;    // 정상데이터 수
+      normal.innerHTML = data.won[1].count.toLocaleString();;    // 정상데이터 수
       
       //aormal
       const anormal =  document.getElementById("anormal");
-      anormal.innerHTML = data.won[0].count;  // 이상데이터 수
+      anormal.innerHTML = data.won[0].count.toLocaleString();;  // 이상데이터 수
       
 
       //aormal ratio
       const anormal_ratio =  document.getElementById("anormal_ratio");
       anormal_ratio.innerHTML = data.won[0].ratio + " % "; // 이상데이터 비율
 
+      //분석일
+      const aly_date =  document.getElementById("aly_date");
+      let currentDate = new Date();
+      let year = currentDate.getFullYear();
+      let month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+      let day = currentDate.getDate().toString().padStart(2, '0');
+      let hours = currentDate.getHours().toString().padStart(2, '0');
+      let minutes = currentDate.getMinutes().toString().padStart(2, '0');
+      let seconds = currentDate.getSeconds().toString().padStart(2, '0');
+      let currentDateTime = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+      aly_date.innerHTML = currentDateTime;
+
 
 
 
       // 공격유형에 따라 분류된 데이터들 받아오기
-      for (var i = 0; i < attlen; i++) {
+      for (let i = 0; i < attlen; i++) {
           // 공격유형
-          var atk = attacks[i];
+          let atk = attacks[i];
 
           // 시그니처
-          var sig_data = data.sig_attack[atk].map(function(item) {
-              return [item.Source_IP, item.Destination_IP, item.Destination_Port, item.Total_Length];
+          let sig_data = data.sig_attack[atk].map(function(item) {
+              return [item.Source_IP, item.Destination_IP, item.Destination_Port, item.Length];
           });
-          var sig_serie = {
+          let sig_serie = {
               name: atk,
               type: 'parallel',
-              lineStyle: lineStyle,
+              // lineStyle: lineStyle,
               data: sig_data
           };
           sig_series.push(sig_serie);
 
 
           //bps
-          var bps_data = data.bps_attack.map(function(item) { return item[atk]; })
-          var bps_serie = {
+          let bps_data = data.bps_attack.map(function(item) { return item[atk]; })
+          let bps_serie = {
               name: atk,
               type: 'line',
               symbol: 'none',
@@ -125,8 +136,8 @@ $.ajax({
           bps_series.push(bps_serie);
 
           //pps
-          var pps_data = data.pps_attack.map(function(item) { return item[atk]; })
-          var pps_serie = {
+          let pps_data = data.pps_attack.map(function(item) { return item[atk]; })
+          let pps_serie = {
               name: atk,
               type: 'line',
               symbol: 'none',
@@ -157,8 +168,8 @@ $.ajax({
 
 
           // iat
-          var iat_data = data.iat_attack.map(function(item) { return item[atk]; })
-          var iat_serie = {
+          let iat_data = data.iat_attack.map(function(item) { return item[atk]; })
+          let iat_serie = {
             name: atk,
             type: 'line',
             symbol: 'none',
@@ -192,8 +203,8 @@ $.ajax({
 
 
           //qps
-          var qps_data = data.qps_attack.map(function(item) { return item[atk]; })
-          var qps_serie = {
+          let qps_data = data.qps_attack.map(function(item) { return item[atk]; })
+          let qps_serie = {
             name: atk,
             type: 'line',
             symbol: 'none',
@@ -227,8 +238,8 @@ $.ajax({
 
 
           //rps
-          var rps_data = data.rps_attack.map(function(item) { return item[atk]; })
-          var rps_serie = {
+          let rps_data = data.rps_attack.map(function(item) { return item[atk]; })
+          let rps_serie = {
             name: atk,
             type: 'line',
             symbol: 'none',
@@ -263,10 +274,10 @@ $.ajax({
       }
 
       // 범례 간격
-      var legend_size = 12;
+      let legend_size = 12;
 
       // 공격유형 개수에 따른 그래프 간격조정
-      var chart_grid = {
+      let chart_grid = {
         left: 14,
         right: 13,
         top: 50,
@@ -287,18 +298,18 @@ $.ajax({
 
       ///// 그래프 옵션
       // 시그니처
-      var schema = [
+      let schema = [
       //세로선
           { name: 'Source_IP', index: 0, text: 'Source IP' },
           { name: 'Destination_IP', index: 1, text: 'Destination IP' },
           { name: 'Destination_Port', index: 2, text: 'Destination Port' },
           { name: 'Length', index: 3, text: 'Length' }
       ];
-      var lineStyle = {
+      let lineStyle = {
           width: 1,
           opacity: 0.5
       };
-      var sig_option = {
+      let sig_option = {
           backgroundColor: 'black', // 배경색
           legend: {
               //index (범례)
@@ -409,7 +420,7 @@ $.ajax({
       
 
       // bps
-      var bps_option = {
+      let bps_option = {
           backgroundColor: 'black',
           legend: {
             //index (범례)
@@ -474,7 +485,7 @@ $.ajax({
       };
 
       //pps
-      var pps_option = {
+      let pps_option = {
           backgroundColor: 'black',
           legend: {
             //index (범례)
@@ -539,7 +550,7 @@ $.ajax({
       };
 
       //iat
-      var iat_option = {
+      let iat_option = {
         backgroundColor: 'black',
         legend: {
           //index (범례)
@@ -598,7 +609,7 @@ $.ajax({
       };
 
       //qps
-      var qps_option = {
+      let qps_option = {
         backgroundColor: 'black',
         legend: {
           //index (범례)
@@ -657,7 +668,7 @@ $.ajax({
       };
 
       //rps
-      var rps_option = {
+      let rps_option = {
         backgroundColor: 'black',
         legend: {
           //index (범례)
@@ -755,7 +766,7 @@ $.ajax({
         });
         scrpro_series.push(protocolData);
       });
-      var scrpro_option = {
+      let scrpro_option = {
         backgroundColor: 'black',
         series: {
           type: 'sunburst',
@@ -831,7 +842,7 @@ $.ajax({
         });
         dstpro_series.push(protocolData2);
       });     
-      var dstpro_option = {
+      let dstpro_option = {
         backgroundColor: 'black',
         series: {
           type: 'sunburst',
@@ -875,9 +886,9 @@ $.ajax({
 
 
       //패킷 길이 빈도
-      var pal_data_range = data.pal.map(function(item) { return item.N_Range; })
-      var pal_data_cnt = data.pal.map(function(item) { return item.n; })
-      var pal_option = {
+      let pal_data_range = data.pal.map(function(item) { return item.N_Range; })
+      let pal_data_cnt = data.pal.map(function(item) { return item.n; })
+      let pal_option = {
         backgroundColor: "black",
         title: {
           top: 3,
@@ -935,11 +946,11 @@ $.ajax({
 
 
       // flag count
-      var flag_series = [];
-      var flags = Object.keys(data.flag[0]);
+      let flag_series = [];
+      let flags = Object.keys(data.flag[0]);
       flags.splice(flags.indexOf('Timestamp'), 1);
       console.log(flags);
-      for (var i = 0; i < flags.length; i++) {
+      for (let i = 0; i < flags.length; i++) {
         var fn = flags[i]
         var flag_data = data.flag.map(function(item) { return item[fn]; })
         var flag_serie = {
@@ -953,7 +964,7 @@ $.ajax({
         }
         flag_series.push(flag_serie);
       }
-      var flag_option = {
+      let flag_option = {
         backgroundColor : 'black',
         tooltip: {
           trigger: 'axis',
@@ -1007,13 +1018,13 @@ $.ajax({
 
       // 비율
       const flag_node = document.querySelectorAll('.ratio-data');
-      for(var i = 0; i < flag_node.length; i++){
+      for(let i = 0; i < flag_node.length; i++){
         flag_node[i].innerHTML = data.flag_ratio[i].ratio + " %";
       };
 
       //분석값
       const flag_node2 = document.querySelectorAll('.flag_data');
-      for(var i = 0; i < flag_node2.length; i++){
+      for(let i = 0; i < flag_node2.length; i++){
         flag_node2[i].innerHTML = data.flag_aly[i].value;
       };
 
@@ -1021,7 +1032,7 @@ $.ajax({
 
       // 정상 비정상 비율
       // var won_name = data.won.map(function(item) { return item.attack; })
-      var won_ratio = data.won.map(function(item) { return item.ratio; })
+      let won_ratio = data.won.map(function(item) { return item.ratio; })
       // console
       const won_data = [
         {
@@ -1055,7 +1066,7 @@ $.ajax({
           }
         }
       ];
-      var won_option = {
+      let won_option = {
         backgroundColor : "black",
         title: {
           top: 2,
@@ -1121,7 +1132,7 @@ $.ajax({
 
       // 테이블
       const won_node = document.querySelectorAll('.won_data');
-      for(var i = 0; i < won_node.length; i++){
+      for(let i = 0; i < won_node.length; i++){
         won_node[i].innerHTML = data.won_aly[i].value;
       };
 
@@ -1130,10 +1141,10 @@ $.ajax({
 
       // conversaion (테이블)
       const con_table = document.querySelector("#table_con table tbody");
-      var con_data = data.con.map(function(item) {
-        return [item.labels2, item.Source_IP, item.Destination_IP, item.sum, item.mean, item.min, item.max, item.ratio];
+      let con_data = data.con.map(function(item) {
+        return [item.labels2, item.Source_IP, item.Destination_IP, item.min, item.mean, item.max, item.sum, item.ratio+" %"];
       });
-      for (var i = 0; i < 10; i++) {
+      for (let i = 0; i < 10; i++) {
         var trNode = document.createElement("tr");
         var trdata = con_data[i];
 
@@ -1148,10 +1159,10 @@ $.ajax({
 
 
       //네트워크망
-      var net_node = data.net_node.map(function(item) {
+      let net_node = data.net_node.map(function(item) {
         // var col = getRandomColor()
         // var col = "#abf7ffa8"
-        var gradient = {
+        let gradient = {
           type: 'radial',
           colorStops: [
           {
@@ -1173,7 +1184,7 @@ $.ajax({
           }],
           global: false // 그라데이션 적용 범위
         };
-        var reSize;
+        let reSize;
         reSize = item.count
         if (item.count > 50) {
           reSize = 50
@@ -1189,14 +1200,14 @@ $.ajax({
           value: item.count
         }
       });
-      var net_link = data.net.map(function(item) {
+      let net_link = data.net.map(function(item) {
         return {
           source: item.Source_IP,
           target: item.Destination_IP,
           value: item.Frequency
         }
       });
-      var net_option = {
+      let net_option = {
         backgroundColor: "black",
         // tooltip: {},
         tooltip: {
@@ -1269,12 +1280,12 @@ $.ajax({
 
       //iat 테이블
       const iat_Node = document.querySelectorAll('#iat-table .value');
-      for(var i = 0; i < iat_Node.length; i++){
+      for(let i = 0; i < iat_Node.length; i++){
         iat_Node[i].innerHTML = data.iat_aly[i].value;
       };
 
 
-      // 텍스트 영역
+      // 데이터 분석 레포트 영역
       const text1 = document.querySelectorAll('.text-1 span:not(.attk_y)');
       // console.log(text1);
       text1[0].innerHTML = data.won[1].ratio;   //정상데이터 비율
@@ -1288,9 +1299,9 @@ $.ajax({
       //이상 데이터가 있을시 아래
       const attk_text = document.querySelector('.attk_y');
       console.log(attk_text);
-      var atext = "이상데이터는 "
+      let atext = "이상데이터는 "
       if(attlen > 1) {
-        for (var i = 0; i < attlen-1; i++){       //공격 유형만큼 추가
+        for (let i = 0; i < attlen-1; i++){       //공격 유형만큼 추가
           atext += "<span>" + data.attack_cnt[i].labels2 + " " +data.attack_cnt[i].ratio + "</span>" + "%"
           if (i != attlen-2){
             atext += ","
@@ -1300,27 +1311,26 @@ $.ajax({
         attk_text.innerHTML =  atext;
       }
 
+      // 두번째 문단
       const text2 = document.querySelectorAll('.text-2 span');
       // console.log(text2);
-
       text2[0].innerHTML = data.max_aly[0].max_value;
       text2[1].innerHTML = data.max_aly[0].time;
       text2[2].innerHTML = data.max_aly[1].max_value;
       text2[3].innerHTML = data.max_aly[1].time;
       
-
+      // 세번째 문단
       const text3 = document.querySelectorAll('.text-3 span');
-      
       text3[0].innerHTML = data.flag.length;        // flag 총 개수
       text3[1].innerHTML = data.flag_aly[1].value;  // 초당 평균
       text3[2].innerHTML = data.flag_aly[3].value;  // 가장 높은 비율 flag
       text3[3].innerHTML = data.flag_aly[2].value;  // 가장 높은 비율 flag// 가장 낮은 비율 flag
       // 전체 비율
-      for(var i = 0; i < flag_node.length; i++){
+      for(let i = 0; i < flag_node.length; i++){
         text3[i+4].innerHTML = data.flag_ratio[i].ratio;
       };
 
-
+      // 네번째 문단
       const text4 = document.querySelectorAll('.text-4 span');
       console.log(text4);
       text4[0].innerHTML = data.con[0].Source_IP;          //교류량이 가장 많은 소스ip
@@ -1334,69 +1344,103 @@ $.ajax({
       text4[8].innerHTML = data.pro_max[0].value;         //최대 프로토콜
       text4[9].innerHTML = data.pro_max[1].value;         //비율
 
+
+
       //iat 데이터
-      for(var i = 0; i < 3; i++){     // 평균, 표준편차, 최대값
+      for(let i = 0; i < 3; i++){     // 평균, 표준편차, 최대값
         text4[i+10].innerHTML = data.iat_aly[i].value;
       };
       text4[13].innerHTML = data.iat_aly[4].value;  //최대값이 찍힌 시간
 
 
 
-      //공격 솔루션 : 겹치는거 처리하기
+      // 네번째 문단: 공격 발견시
+      const attk_box = document.querySelector('.attk_section');
+      let add_node='<p class="text-1">현재 이상 데이터 <span></span> 는 <span></span> - <span></span>에서 발견 되었으며, 현재 데이터의 최고값 BPS는 <span></span> bytes/s, PPS는 <span></span> packets/s, QPS는 <span></span> queries/s, RPS는 <span></span> rquests/s입니다.</p><p class="text-2">이상 데이터로 찍히는 Source IP는 <span></span>이며, Destination IP는 <span></span> 입니다. 해당 프로토콜은 <span></span>입니다.</p><p class="text-3">아래 표는 <span></span> 공격이 탐지된 데이터의 정보입니다. 아래 표를 확인하여, 해당 IP를 차단하세요</p>'
+      +'<div class="attk_table"><table><tr><td colspan="2">IP</td><td colspan="4">Length</td><td rowspan="2">Time</td></tr><tr><td>Source</td><td>Destination</td><td>Mean</td><td>Min</td><td>Max</td><td>Sum</td></tr><!-- 데이터 추가 --></table></div>';
+      if(attlen > 1) {
+        let att_text = document.createElement("p");
+        att_text.classList.add('sm-gr');
+        att_text.innerHTML = "이상 데이터에 대해 자세하게 설명드리겠습니다."
+        attk_box.appendChild(att_text);
 
+        for (let i = 0; i < attlen-1; i++){       //공격 유형만큼 추가
+          let att_node = document.createElement("div");
+          att_node.classList.add('attk_box');
+          att_node.innerHTML = add_node;
+          attk_box.appendChild(att_node);
+        }
+      }
+
+      const attk_boxs = document.querySelectorAll('.attk_box');
+      // console.log(data.attack_aly);
+      // const dataFrameNames = Object.keys(data.attack_aly);
+      // console.log(dataFrameNames); // ["DDoS", "PortScan"]
+
+      // 각 데이터 프레임 객체를 가져옴
+      for (const atk in data.attack_aly) {
+        // console.log(dataFrameName); // 데이터프레임 이름 출력
+
+
+      }
+
+
+
+
+      //공격 솔루션 : 겹치는거 처리하기 및 내용 수정
       if(attlen < 2){
-        var normalN = document.querySelector('.normal');
+        let normalN = document.querySelector('.normal');
         normalN.style.display = 'block';
       } else {
-        var attkT = document.querySelector('.attk-t');
+        let attkT = document.querySelector('.attk-t');
         attkT.style.display = 'block';
 
         if (attacks.includes('DDoS')){
-          var ad = document.querySelector('.ddos');
+          let ad = document.querySelector('.ddos');
           ad.style.display = 'block';
         }
         if (attacks.includes('PortScan')){
-          var ap = document.querySelector('.portscan');
+          let ap = document.querySelector('.portscan');
           ap.style.display = 'block';
         }
         if (attacks.includes('Bornet')){
-          var ab = document.querySelector('.botnet');
+          let ab = document.querySelector('.botnet');
           ab.style.display = 'block';
         }
         if (attacks.includes('Infiltration')){
-          var aif = document.querySelector('.infiltration');
+          let aif = document.querySelector('.infiltration');
           aif.style.display = 'block';
         }
         if (attacks.includes('FTP-Patator')){
-          var afp = document.querySelector('.ftp-patator');
+          let afp = document.querySelector('.ftp-patator');
           afp.style.display = 'block';
         }
         if (attacks.includes('SSH-Patator')){
-          var asp = document.querySelector('.ssh-patator');
+          let asp = document.querySelector('.ssh-patator');
           asp.style.display = 'block';
         }
         if (attacks.includes('DoS_Hulk')){
-          var adh = document.querySelector('.dos-hulk');
+          let adh = document.querySelector('.dos-hulk');
           adh.style.display = 'block';
         }
         if (attacks.includes('Dos_GoldenEye')){
-          var adg = document.querySelector('.dos-goldeneye');
+          let adg = document.querySelector('.dos-goldeneye');
           adg.style.display = 'block';
         }
         if (attacks.includes('DoS_slowloris')){
-          var ads = document.querySelector('.doS-slowloris');
+          let ads = document.querySelector('.doS-slowloris');
           ads.style.display = 'block';
         }
         if (attacks.includes('DoS_Slowhttptest')){
-          var adst = document.querySelector('.doS-slowhttptest');
+          let adst = document.querySelector('.doS-slowhttptest');
           adst.style.display = 'block';
         }
         if (attacks.includes('Heartbleed')){
-          var ah = document.querySelector('.heartbleed');
+          let ah = document.querySelector('.heartbleed');
           ah.style.display = 'block';
         }
         if (attacks.includes('ICMP_Flooding')){
-          var ai = document.querySelector('.icmp-flooding');
+          let ai = document.querySelector('.icmp-flooding');
           ai.style.display = 'block';
         }
 

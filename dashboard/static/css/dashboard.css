@@ -39,8 +39,17 @@ canvas {
     /* text-align: right; */
 }
 
-.data_bar div {
-    float: right;
+.data_b {
+    display: flex;
+    justify-content: space-between;
+    width: 1498px;
+    margin: 0 auto;
+}
+
+.data_b  div {
+    /* width: 1498px;
+    /* float: right; */
+    /* margin: 0 auto; */ 
 }
 
 .data_bar p {

@@ -54,11 +54,15 @@
 }
 
 table {
+    text-align: center;
+    color: var(--light-grey);
+}
+
+#table_con table {
     width: 100%;
     /* height: 100%; */
     height: 320px;
-    text-align: center;
-    color: var(--light-grey);
+
 }
 
 table, tr, td {
