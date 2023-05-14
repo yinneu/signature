@@ -1,35 +1,6 @@
 /* dashboard \ dashboard.css */
 /* 그래프 공통 css */
 
-/* 대시보드 로딩창 */
-#loading_sc {
-    position: fixed;
-    display: none;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.57);
-    /* opacity: 0.8; */
-    z-index: 50;
-}
-
-#loading_sc img {
-    position: absolute;
-    top: 32%;
-    left: 50%;
-    width: 50px;
-    margin: 0 auto;
-    transform: translateX(-50%);
-}
-
-#loading_sc p {
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    text-align: center;
-    transform: translateX(-50%);
-}
-
-
 /* 대시보드 */
 body {
     background-color: black;

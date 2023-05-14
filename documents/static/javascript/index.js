@@ -1,61 +1,80 @@
 /** documents \ index.js */
 "use strict"
 
-// a.html
-$(document).ready(function() {
-    // 로딩 화면을 숨김
-    // $('#loadingScreen').hide();
+// 로딩 페이지
+let body = this.document.querySelector('body');
+let loadingScreen = document.getElementById('loadingScreen');
+let expItems = document.querySelectorAll('.exp-item');
+let submitBtn = document.querySelector('.upload-btn');
+let currentIndex = 0;
+
+// 로딩 페이지
+function showNextElement() {
+    expItems[currentIndex].style.display = 'block';
   
+    setTimeout(function() {
+      expItems[currentIndex].style.display = 'none';
+      currentIndex = (currentIndex + 1) % expItems.length;
+      showNextElement();
+    }, 5000); // 3초 후에 다음 요소를 보여줌
+  }
+
+// form 데이터 post
+$(document).ready(function() {
+
     $('form').submit(function(e) {
       e.preventDefault();
       var formData = new FormData(this);
-
-        // 파일이 선택되지 않은 경우 에러 처리
-        if (!formData.has('csv_file')) {
-            alert('파일을 선택해주세요.');
-            return;
-        }
-
-        NProgress.configure({ showSpinner: true }); // 스피너를 사용하지 않을 경우
-        NProgress.start(); // 로딩 상태 시작
-
-
-        // 폼 전송 전에 로딩 화면을 보여줌
-        $('#loadingScreen').show();
-    
-        $.ajax({
-            url: '/dashboard/',
-            type: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function(data) {
-                // 데이터 처리 후 페이지 이동
-                window.location.href = '/dashboard/';
-            },
-            error: function(xhr, status, error) {
-                console.log(error);
-            },
-            complete: function() {
-                // 작업이 완료된 후 로딩 화면을 숨김
-                $('#loadingScreen').hide();
-                NProgress.done(); // 로딩 상태 종료
-            }
-        });
+      
+      var fileInput = document.getElementById('csv_file');
+      var file = fileInput.files[0];
+      NProgress.configure({ showSpinner: true });
   
-
+      // 파일이 선택되지 않았거나 CSV 파일이 아닌 경우
+      if (!file || file.type !== 'text/csv') {
+        alert('올바른 CSV 파일을 선택해주세요.');
+        return;
+      }
+  
+      $.ajax({
+        url: '/dashboard/',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        beforeSend: function() {
+          NProgress.start();
+          $('#loadingScreen').show();
+          $('body').css('overflow', 'hidden');
+          showNextElement();
+        },
+        success: function(data) {
+          window.location.href = '/dashboard/';
+        },
+        error: function(xhr, status, error) {
+          console.log(error);
+          alert('올바른 형식의 파일을 선택해주세요.');
+          return;
+        },
+        complete: function() {
+          $('#loadingScreen').hide();
+          NProgress.done();
+        }
+      });
     });
   });
+  
+
 
 
 
 //자세히보기 버튼 => 하단 설명페이지로 스크롤
 const detailBtn = document.querySelector("#detail-btn");
 const expBox = document.querySelector('#explanation');
-const currentPosition = expBox.getBoundingClientRect().top + window.pageYOffset;
+// const currentPosition = expBox.getBoundingClientRect().top + window.pageYOffset;
 
 // 특정 픽셀만큼 추가로 스크롤하기 위한 값
-const additionalScrollAmount = -80;
+// const additionalScrollAmount = -80;
 
 detailBtn.addEventListener('click', () => {
     expBox.scrollIntoView({ behavior: "smooth", block: "center", inline: "center"});

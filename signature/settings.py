@@ -163,5 +163,4 @@ ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     '127.0.0.1:8000'
-    # "http://ec2-35-78-49-27.ap-northeast-1.compute.amazonaws.com/"
 ]
