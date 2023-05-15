@@ -113,7 +113,7 @@ def GetData(request):
     # csv 파일 받아오기
     data = pd.read_csv(os.path.join(settings.MEDIA_ROOT, 'data.csv'))
 
-    data.rename(columns={'Min Packet Length': 'Length'}, inplace=True)
+    # data.rename(columns={'Min Packet Length': 'Length'}, inplace=True)
 
     # 파이썬 정규표현식 + 열 이름 전환
     cols = data.columns
