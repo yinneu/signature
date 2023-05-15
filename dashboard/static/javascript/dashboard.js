@@ -1378,9 +1378,11 @@ $.ajax({
       // console.log(dataFrameNames); // ["DDoS", "PortScan"]
 
       // 각 데이터 프레임 객체를 가져옴
+      let attk_index = 0;
       for (const atk in data.attack_aly) {
         // console.log(dataFrameName); // 데이터프레임 이름 출력
-
+        currentbox = attk_boxs[attk_index]; //해당 공격 유형
+        console.log(currentbox);
 
       }
 

@@ -64,8 +64,11 @@ def PreProcessing(data):
 
     # IDS는 컬럼이 23으로 이루어져 있으므로 그에 맞게 컬럼을 추출함.
     # 추출할 컬럼 리스트
-    cols_to_keep = ['Source IP', 'Destination IP', 'Protocol', 'Source Port', 'Destination Port', 'IAT',
-                    'Min Packet Length', 'Max Packet Length', 'Packet Length Mean', 'Packet Length Std']
+    # cols_to_keep = ['Source IP', 'Destination IP', 'Protocol', 'Source Port', 'Destination Port', 'IAT',
+    #                 'Min Packet Length', 'Max Packet Length', 'Packet Length Mean', 'Packet Length Std']
+
+    cols_to_keep = ['Source IP', 'Destination IP', 'Protocol', 'Source Port', 'Destination Port', 'FIN Flag Count', 'SYN Flag Count', 'RST Flag Count',
+                    'PSH Flag Count', 'ACK Flag Count', 'URG Flag Count', 'CWE Flag Count', 'ECE Flag Count', 'Length', 'IAT']
 
     # 요구하는 컬럼만 추출하여 새로운 DataFrame 생성
     new_dataset = data[cols_to_keep]
@@ -79,7 +82,8 @@ def PreProcessing(data):
     predict_df = new_dataset
 
     # ids 적용 : 모델 불러오기
-    model = joblib.load('./dashboard/media/model.pkl')
+    # model = joblib.load('./dashboard/media/model.pkl')
+    model = joblib.load('./dashboard/media/new_model.pkl')
 
     # 예측하기
     y_pred = model.predict(predict_df)
