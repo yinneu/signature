@@ -36,6 +36,27 @@ function getRandomColor() {
   return "#"+(parseInt(Math.random()*0xffffff)).toString(16);
 }
 
+// 공격유형별 색상이 다르게
+const colorlt = {
+  'DDoS': '#E06280',
+  'DoS Slowhttptest': '#32C5E9',
+  'DoS slowloris': '#67E0E3',
+  'DoS Hulk': '#9FE6B8',
+  'DoS GoldenEye': '#FFDB5C',
+  'PortScan': '#FF9F7F',
+  'Heartbleed': '#FB7293',
+  'Botnet': '#E062AE',
+  'Infiltration': '#E690D1',
+  'ICMP flooding': '#E7BCF3',
+  'FTP-Patator': '#9D96F5',
+  'SSH-Patator': '#8378EA',
+  'QPS': '#96BFFF',
+  'ICMP': '#F5C3CB',
+  'UDP': '#FADEA5',
+  'TCP': '#A5FAD2',
+  'signature': '#4CA6FF'
+};
+
 
 $.ajax({
     url: '/dashboard/get_data/',
@@ -92,8 +113,19 @@ $.ajax({
       for (let i = 0; i < attlen; i++) {
           // 공격유형
           let atk = attacks[i];
+          // let atkcol = '#4CA6FF';
+          let atkcol = 'white';
+
+          // 공격유형별색
+          if (atk != "Normal") {
+            atkcol = colorlt[atk];
+          }
+          
 
           // 시그니처
+          if (atk == "Normal") {
+            atkcol = '#4CA6FF';
+          }
           let sig_data = data.sig_attack[atk].map(function(item) {
               return [item.Source_IP, item.Destination_IP, item.Destination_Port, item.Length];
           });
@@ -101,12 +133,18 @@ $.ajax({
               name: atk,
               type: 'parallel',
               // lineStyle: lineStyle,
+              lineStyle : {
+                color: atkcol
+              },
               data: sig_data
           };
           sig_series.push(sig_serie);
 
 
           //bps
+          if (atk == "Normal") {
+            atkcol = 'rgb(255, 70, 131)';
+          }
           let bps_data = data.bps_attack.map(function(item) { return item[atk]; })
           let bps_serie = {
               name: atk,
@@ -115,6 +153,7 @@ $.ajax({
               sampling: 'lttb',
               itemStyle: {
                 color: 'rgb(255, 70, 131)'
+                // color: atkcol
                 // color: '#00C20D'
               },
               areaStyle: {
@@ -136,6 +175,9 @@ $.ajax({
           bps_series.push(bps_serie);
 
           //pps
+          if (atk == "Normal") {
+            atkcol = '#00C20D';
+          }
           let pps_data = data.pps_attack.map(function(item) { return item[atk]; })
           let pps_serie = {
               name: atk,
@@ -146,6 +188,7 @@ $.ajax({
                 //겉 라인 색상
                 // color: 'rgb(255, 70, 131)'
                 color: '#00C20D' 
+                // color: atkcol
               },
               areaStyle: {
                 // 내부영역 색상
@@ -272,6 +315,7 @@ $.ajax({
           rps_series.push(rps_serie);
 
       }
+
 
       // 범례 간격
       let legend_size = 12;
@@ -766,6 +810,35 @@ $.ajax({
         });
         scrpro_series.push(protocolData);
       });
+      console.log('k:', scrpro_series);
+
+
+      function calculateTotalValue(data) {
+        let totalValue = 0;
+        data.forEach(item => {
+          if (item.children) {
+            totalValue += calculateTotalValue(item.children);
+          } else {
+            totalValue += item.value;
+          }
+        });
+        return totalValue;
+      }
+
+      let totalValue = calculateTotalValue(scrpro_series);
+
+      scrpro_series.forEach(item => {
+        let percentage = (item.value / totalValue) * 100;
+        item.label = {
+          formatter: function (params) {
+            return params.name + ' (' + (isNaN(percentage) ? 0 : percentage.toFixed(2)) + '%)';
+          }
+        };
+      });
+
+      console.log('k:', scrpro_series);
+      
+
       let scrpro_option = {
         backgroundColor: 'black',
         series: {
@@ -806,6 +879,7 @@ $.ajax({
           ]
         }
       };        
+
 
       // dstpro
       data.dstpro.forEach((dstpro) => {
@@ -925,9 +999,14 @@ $.ajax({
               show: true, // 강조될 때 label 표시
               textStyle: {
                 color: 'white' // 라벨 텍스트 컬러
+              },
+              formatter: function(params) {
+                const value = params.value;
+                return value.toLocaleString();
               }
             },
             itemStyle: {
+              color: '#9D96F5',
               emphasis: {
                 color: 'yellow' // 강조된 바 색상
               }
@@ -1132,8 +1211,17 @@ $.ajax({
 
       // 테이블
       const won_node = document.querySelectorAll('.won_data');
+      const won_unit = document.querySelectorAll('.won_unit');
       for(let i = 0; i < won_node.length; i++){
-        won_node[i].innerHTML = data.won_aly[i].value;
+        let value = data.won_aly[i].value;
+        if (value < 100) {
+          won_node[i].innerHTML = data.won_aly[i].value;
+          won_unit[i].innerHTML = 'byte';
+        } else {
+          value = (value / 1000).toFixed(2); // 소수점 두 자리까지 표시
+          won_node[i].innerHTML = value.replace(/\.?0+$/, ''); // 소수 부분이 0으로 끝나면 제거
+          won_unit[i].innerHTML = 'kbyte';
+        }
       };
 
 
@@ -1145,11 +1233,11 @@ $.ajax({
         return [item.labels2, item.Source_IP, item.Destination_IP, item.min, item.mean, item.max, item.sum, item.ratio+" %"];
       });
       for (let i = 0; i < 10; i++) {
-        var trNode = document.createElement("tr");
-        var trdata = con_data[i];
+        let trNode = document.createElement("tr");
+        let trdata = con_data[i];
 
-        for(var j = 0; j < 8; j++) {
-          var tdNode = document.createElement("td");
+        for(let j = 0; j < 8; j++) {
+          let tdNode = document.createElement("td");
           tdNode.textContent = trdata[j];
           trNode.appendChild(tdNode);
         }
@@ -1293,7 +1381,7 @@ $.ajax({
       for(var i = 0; i < 4; i++){               //전체 패킷길이 평균값, 표준편차, 최댓값, 최솟값
         text1[i+2].innerHTML = data.won_aly[i].value;
       };
-      text1[6].innerHTML = data.palmax_len;   //
+      text1[6].innerHTML = data.palmax_len; 
       text1[7].innerHTML = data.palmax_cnt;
       
       //이상 데이터가 있을시 아래
@@ -1314,10 +1402,11 @@ $.ajax({
       // 두번째 문단
       const text2 = document.querySelectorAll('.text-2 span');
       // console.log(text2);
-      text2[0].innerHTML = data.max_aly[0].max_value;
-      text2[1].innerHTML = data.max_aly[0].time;
-      text2[2].innerHTML = data.max_aly[1].max_value;
-      text2[3].innerHTML = data.max_aly[1].time;
+      for (let i = 0; i < 7; i+=2){
+        text2[i].innerHTML = data.max_aly[i/2].max_value;
+        text2[i+1].innerHTML = data.max_aly[i/2].time;
+      }
+
       
       // 세번째 문단
       const text3 = document.querySelectorAll('.text-3 span');
@@ -1354,37 +1443,89 @@ $.ajax({
 
 
 
-      // 네번째 문단: 공격 발견시
+      // 네번째 문단: 공격 발견시 공격 문단 생성
       const attk_box = document.querySelector('.attk_section');
-      let add_node='<p class="text-1">현재 이상 데이터 <span></span> 는 <span></span> - <span></span>에서 발견 되었으며, 현재 데이터의 최고값 BPS는 <span></span> bytes/s, PPS는 <span></span> packets/s, QPS는 <span></span> queries/s, RPS는 <span></span> rquests/s입니다.</p><p class="text-2">이상 데이터로 찍히는 Source IP는 <span></span>이며, Destination IP는 <span></span> 입니다. 해당 프로토콜은 <span></span>입니다.</p><p class="text-3">아래 표는 <span></span> 공격이 탐지된 데이터의 정보입니다. 아래 표를 확인하여, 해당 IP를 차단하세요</p>'
+      let add_node='<p class="text-1">현재 이상 데이터 <span></span> 는 <span></span> - <span></span>에서 발견 되었으며, 현재 데이터의 최고값 BPS는 <span></span> bytes/s, PPS는 <span></span> packets/s, QPS는 <span></span> queries/s, RPS는 <span></span> rquests/s입니다. 이상 데이터로 찍히는 Source IP는 <span></span>이며, Destination IP는 <span></span> 입니다. 해당 프로토콜은 <span></span>입니다.</p><p class="text-3">아래 표는 <span></span> 공격이 탐지된 데이터의 정보입니다. 아래 표를 확인하여, 해당 IP를 차단하세요</p>'
       +'<div class="attk_table"><table><tr><td colspan="2">IP</td><td colspan="4">Length</td><td rowspan="2">Time</td></tr><tr><td>Source</td><td>Destination</td><td>Mean</td><td>Min</td><td>Max</td><td>Sum</td></tr><!-- 데이터 추가 --></table></div>';
+      
+      
+
+      // 공격 유형 box 생성
       if(attlen > 1) {
         let att_text = document.createElement("p");
         att_text.classList.add('sm-gr');
         att_text.innerHTML = "이상 데이터에 대해 자세하게 설명드리겠습니다."
+        att_text.classList.add('rd');
         attk_box.appendChild(att_text);
 
         for (let i = 0; i < attlen-1; i++){       //공격 유형만큼 추가
           let att_node = document.createElement("div");
           att_node.classList.add('attk_box');
           att_node.innerHTML = add_node;
+
           attk_box.appendChild(att_node);
         }
       }
 
+    
+      // 공격 유형 별 데이터 추가
       const attk_boxs = document.querySelectorAll('.attk_box');
-      // console.log(data.attack_aly);
-      // const dataFrameNames = Object.keys(data.attack_aly);
-      // console.log(dataFrameNames); // ["DDoS", "PortScan"]
-
-      // 각 데이터 프레임 객체를 가져옴
+      console.log(attk_boxs);
       let attk_index = 0;
-      for (const atk in data.attack_aly) {
-        // console.log(dataFrameName); // 데이터프레임 이름 출력
-        currentbox = attk_boxs[attk_index]; //해당 공격 유형
-        console.log(currentbox);
 
+      // for (let i = 0; i < attk_boxs.length; i++) {
+      for (const atk in data.attack_aly) {
+        const attk_box = attk_boxs[attk_index];
+        console.log(attk_box);
+        
+        // attk_box의 자식 요소들을 가져와서 사용
+        const t1 = attk_box.querySelectorAll('.text-1 span');
+        console.log(t1);
+        t1[0].innerHTML = atk;      //공격
+        t1[0].classList.add('rd');
+        t1[1].innerHTML = data.attack_time[attk_index].FirstTimestamp;          //공격 시작시간
+        t1[2].innerHTML = data.attack_time[attk_index].LastTimestamp;          //공격 마지막 시간
+        for (let j = 0; j < 4; j++){                                   //최고 bps, pps, qps, rps
+          t1[j+3].innerHTML = data.attack_max_aly[atk][j].value.toLocaleString();;
+        }
+
+        // const t2 = attk_box.querySelectorAll('.text-2 span');
+        // t2[0].innerHTML = data.attack_aly[atk][0].Source_IP;
+        // t2[1].innerHTML = data.attack_aly[atk][0].Destination_IP;
+        t1[7].innerHTML = data.attack_aly[atk][0].Source_IP;
+        t1[8].innerHTML = data.attack_aly[atk][0].Destination_IP;
+
+
+        const t3 = attk_box.querySelectorAll('.text-3 span');
+        t3[0].innerHTML = atk;
+        t3[0].classList.add('rd');
+
+
+        // 공격별 테이블
+        const attk_table = attk_box.querySelector(".attk_table tbody");
+        let atk_data = data.attack_aly[atk].map(function(item) {
+          return [item.Source_IP, item.Destination_IP, item.min, item.mean, item.max, item.sum, item.Timestamp];
+        });
+        for (let i = 0; i < atk_data.length; i++) {
+          let trNode = document.createElement("tr");
+          let trdata = atk_data[i];
+  
+          for(let j = 0; j < 7; j++) {
+            let tdNode = document.createElement("td");
+            tdNode.textContent = trdata[j];
+            trNode.appendChild(tdNode);
+          }
+          attk_table.appendChild(trNode);
+        }
+
+
+        attk_index++;
       }
+
+
+
+
+
 
 
 

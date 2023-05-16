@@ -14,28 +14,25 @@
     height: 100vh;
     opacity: 1;
     z-index: 50;
-    /* background-image: url('/static/img/main/new_main_background2.png');
-    background-repeat: no-repeat;
-    background-position: center; */
     background-color: black;
 }
 
 
 @keyframes fadeInOut {
-    0% {
-      opacity: 0;
-    }
-    10% {
-        opacity: 1;
-      }
-    60% {
+  0% {
+    opacity: 0;
+  }
+  10% {
       opacity: 1;
     }
-    100% {
-      opacity: 0;
-      display: none;
-    }
+  60% {
+    opacity: 1;
   }
+  100% {
+    opacity: 0;
+    display: none;
+  }
+}
 
 
 .exp-item {
@@ -45,7 +42,7 @@
     left: 50%;
     margin: 48px auto;
     width: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -60%);
     text-align: center;
     text-shadow: 0.5px 0.5px 1px var(--dark-grey);
     animation: fadeInOut 5s linear;

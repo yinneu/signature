@@ -7,6 +7,10 @@
     margin: 10px 0;
 }
 
+#comment a {
+    color: rgba(0, 0, 255, 0.699);
+}
+
 /* 카테고리별 영역 */
 .comment-item {
     margin: 20px 0 70px;
@@ -38,7 +42,7 @@
 
 /* 텍스트 세부 분류*/
 .text-area {
-    margin: 22px 8px;
+    margin: 28px 8px;
 }
 
 /* 글씨 */
@@ -74,25 +78,28 @@
 
 
 /* 공격 유형별 설명 및 테이블 */
-.text-box table {
-    width: 100%;
-    /* height: 0px; */
-    max-height: 200px;
-    overflow-y: scroll;
-}
 
 .attk_section {
-    margin: 40px 0 0 10px;
-}
-
-.attk_section .sm-gr {
-    color: rgba(255, 0, 0, 0.507);
+    margin: 60px 0 54px;
 }
 
 .attk_box {
-    margin: 10px 0 30px;
+    margin: 18px 0 40px;
 }
 
 .attk_box p {
     margin: 10px 0;
+}
+
+.attk_section table {
+    width: 100%;
+    /* height: 0px; */
+    max-height: 280px;
+    overflow-y: scroll;
+    background-color: rgba(0, 0, 0, 0.23);
+    color: var(--light-grey);
+}
+
+.rd {
+    color: #ff0000b0;
 }

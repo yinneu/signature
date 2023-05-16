@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
 from pathlib import Path
-# from . import my_settings  # mysql
+from . import my_settings  # mysql
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -77,15 +77,15 @@ WSGI_APPLICATION = 'signature.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 # 여기 변경
-# DATABASES = my_settings.DATABASES
-# SECRET_KEY = my_settings.SECRET_KEY
+DATABASES = my_settings.DATABASES
+SECRET_KEY = my_settings.SECRET_KEY
 
 
 # Password validation
@@ -162,5 +162,6 @@ ALLOWED_HOSTS = [
     '.ap-northeast-1.compute.amazonaws.com',
     'localhost',
     '127.0.0.1',
-    '127.0.0.1:8000'
+    '127.0.0.1:8000',
+    '35.78.49.27',  # 추가 탄력적 ip
 ]

@@ -46,18 +46,18 @@ canvas {
     margin: 0 auto;
 }
 
-.data_b  div {
-    /* width: 1498px;
-    /* float: right; */
-    /* margin: 0 auto; */ 
+.data_b  div:last-child p {
+    margin-left: 10px;
 }
 
 .data_bar p {
+    margin: 0 4px;
     float: left;
 }
 
+
 .data_bar span {
-    margin: 10px;
+    margin-left: 4px;
 }
 
 .data_bar .attk {

@@ -6,8 +6,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 48%;
-    height: 350px;
+    /* width: 48%; */
+    top: 310px;
+    /* left: 45.5%; */
+    
+    width: 53%;
+    height: 460px;
+    /* height: 500px; */
     padding: 10px;
     border: 1px solid var(--dark-grey);
     box-sizing: content-box;
@@ -201,9 +206,11 @@
 #sig_box {
     position: absolute;
     border: 1px solid grey;
-    top: 10px;
-    left: 50%;
-    width: 50%;
+    /* top: 10px; */
+    top: 310px;
+    left: 55%;
+    /* width: 50%; */
+    width: 45%;
     height: 480px;
     overflow: hidden;
 }
@@ -218,18 +225,24 @@
 
 /* qps */
 #graph_qps {
-    top: 390px;
-    width: 24.5%;
-    height: 300px;
+    /* top: 390px; */
+    top: 0;
+    left: 45.5%;
+    /* width: 24.5%; */
+    width: 27%;
+    height: 302px;
 
 }
 
 /* rps */
 #graph_rps {
-    top: 390px;
-    left: 25%;
-    width: 24.5%;
-    height: 300px;
+    /* top: 390px; */
+    top: 0;
+    /* left: 25%; */
+    left: 73%;
+    /* width: 24.5%; */
+    width: 27%;
+    height: 302px;
 }
 
 
@@ -237,9 +250,11 @@
 #sdpro-box {
     position: absolute;
     /* top: 520px; */
-    top: 500px;
-    left: 50%;
-    width: 50%;
+    /* top: 490px; */
+    top: 0;
+    /* left: 50%; */
+    /* width: 50%; */
+    width: 45%;
     height: 300px;
     border: 1px solid grey;
     overflow: hidden;
@@ -289,9 +304,11 @@
 
 /* qps,rps maxValue box */
 #qrps-pro-table {
-    top: 699px;
-    width: 49.4%;
-    height: 101px;
+    /* top: 699px; */
+    top: 310px;
+    left: 45.5%;
+    width: 54.4%;
+    height: 96px;
 }
 #qrps-pro-table .data-box {
     width: 50%;

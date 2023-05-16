@@ -13,10 +13,9 @@ import joblib  # for ids 모델 적용
 import os
 from django.conf import settings
 
-# import table
-# from dashboard.models import time_use, signature, length_frequency, tel_network, flag_count
-# db 저장 전 전처리 함수
-# from dashboard.dataprocess import TimeTable, SigTable, NetworkTable, FlagTable, PacketTable
+# 파일 저장 모델
+from .models import UploadedFile
+from .forms import UploadedFileForm
 
 
 class DashboardView(View):
@@ -29,6 +28,14 @@ class DashboardView(View):
             csv_file = request.FILES['csv_file']
             # CSV 파일에서 데이터를 읽어서 원하는 작업을 수행 / 데이터프레임
             df = pd.read_csv(csv_file)
+
+            # csv 파일 컬럼 검사
+            # columns_to_check = ['Source IP', 'Destination IP', 'Protocol', 'Source Port',
+            #                     'Destination Port', 'Timestamp', 'FIN Flag Count',
+            #                     'SYN Flag Count', 'RST Flag Count', 'PSH Flag Count',
+            #                     'ACK Flag Count', 'URG Flag Count', 'CWE Flag Count',
+            #                     'ECE Flag Count', 'SYN_ACK_Count', 'Length', 'IAT']
+
             # ids 모델 예측전 데이터 전처리
             labels = PreProcessing(df)
             df['labels'] = labels
@@ -64,11 +71,12 @@ def PreProcessing(data):
 
     # IDS는 컬럼이 23으로 이루어져 있으므로 그에 맞게 컬럼을 추출함.
     # 추출할 컬럼 리스트
-    # cols_to_keep = ['Source IP', 'Destination IP', 'Protocol', 'Source Port', 'Destination Port', 'IAT',
-    #                 'Min Packet Length', 'Max Packet Length', 'Packet Length Mean', 'Packet Length Std']
+    cols_to_keep = ['Source IP', 'Destination IP', 'Protocol', 'Source Port', 'Destination Port', 'IAT',
+                    'Min Packet Length', 'Max Packet Length', 'Packet Length Mean', 'Packet Length Std']
 
-    cols_to_keep = ['Source IP', 'Destination IP', 'Protocol', 'Source Port', 'Destination Port', 'FIN Flag Count', 'SYN Flag Count', 'RST Flag Count',
-                    'PSH Flag Count', 'ACK Flag Count', 'URG Flag Count', 'CWE Flag Count', 'ECE Flag Count', 'Length', 'IAT']
+    # 새로 바뀐 전처리
+    # cols_to_keep = ['Source IP', 'Destination IP', 'Protocol', 'Source Port', 'Destination Port', 'FIN Flag Count', 'SYN Flag Count', 'RST Flag Count',
+    #                 'PSH Flag Count', 'ACK Flag Count', 'URG Flag Count', 'CWE Flag Count', 'ECE Flag Count', 'Length', 'IAT']
 
     # 요구하는 컬럼만 추출하여 새로운 DataFrame 생성
     new_dataset = data[cols_to_keep]
@@ -82,8 +90,8 @@ def PreProcessing(data):
     predict_df = new_dataset
 
     # ids 적용 : 모델 불러오기
-    # model = joblib.load('./dashboard/media/model.pkl')
-    model = joblib.load('./dashboard/media/new_model.pkl')
+    model = joblib.load('./dashboard/media/model.pkl')
+    # model = joblib.load('./dashboard/media/new_model.pkl')
 
     # 예측하기
     y_pred = model.predict(predict_df)
@@ -113,7 +121,8 @@ def GetData(request):
     # csv 파일 받아오기
     data = pd.read_csv(os.path.join(settings.MEDIA_ROOT, 'data.csv'))
 
-    # data.rename(columns={'Min Packet Length': 'Length'}, inplace=True)
+    # 서버 올리기 전에 주석 처리
+    data.rename(columns={'Min Packet Length': 'Length'}, inplace=True)
 
     # 파이썬 정규표현식 + 열 이름 전환
     cols = data.columns
@@ -327,13 +336,13 @@ def GetData(request):
 
     # + Total Traffic Length Analysis, 이걸 그냥 total.length기준으로 하는 것도 나쁘지 않을듯
     # mean
-    won_mean = format(data[['Length']].mean()['Length'].round(2), ',')
+    won_mean = data[['Length']].mean()['Length'].round(2)
     # std
-    won_std = format(data[['Length']].std()['Length'].round(2), ',')
+    won_std = data[['Length']].std()['Length'].round(2)
     # min
-    won_min = format(data[['Length']].min()['Length'].round(2), ',')
+    won_min = data[['Length']].min()['Length'].round(2)
     # max
-    won_max = format(data[['Length']].max()['Length'].round(2), ',')
+    won_max = data[['Length']].max()['Length'].round(2)
 
     won_aly = pd.DataFrame({
         'name': ['mean', 'std', 'max', 'min'],
@@ -423,7 +432,7 @@ def GetData(request):
         ).apply(lambda x: round(x, 2)).sort_values(by='sum', ascending=False).reset_index()
         grouped_df[['sum', 'mean', 'min', 'max']] = grouped_df[[
             'sum', 'mean', 'min', 'max']].applymap(lambda x: format(x, ','))
-        # grouped_df = grouped_df.iloc[0:10, :]
+        grouped_df = grouped_df.iloc[0:10, :]
 
         mb = bps.loc[bps['labels2'] == atk].max()['Length']
         mp = pps.loc[pps['labels2'] == atk].max()['pps']
