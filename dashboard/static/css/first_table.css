@@ -4,12 +4,20 @@
 /* ///////////// 첫번째 그래프 영역 */
 
 /* 네트워크 망 */
-#graph_net {
+#net-box {
+    position: absolute;
     top: 20px;
-    /* width: 490px; */
     width: 33%;
     height: 610px;
 }
+#graph_net {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    /* color: #ffb381; */
+}
+
 
 /* 정상 / 비정상 데이터 차트 */
 #att_ratio {
@@ -19,35 +27,66 @@
     height: 282px;
     padding: 5px;
     box-sizing: border-box;
-    overflow: hidden;
+    /* overflow: hidden; */
+    overflow: visible;
 }
 
-#att_ratio #graph_won {
-    top: 16px;
-    width: 47%;
-    height: 254px;
-    margin-top: 10px;
-    padding: 0;
-    border: none;
-    background-color: transparent;
+#att_ratio .info-box {
+    width: 100%;
 }
 
-.table-title {
+#att_ratio .info-box p {
     font-size: 16px;
     margin: 16px 0 0;
     font-weight: 600;
 }
 
+#att_ratio .info {
+    margin-bottom: 1px;
+}
+
+
 #att_ratio #won_table {
     position: absolute;
     top: 10px;
     left: 47%;
-    width: 50%;
+    width: 51%;
     height: 254px;
     border: 0.5px solid #595959;
     text-align: center;
 }
 
+
+/* 비율그래프 */
+#won-box {
+    position: absolute;
+    top: 0;
+    width: 48%;
+    height: 100%;
+    margin-top: 10px;
+    padding: 0;
+    /* overflow: hidden; */
+}
+
+#won-box .graph-box {
+    position: absolute;
+    top: 14%;
+    width: 100%;
+    height: 90%;
+    overflow: hidden;
+}
+#graph_won {
+    position: absolute;
+    width: 100%;
+    height: 90%;
+    top: 0;
+    border: none;
+    padding: 0;
+}
+
+
+
+/* 전체트래픽 데이터 테이블 */
 .table_box {
     display: flex;
     flex-wrap: wrap;
@@ -57,6 +96,7 @@
     justify-content: center;
     align-items: center;
 }
+
 
 .table_item {
     /* width: 106px; */
@@ -92,23 +132,54 @@
 
 
 /* 패킷 길이 빈도 (Bar) */
-#graph_pal {
+#pal-box {
+    position: absolute;
     top: 20px;
     left: 67%;
     width: 33%;
     height:282px;
     box-sizing: border-box;
 }
+#graph_pal {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+}
+
+/* #pal-box .info-contents {
+    transform: translate(-50%, -100%);
+} */
 
 /* bps */
-#graph_bps {
+#bps-box {
+    position: absolute;
     top: 310px;
     left: 33.5%;
     width: 33%;
+    height: 320px;
+}
+#graph_bps {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
 }
 
-#graph_pps {
+
+#pps-box {
+    position: absolute;
     top: 310px;
     left: 67%;
     width: 33%;
+    height: 320px;
 }
+#graph_pps {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+}
+/* #pps-box .info-contents {
+    transform: translate(-50%, -100%);
+} */

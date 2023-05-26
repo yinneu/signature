@@ -35,8 +35,8 @@
 }
 
 /* 내부 설명 */
-#trafficCapture p {
-    margin-top: 30px;
+#trafficCapture .q {
+    margin: 40px 0 20px;
 }
 
 /* 다운로드 영역 */

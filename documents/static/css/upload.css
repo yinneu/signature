@@ -10,7 +10,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 120px;
+    /* height: 120px; */
+    height: 60px;
     background-color: white;
 }
 
@@ -35,7 +36,7 @@
     background-color: #EEEEEE;
     border-radius: 5px;
     line-height: 40px;
-    margin: 0;
+    /* margin: 16px 0 10px; */
 }
 
 
@@ -65,6 +66,19 @@
 .upload-box .upload:hover {
     cursor: pointer;
     color: rgba(64, 64, 65, 0.796);
+}
+
+/* 주의사항 */
+.upload-box .info {
+    height: 20px;
+    font-size: 8px;
+    color: var(--dark-grey);
+    opacity: 0.5;
+    text-align: center;
+}
+
+.upload-box p {
+    margin-top: 0px;
 }
 
 

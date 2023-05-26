@@ -13,18 +13,77 @@ canvas {
     width: 100%;
 }
 
-.main {
-    height: 100%;
-}
 
 
+/* 인트로 문구 */
 .intro {
     margin-top: 116px;
     color: var(--light-yellow);
     text-align: center;
-    font-size: 25px;
-    font-weight: 500;
+    /* font-size: 25px; */
+    font-weight: 600;
 }
+
+
+/* 그래프 info 영역 */
+.info-box {
+    display: flex;
+    /* width: 300px; */
+    justify-content: center;
+    width: 50%;
+    margin: 0 auto;
+    z-index: 2;
+}
+
+.info-box p {
+    text-align: center;
+    font-weight: 600;
+    font-size: 19px;
+    margin: 6px 0 8px;
+    z-index: 2;
+}
+
+.info {
+    width: 10px;
+    height: 10px;
+    border: 2px solid var(--dark-grey);
+    color: var(--dark-grey);
+    background-color: transparent;
+    text-align: center;
+    line-height: 10px;
+    border-radius: 50%;
+    font-size: 1px;
+    font-weight: 600;
+    align-self: flex-end;
+    margin: 0 0 10px 3px;
+    z-index: 2;
+}
+
+.info-contents {
+    position: absolute;
+    display: none;
+    /* display: block; */
+    width: 100%;
+    /* max-width: 450px; */
+    padding: 10px;
+    color: var(--light-grey);
+    border-radius: 10px;
+    background-color: rgba(44, 44, 44, 0.829);
+    /* transform: translate(-25%,-100%); */
+    transform: translateY(-102%);
+    z-index: 3;
+}
+
+.info-contents p {
+    font-size: 16px;
+}
+ 
+.info-box:hover .info-contents {
+    display: block;
+}
+
+
+
 
 
 /* 데이터 바 */
@@ -64,6 +123,9 @@ canvas {
     color: red;
 }
 
+
+
+
 #content-box {
     width: 1498px;
     margin: 0 auto;
@@ -79,27 +141,26 @@ canvas {
 .graphs {
     position: relative;
     width: 100%;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--dark-grey);
+    padding: 8px 0;
 }
 
 /* 1번째 그래프 영역 */
 #graphs_1 {
-    height: 632px;
-    margin-bottom: 12px;
+    height: 630px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
 }
 
 /* 2번째 그래프 영역 */
 #graphs_2 {
-    height: 800px;
-    /* height: 900px; */
-    margin-bottom: 12px;
+    height: 836px;
+    border-bottom: 1px solid var(--dark-grey);
 }
 
 /* 3번째 그래프 영역 */
 #graphs_3 {
-    /* height: 434px; */
     height: 475px;
+    border-bottom: 1px solid var(--dark-grey);
 }
 
 
@@ -158,4 +219,46 @@ canvas {
     line-height: 100%;
     font-weight: 600;
 }
+
+
+
+/* PDF 다운 */
+
+/* pdf 설정 */
+@media print {
+    .page-break { page-break-inside:avoid; page-break-after:auto }
+}
+
+
+.down_pdf {
+    width: 100%;
+    height: 120px;
+}
+
+.down_btn {
+    /* position: relative; */
+    width: 300px;
+    height: 50px;
+    background-color: transparent;
+    border: 1px solid var(--dark-grey);
+    border-radius: 10px;
+    text-align: center;
+    line-height: 50px;
+    margin: 0 auto;
+    transition: all 0.2s ease-in;
+}
+
+.down_btn:hover {
+    cursor: pointer;
+    background-color: rgba(255, 0, 0, 0.527);
+}
+
+.down_btn:hover p {
+    color: var(--light-grey);
+}
+
+.down_btn p {
+    color: var(--light-grey);
+}
+
 

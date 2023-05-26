@@ -52,3 +52,53 @@ ul, li {
     border-radius: 10px;
     margin: 2px;
 }
+
+
+/* arrow up */
+#arrow-up {
+    position: fixed;
+    display: none;
+    right: 6px;
+    bottom: 6px;
+    z-index: 99;
+    animation: btnShow 1s ease-in;
+}
+
+#arrow-up img{
+    /* width: 100%;
+    height: 100%; */
+    width: 80px;
+}
+
+#arrow-up:hover {
+    cursor: pointer;
+    animation: upAni 1s ease-in;
+}
+
+@keyframes btnShow {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes upAni {
+    0% {
+        bottom: 6px;
+    }
+    25% {
+        bottom: 10px;
+        
+    }
+    50% {
+        bottom: 6px;
+    }
+    75% {
+        bottom: 10px;
+    }
+    100% {
+        bottom: 6px;
+    }
+}

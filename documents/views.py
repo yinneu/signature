@@ -12,11 +12,6 @@ import csv
 import json
 import os
 
-# 대시보드
-# from dashboard.models import time_use, signature
-from .models import UploadedFile
-from .forms import UploadedFileForm
-
 
 class IndexView(View):  # 메인페이지
     def get(self, request):

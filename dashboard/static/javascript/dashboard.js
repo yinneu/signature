@@ -7,8 +7,7 @@ let iat = echarts.init(document.getElementById('graph_iat'), 'dark');
 let sig = echarts.init(document.getElementById('graph_sig'), 'dark');
 let qps = echarts.init(document.getElementById('graph_qps'), 'dark');
 let rps = echarts.init(document.getElementById('graph_rps'), 'dark');
-let scrpro = echarts.init(document.getElementById('graph_scrpro'), 'dark');
-let dstpro = echarts.init(document.getElementById('graph_dstpro'), 'dark');
+let pro = echarts.init(document.getElementById('graph_pro'), 'dark');
 let pal = echarts.init(document.getElementById('graph_pal'), 'dark');
 let flag = echarts.init(document.getElementById('graph_flag'), 'dark');
 let net = echarts.init(document.getElementById('graph_net'), 'dark');
@@ -22,8 +21,7 @@ let pps_series = [];
 let iat_series = [];
 let qps_series = [];
 let rps_series = [];
-let scrpro_series = [];
-let dstpro_series = [];
+let pro_series = [];
 
 
 // 색 랜덤 지정
@@ -58,13 +56,19 @@ const colorlt = {
 };
 
 
+// id 받아오는 방식
+
+let file_id = document.getElementById('file-id').dataset.file;
+console.log("File ID:", file_id);
+
 $.ajax({
-    url: '/dashboard/get_data/',
+    url: '/dashboard/get_data/' + file_id + '/',
     type: 'GET',
     dataType: 'json',
     beforeSend: function() {
       // Ajax 요청 시작 전에 로딩 화면을 보여줌
       $('#loading_sc').show();
+      $('body').css('overflow', 'hidden');
     },
     success: function(data) {
 
@@ -354,7 +358,7 @@ $.ajax({
           opacity: 0.5
       };
       let sig_option = {
-          backgroundColor: 'black', // 배경색
+          backgroundColor: 'transparent', // 배경색
           legend: {
               //index (범례)
               bottom: 20,
@@ -465,7 +469,7 @@ $.ajax({
 
       // bps
       let bps_option = {
-          backgroundColor: 'black',
+          backgroundColor: 'transparent',
           legend: {
             //index (범례)
             bottom: 45,
@@ -483,11 +487,11 @@ $.ajax({
               return [pt[0], '10%'];
             }
           },
-          title: {
-            top: 3,
-            left: 'center',
-            text: 'BPS'
-          },
+          // title: {
+          //   top: 3,
+          //   left: 'center',
+          //   text: 'BPS'
+          // },
           toolbox: {
             feature: {
               dataZoom: {
@@ -530,7 +534,7 @@ $.ajax({
 
       //pps
       let pps_option = {
-          backgroundColor: 'black',
+          backgroundColor: 'transparent',
           legend: {
             //index (범례)
             bottom: 45,
@@ -548,11 +552,11 @@ $.ajax({
               return [pt[0] - 250, '10%'];
             }
           },
-          title: {
-            top: 3,
-            left: 'center',
-            text: 'PPS'
-          },
+          // title: {
+          //   top: 3,
+          //   left: 'center',
+          //   text: 'PPS'
+          // },
           toolbox: {
             feature: {
               dataZoom: {
@@ -595,7 +599,7 @@ $.ajax({
 
       //iat
       let iat_option = {
-        backgroundColor: 'black',
+        backgroundColor: 'transparent',
         legend: {
           //index (범례)
           bottom: 45,
@@ -613,11 +617,11 @@ $.ajax({
             return [pt[0], '10%'];
           }
         },
-        title: {
-          top: 3,
-          left: 'center',
-          text: 'IAT'
-        },
+        // title: {
+        //   top: 3,
+        //   left: 'center',
+        //   text: 'IAT'
+        // },
         toolbox: {
           feature: {
             dataZoom: {
@@ -654,7 +658,7 @@ $.ajax({
 
       //qps
       let qps_option = {
-        backgroundColor: 'black',
+        backgroundColor: 'transparent',
         legend: {
           //index (범례)
           bottom: 45,
@@ -672,11 +676,11 @@ $.ajax({
             return [pt[0], '10%'];
           }
         },
-        title: {
-          top: 3,
-          left: 'center',
-          text: 'QPS'
-        },
+        // title: {
+        //   top: 3,
+        //   left: 'center',
+        //   text: 'QPS'
+        // },
         toolbox: {
           feature: {
             dataZoom: {
@@ -713,7 +717,7 @@ $.ajax({
 
       //rps
       let rps_option = {
-        backgroundColor: 'black',
+        backgroundColor: 'transparent',
         legend: {
           //index (범례)
           bottom: 45,
@@ -724,17 +728,17 @@ $.ajax({
             fontSize: legend_size
           }
         },
-        tooltip: {
+        tooltip: {            // 데이터 view 위치설정
           trigger: 'axis',
           position: function (pt) {
-            return [pt[0], '10%'];
+            return [pt[0] - 250, '10%'];
           }
         },
-        title: {
-          top: 3,
-          left: 'center',
-          text: 'RPS'
-        },
+        // title: {
+        //   top: 3,
+        //   left: 'center',
+        //   text: 'RPS'
+        // },
         grid: chart_grid,
         toolbox: {
           feature: {
@@ -771,156 +775,83 @@ $.ajax({
       };
       
 
-      //// 프로토콜 빈도 데이터 생성
-      const protocolMap = new Map();
-      const protocolMap2 = new Map();
-
-      // scrpro 데이터를 protocol로 그룹화
-      data.scrpro.forEach((scrpro) => {
-        if (!protocolMap.has(scrpro.Protocol2)) {
-          protocolMap.set(scrpro.Protocol2, new Map());
-        }
-        const protocolGroup = protocolMap.get(scrpro.Protocol2);
+      // 프로토콜별 포트 빈도 그래프
+      // const protocolMap = new Map();
+      // data.pro.forEach((pro) => {
+      //   if (!protocolMap.has(pro.Protocol2)) {
+      //     protocolMap.set(pro.Protocol2, new Map());
+      //   }
+      //   const protocolGroup = protocolMap.get(pro.Protocol2);
         
-        // 그룹화된 데이터에서 source_port로 그룹화
-        if (!protocolGroup.has(scrpro.Source_Port)) {
-          protocolGroup.set(scrpro.Source_Port, 0);
-        }
-        protocolGroup.set(scrpro.Source_Port, protocolGroup.get(scrpro.Source_Port) + scrpro.n);
-      });     
-      protocolMap.forEach((protocolGroup, protocol2) => {  
-        const protocolData = {
-          name: protocol2,
-          itemStyle: {
-            // color: '#a87b64'
-            color: getRandomColor()
-          },
-          children: []
-        };
+      //   // 그룹화된 데이터에서 port로 그룹화
+      //   if (!protocolGroup.has(pro.Port)) {
+      //     protocolGroup.set(pro.Port, 0);
+      //   }
+      //   protocolGroup.set(pro.Port, protocolGroup.get(pro.Port) + pro.n);
+      // });     
+      // protocolMap.forEach((protocolGroup, protocol2) => {  
+      //   const protocolData = {
+      //     name: protocol2,
+      //     itemStyle: {
+      //       // color: '#a87b64'
+      //       color: getRandomColor()
+      //     },
+      //     children: []
+      //   };
         
-        protocolGroup.forEach((value, sourcePort) => {
-          protocolData.children.push({
-            name: sourcePort.toString(),
-            value: value,
-            itemStyle: {
-              // color: '#c78869'
-              color: getRandomColor()
-            }
-          });
-        });
-        scrpro_series.push(protocolData);
-      });
-      console.log('k:', scrpro_series);
-
-
-      function calculateTotalValue(data) {
-        let totalValue = 0;
-        data.forEach(item => {
-          if (item.children) {
-            totalValue += calculateTotalValue(item.children);
-          } else {
-            totalValue += item.value;
+      //   protocolGroup.forEach((value, port) => {
+      //     protocolData.children.push({
+      //       name: port.toString(),
+      //       value: value,
+      //       // ratio: ratio, //비율
+      //       itemStyle: {
+      //         color: getRandomColor()
+      //       }
+      //     });
+      //   });
+      //   pro_series.push(protocolData);
+      // });
+      let pro_data = {};
+      data.pro.forEach(item => {
+        let protocol = item.Protocol2;
+        let port = item.Port;
+        let value = item.ratio;
+        
+        if (!pro_data[protocol]) {
+          pro_data[protocol] = {
+            name: `${protocol}\n(${value}%)`,
+            value: 0,
+            children: []
+          };
+        }
+        
+        pro_data[protocol].children.push({
+          name: `${port}\n(${value}%)`,
+          value: value,
+          label: {
+            show: value >= 1
           }
         });
-        return totalValue;
-      }
-
-      let totalValue = calculateTotalValue(scrpro_series);
-
-      scrpro_series.forEach(item => {
-        let percentage = (item.value / totalValue) * 100;
-        item.label = {
-          formatter: function (params) {
-            return params.name + ' (' + (isNaN(percentage) ? 0 : percentage.toFixed(2)) + '%)';
-          }
-        };
       });
 
-      console.log('k:', scrpro_series);
+      data.pro_ratio.forEach(item => {
+        let protocol = item.Protocol2;
+        let ratio = item.ratio;
       
-
-      let scrpro_option = {
-        backgroundColor: 'black',
-        series: {
-          type: 'sunburst',
-          data: scrpro_series,
-          radius: [0, '95%'],
-          sort: undefined,
-          emphasis: {
-            focus: 'ancestor',
-            scale: 2
-          },
-          levels: [
-            {
-            },
-            {
-              r0: '15%',
-              r: '35%',
-              itemStyle: {
-                borderWidth: 1,
-                borderColor: '#000'
-              },
-              label: {
-                rotate: 'tangential'
-              }
-            },
-            {
-              r0: '35%',
-              r: '70%',
-              label: {
-                position: 'outside',
-                align: 'right'
-              },
-              itemStyle: {
-                borderWidth: 1,
-                borderColor: '#000'
-              }
-            }
-          ]
+        if (pro_data[protocol]) {
+          pro_data[protocol].value = ratio;
         }
-      };        
-
-
-      // dstpro
-      data.dstpro.forEach((dstpro) => {
-        if (!protocolMap2.has(dstpro.Protocol2)) {
-          protocolMap2.set(dstpro.Protocol2, new Map());
-        }
-        const protocolGroup2 = protocolMap2.get(dstpro.Protocol2);
-        
-        // 그룹화된 데이터에서 source_port로 그룹화
-        if (!protocolGroup2.has(dstpro.Destination_Port)) {
-          protocolGroup2.set(dstpro.Destination_Port, 0);
-        }
-        protocolGroup2.set(dstpro.Destination_Port, protocolGroup2.get(dstpro.Destination_Port) + dstpro.n);
       });
-      protocolMap2.forEach((protocolGroup2, protocol2) => {
-        const protocolData2 = {
-          name: protocol2,
-          itemStyle: {
-            // color: '#a87b64'
-            color: getRandomColor()
-          },
-          children: []
-        };
-        
-        protocolGroup2.forEach((value, destinationPort) => {
-          protocolData2.children.push({
-            name: destinationPort.toString(),
-            value: value,
-            itemStyle: {
-              // color: '#c78869'
-              color: getRandomColor()
-            }
-          });
-        });
-        dstpro_series.push(protocolData2);
-      });     
-      let dstpro_option = {
-        backgroundColor: 'black',
+
+      let pro_series = Object.values(pro_data);
+
+      console.log(pro_series);
+
+      let pro_option = {
+        backgroundColor: 'transparent',
         series: {
           type: 'sunburst',
-          data: dstpro_series,
+          data: pro_series,
           radius: [0, '95%'],
           sort: undefined,
           emphasis: {
@@ -938,7 +869,9 @@ $.ajax({
                 borderColor: '#000'
               },
               label: {
-                rotate: 'tangential'
+                rotate: 'tangential',
+                align: 'center',
+                fontSize: 11
               }
             },
             {
@@ -946,7 +879,10 @@ $.ajax({
               r: '70%',
               label: {
                 position: 'outside',
-                align: 'right'
+                // position: 'right',
+                align: 'right',
+                fontSize: 11,
+                show: true // 자식 노드의 라벨을 항상 보이도록 설정
               },
               itemStyle: {
                 borderWidth: 1,
@@ -955,7 +891,25 @@ $.ajax({
             }
           ]
         }
-      };
+      }; 
+
+      // 프로토콜별 포트 빈도 테이블
+      const pro_table = document.querySelector('#table_pro table tbody');
+      console.log(pro_table);
+      let pro_tdata = data.pro.map(function(item) {
+        return [item.Protocol2, item.Port, item.ratio+"%"];
+      });
+      for (let i = 0; i < 10; i++) {
+        let trNode = document.createElement("tr");
+        let trdata = pro_tdata[i];
+
+        for(let j = 0; j < 3; j++) {
+          let tdNode = document.createElement("td");
+          tdNode.textContent = trdata[j];
+          trNode.appendChild(tdNode);
+        }
+        pro_table.appendChild(trNode);
+      }
 
 
 
@@ -963,18 +917,18 @@ $.ajax({
       let pal_data_range = data.pal.map(function(item) { return item.N_Range; })
       let pal_data_cnt = data.pal.map(function(item) { return item.n; })
       let pal_option = {
-        backgroundColor: "black",
-        title: {
-          top: 3,
-          left: 'center',
-          text: 'Packet Length Frequency',
-          textStyle: {
-            fontSize: 16
-            // align: 'center'
-          },
-        },
+        backgroundColor: "transparent",
+        // title: {
+        //   top: 3,
+        //   left: 'center',
+        //   text: 'Packet Length Frequency',
+        //   textStyle: {
+        //     fontSize: 16
+        //     // align: 'center'
+        //   },
+        // },
         grid: {
-          top: 45,
+          // top: 45,
           left: 43,
           right: 8,
           bottom: 35
@@ -1057,11 +1011,11 @@ $.ajax({
         legend: {
           top: 32
         },
-        title: {
-          top: 3,
-          left: 'center',
-          text: 'Flag Count'
-        },
+        // title: {
+        //   top: 3,
+        //   left: 'center',
+        //   text: 'Flag Count'
+        // },
         grid: {
           left: 30,
           right: 50,
@@ -1146,16 +1100,16 @@ $.ajax({
         }
       ];
       let won_option = {
-        backgroundColor : "black",
-        title: {
-          top: 2,
-          left: 'center',
-          text: '정상 비정상 Traffic',
-          textStyle: {
-            fontSize: 16,
-            align: 'center'
-          },
-        },
+        backgroundColor : "transparent",
+        // title: {
+        //   top: 2,
+        //   left: 'center',
+        //   text: '정상 비정상 Traffic',
+        //   textStyle: {
+        //     fontSize: 16,
+        //     align: 'center'
+        //   },
+        // },
         series: [
           {
             type: 'gauge',
@@ -1246,48 +1200,115 @@ $.ajax({
 
 
 
-      //네트워크망
+      // 컬러 그라데이션
+      let gradient = {
+        type: 'radial',
+        colorStops: [
+        {
+          offset: 0,
+          color: '#5ff0ffa8'
+        }, 
+        {
+          offset: 0.8,
+          color: '#5ff0ffa8'
+        }, 
+        {
+          offset: 1,
+          color: '#abf7ffa8' // 종료 색상
+        }],
+        global: false // 그라데이션 적용 범위
+      };
+
+      let gradient_yellow = {
+        type: 'radial',
+        colorStops: [
+        {
+          offset: 0,
+          color: '#FFE668'
+        }, 
+        {
+          offset: 0.8,
+          color: '#FFE668'
+        }, 
+        {
+          offset: 1,
+          color: '#fff9c5' // 종료 색상
+        }],
+        global: false // 그라데이션 적용 범위
+      };
+
+      let gradient_red = {
+        type: 'radial',
+        colorStops: [
+        {
+          offset: 0,
+          color: '#5ff0ffa8'
+        }, 
+        {
+          offset: 0.8,
+          color: '#5ff0ffa8'
+        }, 
+        {
+          offset: 1,
+          color: '#DB4544' // 종료 색상
+        }],
+        global: false // 그라데이션 적용 범위
+      };
+
       let net_node = data.net_node.map(function(item) {
-        // var col = getRandomColor()
-        // var col = "#abf7ffa8"
-        let gradient = {
-          type: 'radial',
-          colorStops: [
-          {
-            offset: 0,
-            color: '#5ff0ffa8'
-            // color: '#5C90F7' // 시작 색상
-          }, 
-          // {
-          //   offset: 0.5,
-          //   color: '#5C90F7' // 시작 색상
-          // }, 
-          // {
-          //   offset: 0.7,
-          //   color: '#84c4fb'
-          // },
-          {
-            offset: 1,
-            color: '#abf7ffa8' // 종료 색상
-          }],
-          global: false // 그라데이션 적용 범위
-        };
         let reSize;
-        reSize = item.count
-        if (item.count > 50) {
-          reSize = 50
+        let col;
+        // 데이터별 노드 크기 및 색상 지정
+        if (item.count < 100) {
+          reSize = 10;
+          col = gradient;
+        } else if(item.count < 5000){
+          reSize = 30;
+          // col = gradient_yellow;
+          col = '#FFE668';
+        } else if(item.count < 10000){
+          reSize = 40;
+          col = '#FF9C68';
         }
+        else {
+          reSize = 50;
+          // col = '#DB4544';
+          col = gradient_red;
+        }
+
         return {
           name: item.IP,
           symbolSize: reSize,
           draggable: "true",
           itemStyle: {
-            // background: col 
-            color: gradient
+            color: col
           },
-          value: item.count
+          value: item.count,
+          label: {
+            show: false,
+            formatter: '{b}',
+            // show: false
+          }
         }
       });
+
+      // 인덱스를 포함한 객체 배열 생성
+      let net_node_with_index = net_node.map((item, index) => ({ index, item }));
+
+      // 정렬 기준에 따라 인덱스 정렬
+      net_node_with_index.sort((a, b) => b.item.value - a.item.value);
+
+      // 정렬된 상위 10개 노드의 인덱스 추출
+      // let top_index_lit = Math.floor(net_node_with_index.length * 0.02);
+      let top_index = net_node_with_index.slice(0, 10).map((item) => item.index);
+
+      net_node = net_node.map(function(item,index) {
+        // 상위 10개 노드에 대해서만 레이블 표시
+        item.label.show = top_index.includes(index);
+        return item;
+      });
+
+
       let net_link = data.net.map(function(item) {
         return {
           source: item.Source_IP,
@@ -1295,41 +1316,117 @@ $.ajax({
           value: item.Frequency
         }
       });
+
       let net_option = {
-        backgroundColor: "black",
-        // tooltip: {},
+        backgroundColor: 'transparent',
         tooltip: {
-          position: function (pt) {
-            return [pt[0] + 10, pt[1] - 90];
-          },
           formatter: function(params) {
-            if (params.dataType === 'node') { // 노드가 강조됐을 때
-              const node = params.data;
-              const nodeName = node.name;
-              const value = node.value;
-              const iconStyle = 'display:inline-block;margin-right:5px;width:10px;height:10px;border-radius:50%;background-color:#5ff0ffa8;';
-              return `<span style=${iconStyle}></span> Node <br>IP: <b>${nodeName}</b>   Value: <b>${value}</b>`;
-            } else { // 링크가 강조됐을 때
-              const link = params.data;
-              const sourceNodeName = link.source;
-              const targetNodeName = link.target;
-              const value = link.value;
-              const iconStyle = 'display:inline-block;margin-right:5px;width:10px;height:10px;border-radius:50%;background-color:#dee2a2;';
-              return `<span style=${iconStyle}></span>Link <br> Source: <b>${sourceNodeName}</b>   Target: <b>${targetNodeName}</b>   Value: <b>${value}</b>`;
+            if (params.dataType === 'edge') {
+              // 링크에 대한 tooltip 포맷 설정
+              return `IP: ${params.data.source} - ${params.data.target} <br> Value: ${params.data.value}`;
+            } 
+            else if (params.dataType === 'node') {
+              // 노드에 대한 tooltip 포맷 설정
+              return `IP: ${params.name} <br> Value: ${params.data.value}`;
             }
           }
         },
+        animationDurationUpdate: 1500,
+        animationEasingUpdate: 'quinticInOut',
         series: [
           {
             name: 'IP',
             type: 'graph',
-            layout: 'force',
+            layout: 'circular',
+            circular: {
+              rotateLabel: true,
+              radius: '50%'
+            },
+            // layout: 'none', // 배치를 무작위로 설정합니다
             data: net_node,
             links: net_link,
             roam: true,
+            // label: {
+            //   position: 'right',
+            //   formatter: '{b}'
+            // },
             label: {
               position: 'right'
             },
+            lineStyle: {
+              color: 'source',
+              curveness: 0.3
+            },
+            emphasis: { // 강조 효과를 설정합니다.
+              focus: 'adjacency', // 인접한 노드와 링크에만 강조 효과 적용
+              // lineStyle: {
+              //   // opacity: 0.5, // 강조된 링크의 투명도
+              //   opacity: 1, 
+              //   width: 2, // 강조된 링크의 두께
+              //   opacity: 1
+              // },
+              emphasisLineStyle: {
+                opacity: 1, // 강조된 엣지의 투명도
+                width: 2, // 강조된 엣지의 두께
+                shadowBlur: 0, // 그림자 효과 제거
+                shadowColor: 'transparent' // 그림자 효과 제거
+              },
+              // lineStyle: {
+              //   width: 3  // 링크 굵기
+              // },
+              // edgeLabel: {
+              //   show: true,  // 링크에 라벨 표시
+              //   formatter: function(params) {
+              //       return `IP: ${params.data.source} - ${params.data.target}  Value: ${params.data.value}`;
+              //   },
+              //   textStyle: {
+              //     fontWeight: 'bold',  // 글씨 굵기 설정
+              //     color: '#fff',
+              //     opacity: 1
+              //   }
+              // },
+              itemStyle: {
+                color: 'pink'  // 링크와 연결된 노드의 색상
+              },
+              focus: 'adjacency'  // 강조된 링크와 연결된 노드만 색상 변경
+            }
+          }
+        ]
+      };
+      //   backgroundColor: "black",
+      //   // tooltip: {},
+      //   tooltip: {
+      //     position: function (pt) {
+      //       return [pt[0] + 10, pt[1] - 90];
+      //     },
+      //     formatter: function(params) {
+      //       if (params.dataType === 'node') { // 노드가 강조됐을 때
+      //         const node = params.data;
+      //         const nodeName = node.name;
+      //         const value = node.value;
+      //         const iconStyle = 'display:inline-block;margin-right:5px;width:10px;height:10px;border-radius:50%;background-color:#5ff0ffa8;';
+      //         return `<span style=${iconStyle}></span> Node <br>IP: <b>${nodeName}</b>   Value: <b>${value}</b>`;
+      //       } else { // 링크가 강조됐을 때
+      //         const link = params.data;
+      //         const sourceNodeName = link.source;
+      //         const targetNodeName = link.target;
+      //         const value = link.value;
+      //         const iconStyle = 'display:inline-block;margin-right:5px;width:10px;height:10px;border-radius:50%;background-color:#dee2a2;';
+      //         return `<span style=${iconStyle}></span>Link <br> Source: <b>${sourceNodeName}</b>   Target: <b>${targetNodeName}</b>   Value: <b>${value}</b>`;
+      //       }
+      //     }
+      //   },
+      //   series: [
+      //     {
+      //       name: 'IP',
+      //       type: 'graph',
+      //       layout: 'force',
+      //       data: net_node,
+      //       links: net_link,
+      //       roam: true,
+      //       label: {
+      //         position: 'right'
+      //       },
             // emphasis: {
             //   lineStyle: {
             //     width: 3  // 링크 굵기
@@ -1345,25 +1442,31 @@ $.ajax({
             //   },
             //   focus: 'adjacency'  // 강조된 링크와 연결된 노드만 색상 변경
             // },
-            force: {
-              repulsion: 100
-            },
-            lineStyle: {
-              color: "#dee2a2",
-            }
-          }
-        ]
-      };
+      //       force: {
+      //         repulsion: 100
+      //       },
+      //       lineStyle: {
+      //         color: "#dee2a2",
+      //       }
+      //     }
+      //   ]
+      // };
 
 
       //qrps-pro 테이블
+      
+      
+      // top 프토토콜, qps, rps 데이터 테이블
+      
+      
       const qprs_Node = document.querySelectorAll('.qrps-data .value');
       qprs_Node[0].innerHTML = data.max_aly[2].max_value;
       qprs_Node[1].innerHTML = data.max_aly[3].max_value;
 
+      // pro_max를 pro_ratio df로 변경함.
       const maxpro_Node = document.querySelectorAll('.pro-data .value');
-      maxpro_Node[0].innerHTML = data.pro_max[0].value;
-      maxpro_Node[1].innerHTML = data.pro_max[1].value;
+      maxpro_Node[0].innerHTML = data.pro_ratio[0].Protocol2;
+      maxpro_Node[1].innerHTML = data.pro_ratio[0].ratio;
 
 
       //iat 테이블
@@ -1422,7 +1525,7 @@ $.ajax({
       // 네번째 문단
       const text4 = document.querySelectorAll('.text-4 span');
       console.log(text4);
-      text4[0].innerHTML = data.con[0].Source_IP;          //교류량이 가장 많은 소스ip
+      text4[0].innerHTML = data.con[0].Source_IP;         //교류량이 가장 많은 소스ip
       text4[1].innerHTML = data.con[0].Destination_IP;    //도착ip
       text4[2].innerHTML = data.con[0].count;             //교류횟수
       text4[3].innerHTML = data.con[0].sum;               //해당 패킷 길이
@@ -1430,8 +1533,8 @@ $.ajax({
       text4[5].innerHTML = data.con[0].max;               // 최대
       text4[6].innerHTML = data.con[0].min;               // 최소
       text4[7].innerHTML = data.con[0].ratio;             // 비율
-      text4[8].innerHTML = data.pro_max[0].value;         //최대 프로토콜
-      text4[9].innerHTML = data.pro_max[1].value;         //비율
+      text4[8].innerHTML = data.pro_ratio[0].Protocol2;   //최대 프로토콜
+      text4[9].innerHTML = data.pro_ratio[0].ratio;       //비율
 
 
 
@@ -1445,8 +1548,8 @@ $.ajax({
 
       // 네번째 문단: 공격 발견시 공격 문단 생성
       const attk_box = document.querySelector('.attk_section');
-      let add_node='<p class="text-1">현재 이상 데이터 <span></span> 는 <span></span> - <span></span>에서 발견 되었으며, 현재 데이터의 최고값 BPS는 <span></span> bytes/s, PPS는 <span></span> packets/s, QPS는 <span></span> queries/s, RPS는 <span></span> rquests/s입니다. 이상 데이터로 찍히는 Source IP는 <span></span>이며, Destination IP는 <span></span> 입니다. 해당 프로토콜은 <span></span>입니다.</p><p class="text-3">아래 표는 <span></span> 공격이 탐지된 데이터의 정보입니다. 아래 표를 확인하여, 해당 IP를 차단하세요</p>'
-      +'<div class="attk_table"><table><tr><td colspan="2">IP</td><td colspan="4">Length</td><td rowspan="2">Time</td></tr><tr><td>Source</td><td>Destination</td><td>Mean</td><td>Min</td><td>Max</td><td>Sum</td></tr><!-- 데이터 추가 --></table></div>';
+      let add_node='<p class="text-1">현재 이상 데이터 <span></span> 는 <span></span> - <span></span>에서 발견 되었으며, 현재 데이터의 최고값 BPS는 <span></span> bytes/s, PPS는 <span></span> packets/s, QPS는 <span></span> queries/s, RPS는 <span></span> rquests/s입니다. 이상 데이터로 찍히는 Source IP는 <span></span>이며, Destination IP는 <span></span> 입니다.</p><p class="text-3">아래 표는 <span></span> 공격이 탐지된 데이터의 정보입니다. 아래 표를 확인하여, 해당 IP를 차단하세요</p>'
+      +'<div class="attk_table"><table><tr><td colspan="2">IP</td><td colspan="2">Port</td><td colspan="4">Length</td><td rowspan="2">Time</td></tr><tr><td>Source</td><td>Destination</td><td>Source</td><td>Destination</td><td>Mean</td><td>Min</td><td>Max</td><td>Sum</td></tr><!-- 데이터 추가 --></table></div>';
       
       
 
@@ -1483,15 +1586,12 @@ $.ajax({
         console.log(t1);
         t1[0].innerHTML = atk;      //공격
         t1[0].classList.add('rd');
-        t1[1].innerHTML = data.attack_time[attk_index].FirstTimestamp;          //공격 시작시간
+        t1[1].innerHTML = data.attack_time[attk_index].FirstTimestamp;           //공격 시작시간
         t1[2].innerHTML = data.attack_time[attk_index].LastTimestamp;          //공격 마지막 시간
         for (let j = 0; j < 4; j++){                                   //최고 bps, pps, qps, rps
           t1[j+3].innerHTML = data.attack_max_aly[atk][j].value.toLocaleString();;
         }
 
-        // const t2 = attk_box.querySelectorAll('.text-2 span');
-        // t2[0].innerHTML = data.attack_aly[atk][0].Source_IP;
-        // t2[1].innerHTML = data.attack_aly[atk][0].Destination_IP;
         t1[7].innerHTML = data.attack_aly[atk][0].Source_IP;
         t1[8].innerHTML = data.attack_aly[atk][0].Destination_IP;
 
@@ -1504,13 +1604,13 @@ $.ajax({
         // 공격별 테이블
         const attk_table = attk_box.querySelector(".attk_table tbody");
         let atk_data = data.attack_aly[atk].map(function(item) {
-          return [item.Source_IP, item.Destination_IP, item.min, item.mean, item.max, item.sum, item.Timestamp];
+          return [item.Source_IP, item.Destination_IP, item.Source_Port, item.Destination_Port, item.min, item.mean, item.max, item.sum, item.Timestamp];
         });
         for (let i = 0; i < atk_data.length; i++) {
           let trNode = document.createElement("tr");
           let trdata = atk_data[i];
   
-          for(let j = 0; j < 7; j++) {
+          for(let j = 0; j < 9; j++) {
             let tdNode = document.createElement("td");
             tdNode.textContent = trdata[j];
             trNode.appendChild(tdNode);
@@ -1596,8 +1696,7 @@ $.ajax({
       sig_option && sig.setOption(sig_option);
       qps_option && qps.setOption(qps_option);
       rps_option && rps.setOption(rps_option);
-      scrpro_option && scrpro.setOption(scrpro_option);
-      dstpro_option && dstpro.setOption(dstpro_option);
+      pro_option && pro.setOption(pro_option); //프로토콜별 빈도
       pal_option && pal.setOption(pal_option);
       flag_option && flag.setOption(flag_option);
       net_option && net.setOption(net_option);
@@ -1611,11 +1710,12 @@ $.ajax({
   complete: function() {
     // Ajax 요청이 완료된 후 로딩 화면을 숨김
     $('#loading_sc').hide();
+    $('body').css('overflow', 'scroll');
   }
-
     
 });
-  
+
+
 
 
 

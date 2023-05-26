@@ -77,15 +77,15 @@ WSGI_APPLICATION = 'signature.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 # 여기 변경
-DATABASES = my_settings.DATABASES
-SECRET_KEY = my_settings.SECRET_KEY
+# DATABASES = my_settings.DATABASES
+# SECRET_KEY = my_settings.SECRET_KEY
 
 
 # Password validation
@@ -165,3 +165,13 @@ ALLOWED_HOSTS = [
     '127.0.0.1:8000',
     '35.78.49.27',  # 추가 탄력적 ip
 ]
+
+
+FILE_UPLOAD_HANDLERS = [
+    'django.core.files.uploadhandler.MemoryFileUploadHandler',
+    'django.core.files.uploadhandler.TemporaryFileUploadHandler',
+    # 추가적인 파일 업로드 핸들러를 여기에 추가할 수 있습니다.
+]
+
+
+SESSION_COOKIE_AGE = 3600  # 세션의 만료 시간을 1시간으로 설정

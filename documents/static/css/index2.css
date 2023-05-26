@@ -54,7 +54,7 @@ body {
     color: white;
     font-weight: 500;
     font-size: 120px;
-    animation: fadeIn 2.5s cubic-bezier(0.46, 0.03, 0.52, 0.96);
+    animation: fadeIn 1.8s cubic-bezier(0.46, 0.03, 0.52, 0.96);
 
 }
 
@@ -76,26 +76,24 @@ body {
     color:  var(--dark-grey);
     font-weight: 300;
     font-size: 28px;
-    animation: fadeIn2 3s cubic-bezier(0.46, 0.03, 0.52, 0.96);
+    animation: fadeIn2 2.6s cubic-bezier(0.46, 0.03, 0.52, 0.96);
 
 }
 
-
+/* 자세히보기 보튼 */
 #detail-btn {
     top: 520px;
     position: absolute;
     width: 160px;
     height: 45px;
-    /* border: 3.5px solid #1187CF; */
     border: 2.6px solid #1187CF;
     background-color: transparent;
     color: #1187CF;
     line-height: 45px;
     text-align: center;
-    /* font-size: 20px; */
     font-size: 18px;
     transition: all 0.35s ease-out;
-    animation: fadeIn2 4s cubic-bezier(0.46, 0.03, 0.52, 0.96);
+    animation: fadeIn2 3.2s cubic-bezier(0.46, 0.03, 0.52, 0.96);
 }
 
 #detail-btn:hover {
@@ -126,6 +124,20 @@ body {
 }
 
 /* 파일 업로드란 */
+form {
+    color: #bfbebe;
+}
+
+/* 파일 업로시 안내 */
+form .info {
+    height: 20px;
+    margin: 0 0 16px;
+    font-size: 8px;
+    color: var(--dark-grey);
+    opacity: 0.5;
+}
+
+
 .upload-box {
     /* width: 700px; */
     min-width: 300px;
@@ -134,12 +146,10 @@ body {
     background-color: #EEEEEE;;
     border-radius: 5px;
     line-height: 40px;
-    margin: 21px auto;
+    margin: 21px auto 10px;
     box-shadow: 1px 1px 3px var(--light-grey);
 }
-form {
-    color: #bfbebe;
-}
+
 .upload-box input {
     transform: translate(30%, 0);
     color: #bfbebe;
@@ -152,6 +162,7 @@ form {
 .upload-box input::file-selector-button {
     display: none;
 }
+
 
 /* 분석하기 버튼 */
 .upload-btn {

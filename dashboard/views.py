@@ -16,50 +16,48 @@ from django.conf import settings
 # 파일 저장 모델
 from .models import UploadedFile
 from .forms import UploadedFileForm
+from django.shortcuts import render, get_object_or_404
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
+
+# 사용자 구분
+import uuid
 
 
 class DashboardView(View):
-    def get(self, request):
-        return render(request, 'dashboard/dashboard.html')
+    def get(self, request, file_id):
+        print("파일 아이디", file_id)
+        return render(request, 'dashboard/dashboard.html', {'file_id': file_id})
 
     def post(self, request):
         if request.method == 'POST' and request.FILES['csv_file']:
 
             csv_file = request.FILES['csv_file']
-            # CSV 파일에서 데이터를 읽어서 원하는 작업을 수행 / 데이터프레임
             df = pd.read_csv(csv_file)
 
-            # csv 파일 컬럼 검사
-            # columns_to_check = ['Source IP', 'Destination IP', 'Protocol', 'Source Port',
-            #                     'Destination Port', 'Timestamp', 'FIN Flag Count',
-            #                     'SYN Flag Count', 'RST Flag Count', 'PSH Flag Count',
-            #                     'ACK Flag Count', 'URG Flag Count', 'CWE Flag Count',
-            #                     'ECE Flag Count', 'SYN_ACK_Count', 'Length', 'IAT']
-
-            # ids 모델 예측전 데이터 전처리
+            # 공격 유형 판별 (ids)
             labels = PreProcessing(df)
             df['labels'] = labels
 
+            # 고유한 식별자 생성
+            file_identifier = str(uuid.uuid4())
+
             # df => csv 파일로 저장
             # 파일 경로 설정
-            file_path = os.path.join(settings.MEDIA_ROOT, 'data.csv')
-
-            # 사용자별 테이블 생성하기
-            if os.path.exists(file_path):
-                os.remove(file_path)
-                print(f'{file_path} 이전 파일 삭제.')
-            else:
-                df.to_csv(file_path, index=False)
-                print(f'{file_path} 파일 저장.')
+            file_path = os.path.join(
+                settings.MEDIA_ROOT, f'upload_files/{file_identifier}.csv')
 
             # DataFrame을 CSV 파일로 저장
             df.to_csv(file_path, index=False)
 
-            return redirect('/dashboard')
+            print("파일 보내기", file_identifier)
+            return JsonResponse({'file_id': file_identifier})
 
-        # 파일이 안 들어왔을 경우 : 메인페이지 랜더링 -> 이후 alert메세지 등 추가하기
+            # url에서 미디어 폴더에 저장하는 코드 추가 필요 (경로가 제대로 맞는 건지 확인 필요) => 이거 로그인 기능 넣어서 할 건지
+
         else:
             return render(request, 'document/index.html')
+
 
 #
 #
@@ -71,12 +69,12 @@ def PreProcessing(data):
 
     # IDS는 컬럼이 23으로 이루어져 있으므로 그에 맞게 컬럼을 추출함.
     # 추출할 컬럼 리스트
-    cols_to_keep = ['Source IP', 'Destination IP', 'Protocol', 'Source Port', 'Destination Port', 'IAT',
-                    'Min Packet Length', 'Max Packet Length', 'Packet Length Mean', 'Packet Length Std']
+    # cols_to_keep = ['Source IP', 'Destination IP', 'Protocol', 'Source Port', 'Destination Port', 'IAT',
+    #                 'Min Packet Length', 'Max Packet Length', 'Packet Length Mean', 'Packet Length Std']
 
     # 새로 바뀐 전처리
-    # cols_to_keep = ['Source IP', 'Destination IP', 'Protocol', 'Source Port', 'Destination Port', 'FIN Flag Count', 'SYN Flag Count', 'RST Flag Count',
-    #                 'PSH Flag Count', 'ACK Flag Count', 'URG Flag Count', 'CWE Flag Count', 'ECE Flag Count', 'Length', 'IAT']
+    cols_to_keep = ['Source IP', 'Destination IP', 'Protocol', 'Source Port', 'Destination Port', 'FIN Flag Count', 'SYN Flag Count', 'RST Flag Count',
+                    'PSH Flag Count', 'ACK Flag Count', 'URG Flag Count', 'CWE Flag Count', 'ECE Flag Count', 'Length', 'IAT']
 
     # 요구하는 컬럼만 추출하여 새로운 DataFrame 생성
     new_dataset = data[cols_to_keep]
@@ -90,8 +88,8 @@ def PreProcessing(data):
     predict_df = new_dataset
 
     # ids 적용 : 모델 불러오기
-    model = joblib.load('./dashboard/media/model.pkl')
-    # model = joblib.load('./dashboard/media/new_model.pkl')
+    # model = joblib.load('./dashboard/media/model.pkl')
+    model = joblib.load('./dashboard/media/new_model.pkl')
 
     # 예측하기
     y_pred = model.predict(predict_df)
@@ -116,13 +114,17 @@ def MakeTable(labels):
 
 
 # 대시보드로 데이터 전달
-def GetData(request):
+def GetData(request, file_id):
 
     # csv 파일 받아오기
-    data = pd.read_csv(os.path.join(settings.MEDIA_ROOT, 'data.csv'))
+    file_path = os.path.join(
+        settings.MEDIA_ROOT, f'upload_files/{file_id}.csv')
+
+    # 이 구문에서 에러처리해놓기
+    data = pd.read_csv(file_path)
 
     # 서버 올리기 전에 주석 처리
-    data.rename(columns={'Min Packet Length': 'Length'}, inplace=True)
+    # data.rename(columns={'Min Packet Length': 'Length'}, inplace=True)
 
     # 파이썬 정규표현식 + 열 이름 전환
     cols = data.columns
@@ -228,26 +230,34 @@ def GetData(request):
     rps_pivot = rps_pivot.reset_index().rename_axis(None, axis=1).to_dict('records')
 
     # 6. 프로토콜 빈도
-    scrpro = data.groupby(['Protocol2', 'Source_Port'], as_index=False).agg(
-        n=('Protocol2', 'count')).sort_values(by='n', ascending=False).head(10).reset_index(drop=True).to_dict('records')
+    pro_df1 = data[['Protocol2', 'Source_Port']]
+    pro_df2 = data[['Protocol2', 'Destination_Port']]
+    pro_df1.rename(columns={'Source_Port': 'Port'}, inplace=True)
+    pro_df2.rename(columns={'Destination_Port': 'Port'}, inplace=True)
 
-    dstpro = data.groupby(['Protocol2', 'Destination_Port'], as_index=False).agg(
-        n=('Protocol2', 'count')).sort_values(by='n', ascending=False).head(10).reset_index(drop=True).to_dict('records')
+    # 데이터 프레임 합치기
+    pro_fre = pd.concat([pro_df1, pro_df2], axis=0)
+    pro_freq = pro_fre.groupby(['Protocol2', 'Port'], as_index=False).agg(
+        n=('Protocol2', 'count')).sort_values(by='n', ascending=False)
+    pro_freq = pro_freq.sort_values(
+        by='n', ascending=False).reset_index(drop=True)
+    # 상위 10개
+    pro_freq['ratio'] = round(pro_freq['n']/pro_freq['n'].sum() * 100, 1)
+    pro_freq_10 = pro_freq.head(10)
+
+    # etc
+    pro_f = pro_freq.iloc[10:, 0:3]
+    pro_f = pro_f.groupby('Protocol2', as_index=False).agg(
+        n=('n', 'sum')).sort_values(by='n', ascending=False)
+    pro_f['ratio'] = round(pro_f['n']/pro_freq['n'].sum() * 100, 1)
+    pro_f['Port'] = 'etc'
+    pro_fre_fin = pd.concat([pro_freq_10, pro_f], axis=0).to_dict('records')
 
     # protocol frequency (프로토콜별 ratio)
     pro_ratio = data.groupby('Protocol2', as_index=True).agg(
         n=('Protocol2', 'count')).sort_values(by='n', ascending=False).reset_index()
     pro_ratio['ratio'] = round(pro_ratio['n']/pro_ratio['n'].sum()*100, 2)
-
-    max_pro = pro_ratio.loc[pro_ratio['ratio'].idxmax(), [
-        'Protocol2']]['Protocol2']
-    pro_max_ratio = pro_ratio['ratio'].max()
-
-    pro_max = pd.DataFrame({
-        'name': ['pro', 'ratio'],
-        'value': [max_pro, pro_max_ratio]
-    })
-    pro_max = pro_max.to_dict('records')
+    pro_ratio = pro_ratio.to_dict('records')
 
     # 7. 패킷길이 빈도
     pal = data.groupby('Length').size().reset_index(
@@ -364,13 +374,6 @@ def GetData(request):
         lambda x: format(x, ','))  # 반점 처리
     attack_count = attack_count.to_dict('records')
 
-    # 프로토콜 빈도
-    protocol_count = data.groupby("Protocol").agg(
-        count=('Protocol', 'count')).reset_index()
-    protocol_count['count'] = protocol_count['count'].apply(
-        lambda x: format(x, ','))
-    protocol_count = protocol_count.to_dict('records')
-
     # 13. conversation + 통계
     con = data.groupby(['labels2', 'Source_IP', 'Destination_IP']).agg(sum=('Length', 'sum'), mean=(
         'Length', 'mean'), min=('Length', 'min'), max=('Length', 'max'), count=('Source_IP', 'count')).apply(lambda x: round(x, 2)).reset_index()
@@ -424,7 +427,7 @@ def GetData(request):
     for atk in attk_only:
         # 시그니처
         filtered_df = data[data['labels2'] == atk]
-        grouped_df = filtered_df.groupby(['Timestamp', 'labels2', 'Source_IP', 'Destination_IP']).agg(
+        grouped_df = filtered_df.groupby(['Timestamp', 'labels2', 'Source_IP', 'Destination_IP', 'Source_Port', 'Destination_Port']).agg(
             sum=('Length', 'sum'),
             mean=('Length', 'mean'),
             min=('Length', 'min'),
@@ -448,7 +451,6 @@ def GetData(request):
 
     # 데이터 변환
     data = {
-        # 'attacks': attacks.tolist(),    # 공격 유형
         'attack_time': new_df,
         'attack_aly': attack_aly,
         'attack_max_aly': attack_max_aly,
@@ -460,9 +462,8 @@ def GetData(request):
         'qps_attack': qps_pivot,
         'rps_attack': rps_pivot,
         'max_aly': max_aly,
-        'scrpro': scrpro,               # 프로토콜 빈도
-        'dstpro': dstpro,                # 프로토콜 빈도
-        'pro_max': pro_max,
+        'pro': pro_fre_fin,
+        'pro_ratio': pro_ratio,
         'pal': palnew,
         'palmax_len': palmax_len,
         'palmax_cnt': palmax_cnt,
@@ -475,7 +476,6 @@ def GetData(request):
         'won_aly': won_aly,
         'total_cnt': total_count,
         'attack_cnt': attack_count,
-        'protocol_cnt': protocol_count,
         'con': con                         # conversation
     }
 
