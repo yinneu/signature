@@ -4,7 +4,7 @@ const topBtn = document.querySelector('#arrow-up');
 
 window.addEventListener('scroll', (e) => {
     let roll = window.scrollY;
-    if (roll > 400) {
+    if (roll > 100) {
         topBtn.style.display = 'block';
     }else {
         topBtn.style.display = 'none';

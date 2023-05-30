@@ -4,16 +4,27 @@
 #loading_sc {
     position: fixed;
     display: none;
-    width: 100vw;
-    height: 100vh;
+    top:0;
+    width: 100%;
+    height: 100%;
     background-color: rgba(0, 0, 0, 0.57);
     z-index: 50;
 }
 
+#icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    transform: translateY(-50%, -50%);
+}
+
 #loading_sc img {
     position: absolute;
-    top: 32%;
-    left: 50%;
+    /* top: 0%; */
+    /* left: 50%; */
     width: 50px;
     margin: 0 auto;
     transform: translateX(-50%);
@@ -21,8 +32,8 @@
 
 #loading_sc p {
     position: absolute;
-    top: 38%;
-    left: 50%;
+    top: 60px;
+    /* left: 50%; */
     text-align: center;
     transform: translateX(-50%);
 }

@@ -6,10 +6,11 @@
     justify-content: space-between;
     align-items: center;
     top: 0px;
-    width: 100%; 
+    /* width: 100%;  */
+    width: 100vw;
     height: 80px;
     background-color: black;
-    z-index: 3;
+    z-index: 900;
     border: 2px solid black;;
     /* 위아래만 색이 다르도록 */
     border-top-color: seashell; 
@@ -123,4 +124,28 @@
     cursor: pointer;
     color: #ebac12;
     /* text-shadow: 0.5px 0.5px 2px #ebac12; */
+}
+
+
+
+@media all and (max-width:767px) {
+    .navbar-visible {
+        height: 600px;
+    }
+
+    .list-visible {
+        height: 500px;
+    }
+    
+    .navbar-list {
+        width: 300px;
+        margin: 50px auto;
+        box-sizing: border-box;
+    }
+
+
+    .navbar-list ul { 
+        width: 200px;
+        margin: 10px 46px;
+    }
 }

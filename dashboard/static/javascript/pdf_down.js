@@ -14,7 +14,11 @@ window.onbeforeprint = function () {
 
     $("#data_aly").css("margin-top", "80px"); 
 
-    // $("#security_rd").css("margin-top", "1000px");
+    $("#arrow-up").css("display", "none"); 
+
+    $("#table_con").css("margin-top", "100px"); 
+
+    // $("#security_rd").css("margin-top", "100px");
 };
 
 
@@ -30,6 +34,10 @@ window.onafterprint = function () {
     $(".down_pdf").css("display", "block"); 
 
     $("#data_aly").css("margin-top", "20px"); 
+
+    $("#arrow-up").css("display", "block"); 
+
+    $("#table_con").css("margin-top", "0"); 
 
     // $("#security_rd").css("margin-top", "20px");
 

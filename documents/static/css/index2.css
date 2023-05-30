@@ -3,7 +3,7 @@
 body {
     background-color: black;
     /* 나중에 미디어쿼리 처리 */
-    min-width: 350px;
+    /* min-width: 350px; */
 }
 
 /* Navbar border */
@@ -308,3 +308,74 @@ hr {
     color: black;
     background-color: rgb(182, 182, 182);
 }
+
+
+/* 모바일 가로 & 테블릿 세로 (해상도 480px ~ 767px)*/ 
+@media all and (max-width:767px) {
+
+    /* 메인타이틀 */
+    #main-title {
+        top: 310px;
+        font-size: 68px;
+    
+    }
+
+    #main-subtitle {
+        top: 300px;
+        font-size: 20px;
+    
+    }
+
+    @keyframes fadeIn {
+        0% {
+          opacity: 0;
+          top: 0px;
+        }
+        60% {
+            opacity: 0;
+        }
+        100% {
+          opacity: 1;
+          top: 310px;
+        }
+    }
+    
+    @keyframes fadeIn2 {
+        0% {
+          opacity: 0;
+        }
+        80% {
+            opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+    }
+
+
+    #detail-btn {
+        top: 480px;
+        width: 120px;
+        height: 45px;
+        border: 2.6px solid #1187CF;
+        line-height: 45px;
+        font-size: 16px;
+
+    }
+
+
+    .exp-imgs {
+        /* width: 380px; */
+        min-width: 0;
+        width: 180px;
+
+    }
+
+
+    /* 스크립트 캡쳐 페이지, 업로드란 이동 */
+    .test-content img {
+        width: 180px;
+        margin: 5% 0;
+    }
+    
+} 

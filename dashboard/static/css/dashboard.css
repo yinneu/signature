@@ -39,7 +39,7 @@ canvas {
     text-align: center;
     font-weight: 600;
     font-size: 19px;
-    margin: 6px 0 8px;
+    margin: 8px 0;
     z-index: 2;
 }
 
@@ -159,7 +159,7 @@ canvas {
 
 /* 3번째 그래프 영역 */
 #graphs_3 {
-    height: 475px;
+    height: 880px;
     border-bottom: 1px solid var(--dark-grey);
 }
 

@@ -1,6 +1,25 @@
 // document \ send_data.js
 
 "use strict"
+// 로딩 페이지
+let body = this.document.querySelector('body');
+let loadingScreen = document.getElementById('loadingScreen');
+let expItems = document.querySelectorAll('.exp-item');
+let submitBtn = document.querySelector('.upload-btn');
+let currentIndex = 0;
+
+// 로딩 페이지
+function showNextElement() {
+    expItems[currentIndex].style.display = 'block';
+  
+    setTimeout(function() {
+      expItems[currentIndex].style.display = 'none';
+      currentIndex = (currentIndex + 1) % expItems.length;
+      showNextElement();
+    }, 5000); // 5초 후에 다음 요소를 보여줌
+}
+
+
 
 // form 데이터 post
 $(document).ready(function() {
@@ -11,12 +30,13 @@ $(document).ready(function() {
       var fileInput = document.getElementById('csv_file');
       var file = fileInput.files[0];
       NProgress.configure({ showSpinner: true });
-  
+
       // 파일이 선택되지 않았거나 CSV 파일이 아닌 경우
       if (!file || file.type !== 'text/csv') {
         alert('CSV 파일을 넣어주세요.');
         return;
       }
+  
   
       var reader = new FileReader();
       reader.onload = function(e) {
@@ -40,8 +60,7 @@ $(document).ready(function() {
               showNextElement();
             },
             success: function(data) {
-              let file_id = data.file_id;
-              window.location.href = '/dashboard/' + file_id + '/'
+              window.location.href = '/dashboard/';
               console.log('성공');
             },
             error: function(xhr, status, error) {

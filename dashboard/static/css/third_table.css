@@ -5,6 +5,7 @@
 /* iat data table */
 #iat-table {
     width: 100%;
+    top: 418px;
     height: 90px;
 }
 
@@ -26,9 +27,11 @@
 /* qps */
 #iat-box {
     position: absolute;
-    top: 116px;
-    width: 31.5%;
-    height: 360px;
+    /* top: 112px; */
+    /* width: 31.5%; */
+    width: 36%;
+    /* height: 360px;*/
+    height: 400px; 
 }
 #graph_iat {
     position: absolute;
@@ -39,20 +42,58 @@
 }
 
 
-/* iat 그래프 */
-/* #graph_iat {
-    top: 116px;
-    width: 31.5%;
-    height: 360px;
-} */
+/* 시그니처 */
+#sig_box {
+    position: absolute;
+    border: 1px solid grey;
+    /* top: 112px; */
+    left: 36.5%;
+    /* width: 50%; */
+    width: 63.5%;
+    /* height: 510px; */
+    height: 400px;
+    /* overflow: hidden; */
+    overflow: visible;
+    z-index: 2;
+}
+
+#sig_box .graph_box {
+    position: absolute;
+    top: 6%;
+    width: 100%;
+    height: 94%;
+    overflow: hidden;
+}
+
+#graph_sig {
+    top: 0;
+    width: 104%;
+    height: 100%;
+    border: none;
+}
+
+#sig_box .info-box {
+    position: absolute;
+    /* top: 2%; */
+    width: 100%;
+    /* justify-content: flex-end; */
+    /* margin: 10px -10px; */
+    z-index: 3;
+}
+
+#sig_box .info-contents {
+    width: 98%;
+    transform: translate(0%,-116%);
+    /* transform: translate(-40%,-116%); */
+}
 
 
 /* conversaion 표 */
 #table_con {
     position: absolute;
-    top: 116px;
-    left: 32%;
-    width: 68%;
+    top: 520px;
+    /* left: 32%; */
+    width: 100%;
     height: 360px;
     border: 1px solid grey;
 }

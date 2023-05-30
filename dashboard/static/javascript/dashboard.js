@@ -23,35 +23,63 @@ let qps_series = [];
 let rps_series = [];
 let pro_series = [];
 
+const hexaCode = ["0","1","2","3","4","5","6","7","8","9"] 
+const hexaCodeA = ["A","B","C","D","E","F"]
+const plus = hexaCode.concat(hexaCodeA);
+
+function getRandomColor() { 
+  let random = "";
+    
+  for(let i=0;i<6;i++){
+      let johap = plus[parseInt(Math.random()*plus.length)]
+      random+= johap;
+  }
+  // img.style.background = '#'+random;
+  // text.innerText = '#'+random;
+  // random=''; //초기화 
+  console.log(random);
+  return '#'+random;
+  
+}
+
 
 // 색 랜덤 지정
-function getRandomColor() {
-  const letters = '0123456789ABCDEF';
-  let color = '#';
-  for (let i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return "#"+(parseInt(Math.random()*0xffffff)).toString(16);
-}
+// function getRandomColor() {
+
+//   const letters = '0123456789ABCDEF';
+//   let color = '#';
+//   for (let i = 0; i < 6; i++) {
+//     color += letters[Math.floor(Math.random() * 16)];
+//   }
+//   return "#"+(parseInt(Math.random()*0xffffff)).toString(16);
+// }
 
 // 공격유형별 색상이 다르게
 const colorlt = {
   'DDoS': '#E06280',
-  'DoS Slowhttptest': '#32C5E9',
-  'DoS slowloris': '#67E0E3',
-  'DoS Hulk': '#9FE6B8',
-  'DoS GoldenEye': '#FFDB5C',
+  'DoS_Slowhttptest': '#32C5E9',
+  'DoS_slowloris': '#67E0E3',
+  'DoS_Hulk': '#9FE6B8',
+  'Dos_GoldenEye': '#FFDB5C',
   'PortScan': '#FF9F7F',
   'Heartbleed': '#FB7293',
   'Botnet': '#E062AE',
   'Infiltration': '#E690D1',
-  'ICMP flooding': '#E7BCF3',
+  'ICMP_flooding': '#E7BCF3',
   'FTP-Patator': '#9D96F5',
   'SSH-Patator': '#8378EA',
   'QPS': '#96BFFF',
-  'ICMP': '#F5C3CB',
-  'UDP': '#FADEA5',
-  'TCP': '#A5FAD2',
+  // 'ICMP': '#F5C3CB',
+    // 'UDP': '#FADEA5',
+  // 'TCP': '#A5FAD2',
+  'ICMP': '#E06280',
+  // 'UDP': 'yellow',
+  'UDP': '#ffaa00',
+  'TCP': '#00fff2',
+  // 자식
+  'ICMP_c': '#E062AE',
+  'UDP_c': '#E7BCF3',
+  'TCP_c': '#FFDB5C',
   'signature': '#4CA6FF'
 };
 
@@ -62,7 +90,7 @@ let file_id = document.getElementById('file-id').dataset.file;
 console.log("File ID:", file_id);
 
 $.ajax({
-    url: '/dashboard/get_data/' + file_id + '/',
+    url: '/dashboard/get_data/',
     type: 'GET',
     dataType: 'json',
     beforeSend: function() {
@@ -115,6 +143,14 @@ $.ajax({
 
       // 공격유형에 따라 분류된 데이터들 받아오기
       for (let i = 0; i < attlen; i++) {
+        let only_normal;
+        if (attlen == 1) {
+          only_normal = true;
+        }else {
+          only_normal = false;
+        }
+
+
           // 공격유형
           let atk = attacks[i];
           // let atkcol = '#4CA6FF';
@@ -124,8 +160,7 @@ $.ajax({
           if (atk != "Normal") {
             atkcol = colorlt[atk];
           }
-          
-
+    
           // 시그니처
           if (atk == "Normal") {
             atkcol = '#4CA6FF';
@@ -146,9 +181,18 @@ $.ajax({
 
 
           //bps
-          if (atk == "Normal") {
-            atkcol = 'rgb(255, 70, 131)';
+          if(only_normal){
+            atkcol = '#E6205D';
+          }else {
+            if (atk == "Normal") {
+              // atkcol = '#E6205D';
+              atkcol = '#6A0E2B'
+            } else {
+              // atkcol = '#E68FAA';
+              atkcol = '#E6205D';
+            }
           }
+
           let bps_data = data.bps_attack.map(function(item) { return item[atk]; })
           let bps_serie = {
               name: atk,
@@ -156,31 +200,41 @@ $.ajax({
               symbol: 'none',
               sampling: 'lttb',
               itemStyle: {
-                color: 'rgb(255, 70, 131)'
-                // color: atkcol
+                // color: 'rgb(255, 70, 131)'
+                color: atkcol
                 // color: '#00C20D'
               },
               areaStyle: {
-                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                  {
-                    offset: 0,
-                    color: 'rgb(255, 158, 68)'
-                    // color: '#00AD26'
-                  },
-                  {
-                    offset: 1,
-                    color: 'rgb(255, 70, 131)'
-                    // color: '#00C20D'
-                  }
-                ])
+                // color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                //   {
+                //     offset: 0,
+                //     // color: 'rgb(255, 158, 68)',
+                //     color: atkcol
+                //     // color: '#00AD26'
+                //   },
+                //   {
+                //     offset: 1,
+                //     // color: 'rgb(255, 70, 131)',
+                //     color: atkcol
+                //     // color: '#00C20D'
+                //   }
+                // ])
+                color: atkcol
               },
               data: bps_data  //세로 데이터
             }            
           bps_series.push(bps_serie);
 
           //pps
-          if (atk == "Normal") {
+          if(only_normal){
             atkcol = '#00C20D';
+          }else {
+            if (atk == "Normal") {
+              // atkcol = '#00C20D';
+              atkcol = '#005B05';
+            } else {
+              atkcol = '#00C20D';
+            }
           }
           let pps_data = data.pps_attack.map(function(item) { return item[atk]; })
           let pps_serie = {
@@ -191,23 +245,24 @@ $.ajax({
               itemStyle: {
                 //겉 라인 색상
                 // color: 'rgb(255, 70, 131)'
-                color: '#00C20D' 
-                // color: atkcol
+                // color: '#00C20D' 
+                color: atkcol
               },
               areaStyle: {
                 // 내부영역 색상
-                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                  {
-                    offset: 0,
-                    // color: 'rgb(255, 158, 68)'
-                    color: '#00AD26'
-                  },
-                  {
-                    offset: 1,
-                    // color: 'rgb(255, 70, 131)'
-                    color: '#00C20D'
-                  }
-                ])
+                // color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                //   {
+                //     offset: 0,
+                //     // color: 'rgb(255, 158, 68)'
+                //     color: '#00AD26'
+                //   },
+                //   {
+                //     offset: 1,
+                //     // color: 'rgb(255, 70, 131)'
+                //     color: '#00C20D'
+                //   }
+                // ])
+                color: atkcol
               },
               data: pps_data  //세로 데이터
           }
@@ -215,6 +270,15 @@ $.ajax({
 
 
           // iat
+          if(only_normal){
+            atkcol = '#BC43E0';
+          }else {
+            if (atk == "Normal") {
+              atkcol = '#8830A3';
+            } else {
+              atkcol = '#BC43E0';
+            }
+          }
           let iat_data = data.iat_attack.map(function(item) { return item[atk]; })
           let iat_serie = {
             name: atk,
@@ -225,24 +289,26 @@ $.ajax({
               //겉 라인 색상
               // color: 'rgb(255, 70, 131)'
               // color: '#00C20D' 
-              color : '#c835e3'
+              // color : '#c835e3'
+              color: atkcol
             },
             areaStyle: {
               // 내부영역 색상
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                {
-                  offset: 0,
-                  // color: 'rgb(255, 158, 68)'
-                  // color: '#00AD26'
-                  color : '#c835e369'
-                },
-                {
-                  offset: 1,
-                  // color: 'rgb(255, 70, 131)'
-                  // color: '#00C20D'
-                  color : '#c835e3'
-                }
-              ])
+              // color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              //   {
+              //     offset: 0,
+              //     // color: 'rgb(255, 158, 68)'
+              //     // color: '#00AD26'
+              //     color : '#c835e369'
+              //   },
+              //   {
+              //     offset: 1,
+              //     // color: 'rgb(255, 70, 131)'
+              //     // color: '#00C20D'
+              //     color : '#c835e3'
+              //   }
+              // ])
+              color: atkcol
             },
             data: iat_data  //세로 데이터
           }
@@ -250,34 +316,50 @@ $.ajax({
 
 
           //qps
+          if(only_normal){
+            atkcol = '#4CA6FF';
+          }else {
+            if (atk == "Normal") {
+              atkcol = '#3370AD';
+            } else {
+              atkcol = '#4CA6FF';
+            }
+          }
           let qps_data = data.qps_attack.map(function(item) { return item[atk]; })
           let qps_serie = {
             name: atk,
             type: 'line',
             symbol: 'none',
             sampling: 'lttb',
+            // itemStyle: {
+            //   //겉 라인 색상
+            //   // color: 'rgb(255, 70, 131)'
+            //   // color: '#00C20D' 
+            //   // color : '#238fff'
+            //   color: atkcol
+            // },
             itemStyle: {
-              //겉 라인 색상
-              // color: 'rgb(255, 70, 131)'
-              // color: '#00C20D' 
-              color : '#238fff'
+              color: atkcol
             },
             areaStyle: {
               // 내부영역 색상
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                {
-                  offset: 0,
-                  // color: 'rgb(255, 158, 68)'
-                  // color: '#00AD26'
-                  color : '#238fff9e'
-                },
-                {
-                  offset: 1,
-                  // color: 'rgb(255, 70, 131)'
-                  // color: '#00C20D'
-                  color : '#238fff'
-                }
-              ])
+              // color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              //   {
+              //     offset: 0,
+              //     // color: 'rgb(255, 158, 68)'
+              //     // color: '#00AD26'
+              //     color : '#238fff9e'
+              //     // color: atkcol
+              //   },
+              //   {
+              //     offset: 1,
+              //     // color: 'rgb(255, 70, 131)'
+              //     // color: '#00C20D'
+              //     color : '#238fff'
+              //     // color: atkcol
+              //   }
+              // ])
+              color: atkcol
             },
             data: qps_data  //세로 데이터
           }
@@ -285,6 +367,15 @@ $.ajax({
 
 
           //rps
+          if(only_normal){
+            atkcol = '#FFE955';
+          }else {
+            if (atk == "Normal") {
+              atkcol = '#AC9E39';
+            } else {
+              atkcol = '#FFE955';
+            }
+          }
           let rps_data = data.rps_attack.map(function(item) { return item[atk]; })
           let rps_serie = {
             name: atk,
@@ -295,24 +386,26 @@ $.ajax({
               //겉 라인 색상
               // color: 'rgb(255, 70, 131)'
               // color: '#00C20D' 
-              color : '#d3bd21'
+              // color : '#d3bd21'
+              color: atkcol
             },
             areaStyle: {
               // 내부영역 색상
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                {
-                  offset: 0,
-                  // color: 'rgb(255, 158, 68)'
-                  // color: '#00AD26'
-                  color : '#d3bd218c'
-                },
-                {
-                  offset: 1,
-                  // color: 'rgb(255, 70, 131)'
-                  // color: '#00C20D'
-                  color : '#d3bd21'
-                }
-              ])
+              // color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              //   {
+              //     offset: 0,
+              //     // color: 'rgb(255, 158, 68)'
+              //     // color: '#00AD26'
+              //     color : '#d3bd218c'
+              //   },
+              //   {
+              //     offset: 1,
+              //     // color: 'rgb(255, 70, 131)'
+              //     // color: '#00C20D'
+              //     color : '#d3bd21'
+              //   }
+              // ])
+              color: atkcol
             },
             data: rps_data  //세로 데이터
           }
@@ -346,6 +439,7 @@ $.ajax({
 
       ///// 그래프 옵션
       // 시그니처
+      let max_len = data.won_aly[2].value;
       let schema = [
       //세로선
           { name: 'Source_IP', index: 0, text: 'Source IP' },
@@ -371,24 +465,65 @@ $.ajax({
               bottom : 20
               // left: '40%'
           },
+          // tooltip: {
+          //     backgroundColor: '#222',
+          //     borderColor: '#777',
+          //     borderWidth: 1,
+          //     tooltip: {
+          //       trigger: 'item',
+          //       formatter: '{a} <br/>{b}: {c} {d} {e}'
+          //     },
+          //     textStyle: {
+          //       color: 'lightgrey'
+          //     }
+          // },
+          // tooltip: {
+          //   trigger: 'item',
+          //   // backgroundColor: '#000',
+          //   // // borderColor: '#777',
+          //   // backgroundColor: function(params) {
+          //   //   let dataIndex = params.dataIndex;
+          //   //   let categoryColor = sig_series[dataIndex].lineStyle.color;
+          //   //   return categoryColor;
+          //   // },
+          //   borderWidth: 1,
+          //   // formatter: function(params) {
+          //   //   let tooltipText = '';
+          //   //   let dataIndex = params.dataIndex;
+        
+          //   //   for (let i = 0; i < params.data.length; i++) {
+          //   //     tooltipText += schema[i].text + ': ' + params.data[i] + '<br>';
+          //   //   }
+        
+          //   //   return tooltipText;
+          //   // },
+
+          //   textStyle: {
+          //     color: 'b'
+          //   }
+          // },
           tooltip: {
-              backgroundColor: '#222',
-              borderColor: '#777',
-              borderWidth: 1,
-              //수정하기
-              //formatter: function(params) {
-              // const node = params.data;
-              // const nodeName = node.name;
-              // const value = node.value;
-              // const iconStyle = 'display:inline-block;margin-right:5px;width:10px;height:10px;border-radius:50%;background-color:#5ff0ffa8;';
-              // return `<span style=${iconStyle}></span> Node <br>IP: <b>${nodeName}</b>   Value: <b>${value}</b>`;
-              tooltip: {
-                trigger: 'item',
-                formatter: '{a} <br/>{b}: {c} {d} {e}'
-              },
-              textStyle: {
-                color: 'lightgrey'
+            trigger: 'item',
+            borderWidth: 1,
+            formatter: function(params) {
+              let tooltipText = '';
+              let dataIndex = params.dataIndex;
+              // let categoryColor = sig_series[dataIndex].lineStyle.color;
+              for (let i = 0; i < params.data.length; i++) {
+                tooltipText += schema[i].text + ': ' + params.data[i] + '<br>';
               }
+              return tooltipText; // 툴팁 텍스트를 직접 반환
+            },
+            backgroundColor: function(params) {
+              let dataIndex = params.dataIndex;
+              let categoryColor = sig_series[dataIndex].lineStyle.color;
+              return categoryColor;
+            },
+            // borderColor: '#777',
+            backgroundColor: '#000000be',
+            textStyle: {
+              color: 'lightgrey'
+            }
           },
           parallelAxis: [
               {
@@ -407,12 +542,12 @@ $.ajax({
               {
                   dim: 1, //도착ip
                   name: schema[1].text,
-                  // axisLabel: {
-                  //     //축을 투명으로 지정
-                  //     textStyle: {
-                  //         color: 'transparent'
-                  //     }
-                  // },
+                  axisLabel: {
+                      //축을 투명으로 지정
+                      textStyle: {
+                          color: 'transparent'
+                      }
+                  },
                   type: 'category'
                   // data: ['192.168.100.50']
               },
@@ -425,7 +560,9 @@ $.ajax({
                   //  data: ['ICMP']
               },
               {
-                  dim: 3,
+                  dim: 3, //length
+                  min: 0,
+                  max: max_len,
                   name: schema[3].text,
                   // type: 'category'
                   // data: ['1442']
@@ -774,43 +911,11 @@ $.ajax({
         series: rps_series
       };
       
+      
+      const pro_col = ['#5C90F7', '#57BE3A', '#F8DE74',  '#7DD6F5', '#57BD94', '#F09054', '#844CDB', '#9EFCB8','#D07EF8',' #FE5584', '#ED777A', '#A6EDFF']
+      let pro_i = 0;
 
       // 프로토콜별 포트 빈도 그래프
-      // const protocolMap = new Map();
-      // data.pro.forEach((pro) => {
-      //   if (!protocolMap.has(pro.Protocol2)) {
-      //     protocolMap.set(pro.Protocol2, new Map());
-      //   }
-      //   const protocolGroup = protocolMap.get(pro.Protocol2);
-        
-      //   // 그룹화된 데이터에서 port로 그룹화
-      //   if (!protocolGroup.has(pro.Port)) {
-      //     protocolGroup.set(pro.Port, 0);
-      //   }
-      //   protocolGroup.set(pro.Port, protocolGroup.get(pro.Port) + pro.n);
-      // });     
-      // protocolMap.forEach((protocolGroup, protocol2) => {  
-      //   const protocolData = {
-      //     name: protocol2,
-      //     itemStyle: {
-      //       // color: '#a87b64'
-      //       color: getRandomColor()
-      //     },
-      //     children: []
-      //   };
-        
-      //   protocolGroup.forEach((value, port) => {
-      //     protocolData.children.push({
-      //       name: port.toString(),
-      //       value: value,
-      //       // ratio: ratio, //비율
-      //       itemStyle: {
-      //         color: getRandomColor()
-      //       }
-      //     });
-      //   });
-      //   pro_series.push(protocolData);
-      // });
       let pro_data = {};
       data.pro.forEach(item => {
         let protocol = item.Protocol2;
@@ -821,19 +926,28 @@ $.ajax({
           pro_data[protocol] = {
             name: `${protocol}\n(${value}%)`,
             value: 0,
+            itemStyle: {
+              normal: {
+                color : colorlt[protocol],
+                // color : getRandomColor()
+                // fontWeight: '900' // 글꼴 굵기 설정
+              }
+            },
             children: []
           };
         }
+
+        console.log(colorlt[protocol]);
         
         pro_data[protocol].children.push({
           name: `${port}\n(${value}%)`,
           value: value,
-          label: {
-            show: value >= 1
+          itemStyle: {
+            // color : colorlt[protocol+"_c"]
+            color : pro_col[pro_i++]
           }
         });
       });
-
       data.pro_ratio.forEach(item => {
         let protocol = item.Protocol2;
         let ratio = item.ratio;
@@ -841,12 +955,9 @@ $.ajax({
         if (pro_data[protocol]) {
           pro_data[protocol].value = ratio;
         }
+
       });
-
       let pro_series = Object.values(pro_data);
-
-      console.log(pro_series);
-
       let pro_option = {
         backgroundColor: 'transparent',
         series: {
@@ -871,7 +982,9 @@ $.ajax({
               label: {
                 rotate: 'tangential',
                 align: 'center',
-                fontSize: 11
+                fontSize: 11,
+                fontWeight: 'bolder' // 글꼴 굵기 설정
+                // color: 'black'
               }
             },
             {
@@ -1009,7 +1122,7 @@ $.ajax({
           // }
         },
         legend: {
-          top: 32
+          top: 40
         },
         // title: {
         //   top: 3,
@@ -1019,7 +1132,7 @@ $.ajax({
         grid: {
           left: 30,
           right: 50,
-          top: 120,
+          top: 90,
           bottom: 10,
           containLabel: true
         },
@@ -1034,28 +1147,16 @@ $.ajax({
             type: 'value'
           }
         ],
-        // dataZoom: [
-        //   {
-        //     type: 'inside',
-        //     start: 0,
-        //     end: 100 //초기 zoom 최대 100 (%)
-        //   },
-        //   {
-        //     right: 50,
-        //     start: 0,
-        //     end: 10
-        //   }
-        // ],
         series: flag_series
       };
 
-      // 비율
+      // flag 비율
       const flag_node = document.querySelectorAll('.ratio-data');
       for(let i = 0; i < flag_node.length; i++){
         flag_node[i].innerHTML = data.flag_ratio[i].ratio + " %";
       };
 
-      //분석값
+      // flag 분석
       const flag_node2 = document.querySelectorAll('.flag_data');
       for(let i = 0; i < flag_node2.length; i++){
         flag_node2[i].innerHTML = data.flag_aly[i].value;
@@ -1064,20 +1165,18 @@ $.ajax({
       
 
       // 정상 비정상 비율
-      // var won_name = data.won.map(function(item) { return item.attack; })
       let won_ratio = data.won.map(function(item) { return item.ratio; })
-      // console
       const won_data = [
         {
           value: won_ratio[0],
           name: "Attack",
           title: {
-            offsetCenter: ['0%', '-38%'],
+            offsetCenter: ['0%', '-39%'],
             fontSize: 12
           },
           detail: {
             valueAnimation: true,
-            offsetCenter: ['0%', '-18%']
+            offsetCenter: ['0%', '-17%']
           },
           itemStyle: { // 아이템 스타일 설정
             color: 'pink'
@@ -1087,12 +1186,12 @@ $.ajax({
           value: won_ratio[1],
           name: "Normal",
           title: {
-            offsetCenter: ['0%', '13%'],
+            offsetCenter: ['0%', '12%'],
             fontSize: 12
           },
           detail: {
             valueAnimation: true,
-            offsetCenter: ['0%', '33%']
+            offsetCenter: ['0%', '35%']
           },
           itemStyle: { // 아이템 스타일 설정
             color: 'lightgreen'
@@ -1101,15 +1200,6 @@ $.ajax({
       ];
       let won_option = {
         backgroundColor : "transparent",
-        // title: {
-        //   top: 2,
-        //   left: 'center',
-        //   text: '정상 비정상 Traffic',
-        //   textStyle: {
-        //     fontSize: 16,
-        //     align: 'center'
-        //   },
-        // },
         series: [
           {
             type: 'gauge',
@@ -1147,7 +1237,9 @@ $.ajax({
             },
             data: won_data,
             title: {
-              fontSize: 12
+              fontSize: 12,
+              color: 'white',
+              // fontWeight: 'bold'
             },
             detail: {
               width: 35,      // 비율 아이템
@@ -1163,7 +1255,8 @@ $.ajax({
         ]
       };
 
-      // 테이블
+
+      // 전체 트래픽 데이터 분석 테이블
       const won_node = document.querySelectorAll('.won_data');
       const won_unit = document.querySelectorAll('.won_unit');
       for(let i = 0; i < won_node.length; i++){
@@ -1181,7 +1274,7 @@ $.ajax({
 
 
 
-      // conversaion (테이블)
+      // conversaion (데이터 교류량 테이블)
       const con_table = document.querySelector("#table_con table tbody");
       let con_data = data.con.map(function(item) {
         return [item.labels2, item.Source_IP, item.Destination_IP, item.min, item.mean, item.max, item.sum, item.ratio+" %"];
@@ -1206,15 +1299,18 @@ $.ajax({
         colorStops: [
         {
           offset: 0,
-          color: '#5ff0ffa8'
+          color: '#5ff0ff'
+          // color:'#9EFCB8'
         }, 
         {
           offset: 0.8,
           color: '#5ff0ffa8'
+          // color:'#9EFCB8'
         }, 
         {
           offset: 1,
-          color: '#abf7ffa8' // 종료 색상
+          color: '#5ff0ffa8' // 종료 색상
+          // color:'#9EFCB8a8'
         }],
         global: false // 그라데이션 적용 범위
       };
@@ -1224,15 +1320,15 @@ $.ajax({
         colorStops: [
         {
           offset: 0,
-          color: '#FFE668'
+          // color: '#FFE668'
         }, 
         {
-          offset: 0.8,
-          color: '#FFE668'
+          offset: 0.9,
+          // color: '#EDFFA8'
         }, 
         {
           offset: 1,
-          color: '#fff9c5' // 종료 색상
+          color: '#ffe6686b' // 종료 색상
         }],
         global: false // 그라데이션 적용 범위
       };
@@ -1242,78 +1338,109 @@ $.ajax({
         colorStops: [
         {
           offset: 0,
-          color: '#5ff0ffa8'
+          color: '#E65884'
         }, 
         {
           offset: 0.8,
-          color: '#5ff0ffa8'
+          color: '#E65884'
         }, 
         {
           offset: 1,
-          color: '#DB4544' // 종료 색상
+          color: '#E65884b4' // 종료 색상
         }],
         global: false // 그라데이션 적용 범위
       };
 
-      let net_node = data.net_node.map(function(item) {
+
+      /** 네트워크망 그래프 */
+      let net_node = data.net_node.map(function(item, index) {
         let reSize;
         let col;
+
+
         // 데이터별 노드 크기 및 색상 지정
         if (item.count < 100) {
-          reSize = 10;
-          col = gradient;
+          reSize = 3;
+          col = '#5ff0ff' //기본 노드색 (하늘색)
         } else if(item.count < 5000){
-          reSize = 30;
-          // col = gradient_yellow;
-          col = '#FFE668';
-        } else if(item.count < 10000){
-          reSize = 40;
+          reSize = 3;
+          col = '#5ff0ff'
+        } else if(item.count < 10000){  //여기 아래는 수정
+          reSize = 3;
           col = '#FF9C68';
         }
         else {
-          reSize = 50;
-          // col = '#DB4544';
-          col = gradient_red;
+          reSize = 3;
+          col = '#E65884b4';
         }
+
 
         return {
           name: item.IP,
           symbolSize: reSize,
           draggable: "true",
-          itemStyle: {
-            color: col
+          itemStyle: {  
+            color: col,
+            borderWidth: 0 // 노드 테두리 제거
           },
           value: item.count,
           label: {
             show: false,
             formatter: '{b}',
             // show: false
-          }
+          },
         }
       });
 
       // 인덱스를 포함한 객체 배열 생성
       let net_node_with_index = net_node.map((item, index) => ({ index, item }));
-
       // 정렬 기준에 따라 인덱스 정렬
       net_node_with_index.sort((a, b) => b.item.value - a.item.value);
-
       // 정렬된 상위 10개 노드의 인덱스 추출
       // let top_index_lit = Math.floor(net_node_with_index.length * 0.02);
-      let top_index = net_node_with_index.slice(0, 10).map((item) => item.index);
+      let top_index = net_node_with_index.slice(0, 20).map((item) => item.index);
 
+
+      // 상위 노드에 대해서만 레이블 표시 및 색 변경
       net_node = net_node.map(function(item,index) {
-        // 상위 10개 노드에 대해서만 레이블 표시
+
         item.label.show = top_index.includes(index);
+        if (top_index.includes(index)){
+          item.symbolSize = 8;
+          item.itemStyle = {  
+            // color : '#FE5584',
+            color : 'yellow'
+          }
+        }
+
         return item;
+
       });
 
-
+      // 링크 정보 및 색 설정
       let net_link = data.net.map(function(item) {
+        let linkColor;
+        // let linkColor = item.Frequency < 5 ? 'grey' : 'source'; // value가 1인 경우는 빨간색, 그렇지 않은 경우는 파란색
+        if (item.Frequency < 5) {     //이거 나중에 if
+          linkColor = '#3973ca8d'
+        }else if (item.Frequency < 10) {
+          // linkColor = 'transparent'
+          linkColor = '#468df7cd'
+        }else if (item.Frequency < 50) {
+          linkColor = '#03C3FE'
+        }else if (item.Frequency < 500) {
+          linkColor = '#E7E71A'
+        }else {
+          linkColor = '#fff'
+        }
+
         return {
           source: item.Source_IP,
           target: item.Destination_IP,
-          value: item.Frequency
+          value: item.Frequency,
+          lineStyle: {
+            color: linkColor
+          }
         }
       });
 
@@ -1329,6 +1456,10 @@ $.ajax({
               // 노드에 대한 tooltip 포맷 설정
               return `IP: ${params.name} <br> Value: ${params.data.value}`;
             }
+          },
+          backgroundColor: '#00000060',
+          textStyle: {
+            color: 'white' // 툴팁의 글씨색 설정
           }
         },
         animationDurationUpdate: 1500,
@@ -1340,51 +1471,28 @@ $.ajax({
             layout: 'circular',
             circular: {
               rotateLabel: true,
-              radius: '50%'
+              // radius: '50%'
+              radius: ['30%', '70%'] // 중심으로부터 퍼지는 거리 조정
             },
-            // layout: 'none', // 배치를 무작위로 설정합니다
             data: net_node,
             links: net_link,
             roam: true,
-            // label: {
-            //   position: 'right',
-            //   formatter: '{b}'
-            // },
             label: {
               position: 'right'
             },
             lineStyle: {
               color: 'source',
+              // color: '#2D4834',
               curveness: 0.3
             },
             emphasis: { // 강조 효과를 설정합니다.
               focus: 'adjacency', // 인접한 노드와 링크에만 강조 효과 적용
-              // lineStyle: {
-              //   // opacity: 0.5, // 강조된 링크의 투명도
-              //   opacity: 1, 
-              //   width: 2, // 강조된 링크의 두께
-              //   opacity: 1
-              // },
               emphasisLineStyle: {
                 opacity: 1, // 강조된 엣지의 투명도
                 width: 2, // 강조된 엣지의 두께
                 shadowBlur: 0, // 그림자 효과 제거
                 shadowColor: 'transparent' // 그림자 효과 제거
               },
-              // lineStyle: {
-              //   width: 3  // 링크 굵기
-              // },
-              // edgeLabel: {
-              //   show: true,  // 링크에 라벨 표시
-              //   formatter: function(params) {
-              //       return `IP: ${params.data.source} - ${params.data.target}  Value: ${params.data.value}`;
-              //   },
-              //   textStyle: {
-              //     fontWeight: 'bold',  // 글씨 굵기 설정
-              //     color: '#fff',
-              //     opacity: 1
-              //   }
-              // },
               itemStyle: {
                 color: 'pink'  // 링크와 연결된 노드의 색상
               },
@@ -1393,80 +1501,76 @@ $.ajax({
           }
         ]
       };
-      //   backgroundColor: "black",
-      //   // tooltip: {},
-      //   tooltip: {
-      //     position: function (pt) {
-      //       return [pt[0] + 10, pt[1] - 90];
-      //     },
-      //     formatter: function(params) {
-      //       if (params.dataType === 'node') { // 노드가 강조됐을 때
-      //         const node = params.data;
-      //         const nodeName = node.name;
-      //         const value = node.value;
-      //         const iconStyle = 'display:inline-block;margin-right:5px;width:10px;height:10px;border-radius:50%;background-color:#5ff0ffa8;';
-      //         return `<span style=${iconStyle}></span> Node <br>IP: <b>${nodeName}</b>   Value: <b>${value}</b>`;
-      //       } else { // 링크가 강조됐을 때
-      //         const link = params.data;
-      //         const sourceNodeName = link.source;
-      //         const targetNodeName = link.target;
-      //         const value = link.value;
-      //         const iconStyle = 'display:inline-block;margin-right:5px;width:10px;height:10px;border-radius:50%;background-color:#dee2a2;';
-      //         return `<span style=${iconStyle}></span>Link <br> Source: <b>${sourceNodeName}</b>   Target: <b>${targetNodeName}</b>   Value: <b>${value}</b>`;
-      //       }
-      //     }
-      //   },
-      //   series: [
-      //     {
-      //       name: 'IP',
-      //       type: 'graph',
-      //       layout: 'force',
-      //       data: net_node,
-      //       links: net_link,
-      //       roam: true,
-      //       label: {
-      //         position: 'right'
-      //       },
-            // emphasis: {
-            //   lineStyle: {
-            //     width: 3  // 링크 굵기
-            //   },
-            //   edgeLabel: {
-            //     show: true  // 링크에 라벨 표시
-            //   },
-            //   edgeLabel: {
-            //     show: true  // 링크에 라벨 표시
-            //   },
-            //   itemStyle: {
-            //     color: 'pink'  // 링크와 연결된 노드의 색상
-            //   },
-            //   focus: 'adjacency'  // 강조된 링크와 연결된 노드만 색상 변경
-            // },
-      //       force: {
-      //         repulsion: 100
-      //       },
-      //       lineStyle: {
-      //         color: "#dee2a2",
-      //       }
-      //     }
-      //   ]
-      // };
-
+  
 
       //qrps-pro 테이블
       
       
       // top 프토토콜, qps, rps 데이터 테이블
       
-      
+      // max_qrps
       const qprs_Node = document.querySelectorAll('.qrps-data .value');
-      qprs_Node[0].innerHTML = data.max_aly[2].max_value;
-      qprs_Node[1].innerHTML = data.max_aly[3].max_value;
+      const qprs_unit_Node = document.querySelectorAll('.qrps-data .unit');
+      // 단위 변동
+      let max_q = data.max_aly[2].max_value;
+      let max_r = data.max_aly[3].max_value;
+      console.log(max_q,"  ", max_r)
+      if (max_q < 1000) {
+        qprs_Node[0].innerHTML = max_q;
+        qprs_unit_Node[0].innerHTML = 'q/s';
+      } else {
+        max_q = (max_q / 1000).toFixed(2); // 소수점 두 자리까지 표시
+        // console.log(max_q);
+        qprs_Node[0].innerHTML = max_q.replace(/\.?0+$/, ''); // 소수 부분이 0으로 끝나면 제거
+        qprs_unit_Node[0].innerHTML = 'kq/s';
+      }
+      if (max_r < 1000){
+        qprs_Node[1].innerHTML = max_r;
+        qprs_unit_Node[1].innerHTML = 'r/s';
+      } else {
+        max_r = (max_r / 1000).toFixed(2); // 소수점 두 자리까지 표시
+        qprs_Node[1].innerHTML = max_r.replace(/\.?0+$/, ''); // 소수 부분이 0으로 끝나면 제거
+        qprs_unit_Node[1].innerHTML = 'kr/s';
+      }
+
+      // mean_qrps
+      const qprs_Node2 = document.querySelectorAll('.qrps-data2 .value');
+      const qprs_unit_Node2 = document.querySelectorAll('.qrps-data2 .unit');
+      // 단위 변동
+      // 여기 view 수정 필요
+      let mean_q = data.mean_aly[0].mean_value;
+      let mean_r = data.mean_aly[1].mean_value;
+      if (mean_q < 1000) {
+        mean_q = (mean_q / 1000).toFixed(2);
+        qprs_Node2[0].innerHTML = mean_q.replace(/\.?0+$/, '');
+        qprs_unit_Node2[0].innerHTML = 'q/s';
+      } else {
+        mean_q = (mean_q / 1000).toFixed(2); // 소수점 두 자리까지 표시
+        console.log(mean_q);
+        qprs_Node2[0].innerHTML = mean_q.replace(/\.?0+$/, ''); // 소수 부분이 0으로 끝나면 제거
+        qprs_unit_Node2[0].innerHTML = 'kq/s';
+      }
+      if (mean_r < 1000){
+        mean_r = (mean_r / 1000).toFixed(2);
+        qprs_Node2[1].innerHTML = mean_r.replace(/\.?0+$/, '');
+        qprs_unit_Node2[1].innerHTML = 'r/s';
+      } else {
+        mean_r = (mean_r / 1000).toFixed(2); // 소수점 두 자리까지 표시
+        qprs_Node2[1].innerHTML = mean_r.replace(/\.?0+$/, ''); // 소수 부분이 0으로 끝나면 제거
+        qprs_unit_Node2[1].innerHTML = 'kr/s';
+      }
+
+
 
       // pro_max를 pro_ratio df로 변경함.
+      // top1 pro
       const maxpro_Node = document.querySelectorAll('.pro-data .value');
       maxpro_Node[0].innerHTML = data.pro_ratio[0].Protocol2;
       maxpro_Node[1].innerHTML = data.pro_ratio[0].ratio;
+      // top1 pro
+      const maxpro_Node2= document.querySelectorAll('.pro-data2 .value');
+      maxpro_Node2[0].innerHTML = data.pro_ratio[1].Protocol2;
+      maxpro_Node2[1].innerHTML = data.pro_ratio[1].ratio;
 
 
       //iat 테이블
@@ -1482,7 +1586,7 @@ $.ajax({
       text1[0].innerHTML = data.won[1].ratio;   //정상데이터 비율
       text1[1].innerHTML = data.won[0].ratio;   //이상데이터 비율
       for(var i = 0; i < 4; i++){               //전체 패킷길이 평균값, 표준편차, 최댓값, 최솟값
-        text1[i+2].innerHTML = data.won_aly[i].value;
+        text1[i+2].innerHTML = data.won_aly[i].value.toLocaleString();;
       };
       text1[6].innerHTML = data.palmax_len; 
       text1[7].innerHTML = data.palmax_cnt;
@@ -1506,7 +1610,7 @@ $.ajax({
       const text2 = document.querySelectorAll('.text-2 span');
       // console.log(text2);
       for (let i = 0; i < 7; i+=2){
-        text2[i].innerHTML = data.max_aly[i/2].max_value;
+        text2[i].innerHTML = data.max_aly[i/2].max_value.toLocaleString();
         text2[i+1].innerHTML = data.max_aly[i/2].time;
       }
 

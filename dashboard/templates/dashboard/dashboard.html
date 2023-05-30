@@ -27,12 +27,13 @@
 {% block content %}
     <!-- 로딩창 -->
     <div id="loading_sc">
-        <img src="/static/img/wg.gif" alt="">
-        <p>시각화 중...</p>
+        <div id="icon">
+            <img src="/static/img/wg.gif" alt="">
+            <p>시각화 중...</p>
+        </div>
     </div>
     
 
-    <!-- <div class="main"> -->
 
 
     <p class="intro">Data analysis was successful. Check out the Dashboard.</p>
@@ -64,25 +65,26 @@
                 <!-- 그래프 영역 -->
                 <div id="graphs_1" class="graphs page-break">
 
+                    <!-- 네트워크 -->
                     <div id="net-box">
                         <div id="graph_net" class="graph"></div>
                         <div class="info-box">
                             <p>Network</p>
                             <div class="info">i</div>
                             <div class="info-contents">
-                                <p>IP주소 간 연결을 확인하고 전체적인 네트워크의 흐름을 파악할 수 있습니다.</p>
+                                <p>전체적인 네트워크 흐름을 파악할 수 있습니다. <br> IP 주소 간의 관계를 확인해보세요.</p>
                             </div>
                         </div>
                     </div>
-                    <!-- <div id="graph_net" class="graph"></div> -->
 
+                    <!-- 정상/이상 그래프 및 전체 트래픽 분석 -->
                     <div id="att_ratio" class="graph">
                         <div id="won-box">
                             <div class="info-box">
                                 <p>Total Traffic Ratio(%)</p>
                                 <div class="info">i</div>
                                 <div class="info-contents">
-                                    <p>전체 트래픽 데이터 중 IDS가 판별한 정상과 공격 패킷의 비율을 나타냅니다. 트래픽 데이터가 많은 경우, Attack이 0%라도 공격 데이터가 존재할 수 있습니다. 상단의 Data를 확인하세요.</p>
+                                    <p>침입 탐지 시스템이 판별한 <br> 데이터의 비율을 나타냅니다.</p>
                                 </div>
                             </div>
                             <div class="graph-box">
@@ -95,7 +97,7 @@
                                 <p class="table-title">Total Traffic Length Analysis</p>
                                 <div class="info">i</div>
                                 <div class="info-contents">
-                                    <p>전체 트래픽의 패킷 길이 평균, 표준편차, 최대, 최소를 나타냅니다.</p>
+                                    <p>전체 트래픽의  패킷 길이 평균값,<br> 표준편차, 최댓값, 최솟값을 나타냅니다.</p>
                                 </div>
                             </div>
                             <div class="table_box">
@@ -126,29 +128,31 @@
                             <p>Packet Length Frequency</p>
                             <div class="info">i</div>
                             <div class="info-contents">
-                                <p>전체 트래픽의 패킷 길이의 빈도를 의미합니다.<br> 가장 많은 패킷 길이를 확인해 보세요.</p>
+                                <p>총 트래픽 데이터의 Length 빈도를 나타냅니다.<br> 가장 많은 패킷 길이를 확인해 보세요.</p>
                             </div>
                         </div>
                     </div>
 
+                    <!-- bps -->
                     <div id="bps-box">
                         <div id="graph_bps" class="graph"></div>
                         <div class="info-box">
                             <p>BPS</p>
                             <div class="info">i</div>
                             <div class="info-contents">
-                                <p>초당 Bytes 수, 초당 전송 가능한 바이트 수를 의미합니다.<br> 네트워크의 대역폭 사용량, 트래픽 부하, 데이터 전송 속도 등을 공격 유형별로 확인 가능합니다.</p>
+                                <p>초당 바이트 수를 확인하여, 네트워크의 대역폭 사용량, <br> 트래픽 부하, 데이터 전송 속도 등을 파악합니다.</p>
                             </div>
                         </div>
                     </div>
 
+                    <!-- pps -->
                     <div id="pps-box">
                         <div id="graph_pps" class="graph"></div>
                         <div class="info-box">
                             <p>PPS</p>
                             <div class="info">i</div>
                             <div class="info-contents">
-                                <p>초당 Packet 수, 초당 전송 가능한 패킷 수를 의미합니다.<br> DoS (Denial of Service) 공격, 포트 스캔 등의 네트워크 내의 공격시도를 확인할 수 있습니다.</p>
+                                <p> 초당 패킷 수를 측정하여, <br> DoS와 포트 스캔 등의 공격 시도를 확인합니다. </p>
                             </div>
                         </div>
                     </div>
@@ -165,21 +169,19 @@
                                 <p>Flag Count</p>
                                 <div class="info">i</div>
                                 <div class="info-contents">
-                                    <p>플래그 개수, 네트워크에서 특정 플래그가 설정된 패킷의 개수를 의미합니다. 카테고리를 클릭하여 flag 별 데이터를 확인해보세요.</p>
+                                    <p>Flag의 Count를 나타냅니다. <br> SYN Flag를 사용한 SYN flooding 공격이나, FIN Flag를 사용한 스캔 공격 등 악성 행위를 파악합니다. <br>카테고리를 클릭하여 각 Flag 데이터를 확인해보세요.</p>
                                 </div>
                             </div>
                         </div>
-                        <!-- <div id="graph_flag" class="graph"></div> -->
                         <!-- flag별 비율 -->
                         <div id="flag_ratio">
                             <div class="info-box">
                                 <p>Ratio</p>
                                 <div class="info">i</div>
                                 <div class="info-contents">
-                                    <p> flag 별 비율을 확인해 보세요.</p>
+                                    <p> Flag 별 비율을 확인해 보세요.</p>
                                 </div>
                             </div>
-                            <!-- <p>Ratio</p> -->
                             <div class="ratio-items">
                                 <div class="ratio-item">
                                     <div class="color-box"></div>
@@ -225,12 +227,11 @@
                         </div>
                         <!-- flag 분석 테이블 -->
                         <div id="flag_table">
-                            <!-- <p>Analysis</p> -->
                             <div class="info-box">
                                 <p>Analysis</p>
                                 <div class="info">i</div>
                                 <div class="info-contents">
-                                    <p>전체 flag의 개수와 평균, 가장 많은 flag와 가장 적은 flag를 보여줍니다.</p>
+                                    <p>전체 Flag의 개수와 평균, 가장 많은 Flag와 가장 적은 Flag를 보여줍니다.</p>
                                 </div>
                             </div>
                             <div class="flag_cnt flag_item">
@@ -254,19 +255,6 @@
                         </div>
                     </div>
 
-                    <!-- 시그니처 그래프 -->
-                    <div id="sig_box">
-                        <div class="info-box">
-                            <p>Signature</p>
-                            <div class="info">i</div>
-                            <div class="info-contents">
-                                <p>Source IP, Destination IP, Destination Port, Packet Length를 이용해 여러 공격 유형을 식별이 가능합니다.</p>
-                            </div>
-                        </div>
-                        <div class="graph_box">
-                            <div id="graph_sig" class="graph"></div>
-                        </div>
-                    </div>
                     
                     <!-- qps -->
                     <div id="qps-box">
@@ -275,7 +263,7 @@
                             <p>QPS</p>
                             <div class="info">i</div>
                             <div class="info-contents">
-                                <p>초당 쿼리 수, 초당 처리 가능한 DNS 쿼리 요청 쿼리 수를 의미합니다.<br> 데이터줌을 사용하여 시간별 데이터를 확인하고, 카테고리를 클릭하여 카테고리별 데이터를 확인해보세요.</p>
+                                <p> 초당 DNS 쿼리 수를 나타냅니다.<br> 최댓값을 확인하여 응용 계층 공격과 서비스 부하 상태를 파악할 수 있습니다.</p>
                             </div>
                         </div>
                     </div>
@@ -286,7 +274,7 @@
                             <p>RPS</p>
                             <div class="info">i</div>
                             <div class="info-contents">
-                                <p>초당 요청 수, 초당 처리 가능한 웹 요청 수를 의미합니다.<br> 데이터줌을 사용하여 시간별 데이터를 확인하고, 카테고리를 클릭하여 카테고리별 데이터를 확인해보세요.</p>
+                                <p>초당 웹(HTTPS, HTTP) 요청 수를 나타냅니다. <br> 최댓값을 확인하여 응용 계층 공격과 서비스 부하 상태를 파악 할 수 있습니다.</p>
                             </div>
                         </div>
                     </div>
@@ -294,42 +282,42 @@
                     <!-- 프로토콜, qps, rps 최대값 테이블 -->
                     <div id="qrps-pro-table" class="data-table">
                         <div class="data-box">
-                            <!-- <p>TOP PROTOCOL</p> -->
-                            <div class="info-box">
-                                <p>TOP PROTOCOL</p>
-                                <div class="info">i</div>
-                                <div class="info-contents">
-                                    <p>가장 많이 사용된 프로토콜을 의미합니다.</p>
-                                </div>
-                            </div>
+                            <p>TOP PROTOCOL</p>
                             <div class="data-inner-box pro-data">
                                 <p>Type : <span class="value top_pro"></span></p>
                                 <p>Ratio : <span class="value top_ratio"></span>%</p>
-                            </div>
+                            </div> 
                         </div>
                         <div class="data-box">
-                            <!-- <p>MAX VALUES</p> -->
-                            <div class="info-box">
-                                <p>MAX VALUES</p>
-                                <div class="info">i</div>
-                                <div class="info-contents">
-                                    <p>QPS와 RPS의 가장 높은 수치를 보여줍니다.</p>
-                                </div>
-                            </div>
+                            <p>TOP2 PROTOCOL</p>
+                            <div class="data-inner-box pro-data2">
+                                <p>Type : <span class="value top_pro"></span></p>
+                                <p>Ratio : <span class="value top_ratio"></span>%</p>
+                            </div>                               
+                        </div>
+                        <div class="data-box">
+                            <p>MAX VALUES</p>
                             <div class="data-inner-box qrps-data">
-                                <p>QPS : <span class="value max_qps"></span> <span class="unit">queries/s</span></p>
-                                <p>RPS : <span class="value max_rps"></span> <span class="unit">rquests/s</span></p>
-                            </div>
+                                <p>QPS : <span class="value max_qps"></span> <span class="unit"></span></p>
+                                <p>RPS : <span class="value max_rps"></span> <span class="unit"></span></p>
+                            </div>                          
+                        </div>
+                        <div class="data-box">
+                            <p>MEAN VALUES</p>
+                            <div class="data-inner-box qrps-data2">
+                                <p>QPS : <span class="value mean_qps"></span> <span class="unit"></span></p>
+                                <p>RPS : <span class="value mean_rps"></span> <span class="unit"></span></p>
+                            </div>                              
                         </div>
                     </div>
 
                     <!-- 프로토콜별 포트빈도 (원그래프) -->
                     <div id="sdpro-box">
                         <div class="info-box">
-                            <p class="title_sdpro">Port Frequency Top10</p>
+                            <p class="title_sdpro">Port Ratio Top10</p>
                             <div class="info">i</div>
                             <div class="info-contents">
-                                <p>프로토콜 별 포트 빈도를 나타냅니다.<br> 그래프를 클릭하며 Source Port와 Destination Port별로 가장 많이 사용된 포트를 확인해보세요. </p>
+                                <p>프로토콜에 따라 포트 비율을 확인할 수 있습니다.</p>
                             </div>
                         </div>
                         <div class="graph-box">
@@ -349,7 +337,7 @@
 
 
                 <!-- 세번째 그래프 영역 -->
-                <div id="graphs_3" class="graphs page-break">
+                <div id="graphs_3" class="graphs">
 
                     <div id="iat-table" class="data-table">
                         <div class="data-box">
@@ -385,17 +373,31 @@
                             <p>IAT</p>
                             <div class="info">i</div>
                             <div class="info-contents">
-                                <p>패킷 간 도착 시간 간격, 패킷 간 도착 시간 간격을 나타내는 측정값을 의미합니다.<br> 시간별 패킷 도착 시간 간격을 확인하고 간격의 변화를 분석하여 트래픽의 흐름이나 특성을 알아낼 수 있습니다.</p>
+                                <p>패킷의 도착 시간 간격을 확인하여 <br>트래픽의 규칙성/불규칙성을 파악합니다.</p>
                             </div>
                         </div>
                     </div>
+
+                    <!-- 시그니처 그래프 -->
+                    <div id="sig_box">
+                        <div class="info-box">
+                            <p>Signature</p>
+                            <div class="info">i</div>
+                            <div class="info-contents">
+                                <p>Source IP, Destination IP, Destination Port, Packet Length를 통해 <br> 공격의 특정 형태을 파악합니다.</p>
+                            </div>
+                        </div>
+                        <div class="graph_box">
+                            <div id="graph_sig" class="graph"></div>
+                        </div>
+                    </div>                    
 
                     <div id="table_con" class="table">
                         <div class="info-box">
                             <p>Conversation</p>
                             <div class="info">i</div>
                             <div class="info-contents">
-                                <p>트래픽 교류를 의미합니다.<br> 호스트와의 통신, 대량의 데이터 전송 등을 확인하고 송수신 IP 간의 패킷의 통계와 해당 Conversation이 전체 트래픽에서 차지하는 비율을 알 수 있습니다. 특정 길이의 패킷이 예상치 못하게 높은 빈도로 나타나는 경우, 네트워크 공격이나 이상 동작의 가능성을 나타냅니다.</p>
+                                <p>트래픽 교류를 의미합니다.<br> 데이터 타입, IP, Length(패킷 길이)을 나타내며, 트래픽 교류량 상위 10개의 데이터를 보여줍니다.</p>
                             </div>
                         </div>
 
@@ -453,7 +455,7 @@
             </div>
 
             <!-- 이상 데이터가 감지되지 않을시 안보이게 -->
-            <div id="security_rd" class="comment-item">
+            <div id="security_rd" class="comment-item page-break">
                 <p class="comment-title">Security Recommendations</p>
                 <!-- 이상 데이터 감지시 -->
                 <div class="text-box">

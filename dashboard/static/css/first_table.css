@@ -33,6 +33,7 @@
 
 #att_ratio .info-box {
     width: 100%;
+
 }
 
 #att_ratio .info-box p {
@@ -41,9 +42,19 @@
     font-weight: 600;
 }
 
+#att_ratio .info-contents {
+    width: 200%;
+    transform: translateY(-116%);
+}
+
+#att_ratio .info-contents p {
+    margin: 8px 0;
+}
+
 #att_ratio .info {
     margin-bottom: 1px;
 }
+
 
 
 #att_ratio #won_table {
@@ -56,6 +67,9 @@
     text-align: center;
 }
 
+#won_table .info-contents {
+    transform: translate(-21%,-116%);
+}
 
 /* 비율그래프 */
 #won-box {
@@ -66,6 +80,10 @@
     margin-top: 10px;
     padding: 0;
     /* overflow: hidden; */
+}
+
+#won-box .info-contents {
+    transform: translate(25%,-116%);
 }
 
 #won-box .graph-box {

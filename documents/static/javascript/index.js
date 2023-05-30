@@ -1,23 +1,5 @@
 /** documents \ index.js */
 "use strict"
-
-// 로딩 페이지
-let body = this.document.querySelector('body');
-let loadingScreen = document.getElementById('loadingScreen');
-let expItems = document.querySelectorAll('.exp-item');
-let submitBtn = document.querySelector('.upload-btn');
-let currentIndex = 0;
-
-// 로딩 페이지
-function showNextElement() {
-    expItems[currentIndex].style.display = 'block';
-  
-    setTimeout(function() {
-      expItems[currentIndex].style.display = 'none';
-      currentIndex = (currentIndex + 1) % expItems.length;
-      showNextElement();
-    }, 5000); // 5초 후에 다음 요소를 보여줌
-  }
   
 
 

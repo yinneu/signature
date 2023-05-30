@@ -102,3 +102,21 @@ ul, li {
         bottom: 6px;
     }
 }
+
+
+
+@media all and (max-width:767px) {
+
+    ::-webkit-scrollbar {
+        width: 2px;  /* 세로축 스크롤바 길이 */
+        background-color: black;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        width: 2px;
+        border-radius: 10px;
+        margin: 2px;
+    }
+    
+
+}
