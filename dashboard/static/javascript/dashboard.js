@@ -342,23 +342,6 @@ $.ajax({
               color: atkcol
             },
             areaStyle: {
-              // 내부영역 색상
-              // color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-              //   {
-              //     offset: 0,
-              //     // color: 'rgb(255, 158, 68)'
-              //     // color: '#00AD26'
-              //     color : '#238fff9e'
-              //     // color: atkcol
-              //   },
-              //   {
-              //     offset: 1,
-              //     // color: 'rgb(255, 70, 131)'
-              //     // color: '#00C20D'
-              //     color : '#238fff'
-              //     // color: atkcol
-              //   }
-              // ])
               color: atkcol
             },
             data: qps_data  //세로 데이터
@@ -383,28 +366,9 @@ $.ajax({
             symbol: 'none',
             sampling: 'lttb',
             itemStyle: {
-              //겉 라인 색상
-              // color: 'rgb(255, 70, 131)'
-              // color: '#00C20D' 
-              // color : '#d3bd21'
               color: atkcol
             },
             areaStyle: {
-              // 내부영역 색상
-              // color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-              //   {
-              //     offset: 0,
-              //     // color: 'rgb(255, 158, 68)'
-              //     // color: '#00AD26'
-              //     color : '#d3bd218c'
-              //   },
-              //   {
-              //     offset: 1,
-              //     // color: 'rgb(255, 70, 131)'
-              //     // color: '#00C20D'
-              //     color : '#d3bd21'
-              //   }
-              // ])
               color: atkcol
             },
             data: rps_data  //세로 데이터
@@ -465,43 +429,6 @@ $.ajax({
               bottom : 20
               // left: '40%'
           },
-          // tooltip: {
-          //     backgroundColor: '#222',
-          //     borderColor: '#777',
-          //     borderWidth: 1,
-          //     tooltip: {
-          //       trigger: 'item',
-          //       formatter: '{a} <br/>{b}: {c} {d} {e}'
-          //     },
-          //     textStyle: {
-          //       color: 'lightgrey'
-          //     }
-          // },
-          // tooltip: {
-          //   trigger: 'item',
-          //   // backgroundColor: '#000',
-          //   // // borderColor: '#777',
-          //   // backgroundColor: function(params) {
-          //   //   let dataIndex = params.dataIndex;
-          //   //   let categoryColor = sig_series[dataIndex].lineStyle.color;
-          //   //   return categoryColor;
-          //   // },
-          //   borderWidth: 1,
-          //   // formatter: function(params) {
-          //   //   let tooltipText = '';
-          //   //   let dataIndex = params.dataIndex;
-        
-          //   //   for (let i = 0; i < params.data.length; i++) {
-          //   //     tooltipText += schema[i].text + ': ' + params.data[i] + '<br>';
-          //   //   }
-        
-          //   //   return tooltipText;
-          //   // },
-
-          //   textStyle: {
-          //     color: 'b'
-          //   }
-          // },
           tooltip: {
             trigger: 'item',
             borderWidth: 1,

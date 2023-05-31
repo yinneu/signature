@@ -229,28 +229,97 @@ canvas {
     .page-break { page-break-inside:avoid; page-break-after:auto }
 
     @page {
-        size: A2;
+        size: A4;
         margin: 0;
     }
+
+    /* common */
 
     body {
         margin: 0;
         padding: 0;
-        transform: scale(0.76) translate(-12.8%, -20%);
+        transform: scale(0.76) translate(-12.8%, -14%);
+        /* transform: scale(0.68) translate(-19.5%, -21%); */
     }
 
-    #graphs_3 {
-        /* margin-top: 200px; */
-        transform: translateY(-100%);
+    #navbar {
+        display: none;
     }
+
 
     footer {
+        display: none;
+    }
+
+    #arrow-up {
+        display: none;
+        opacity: 0;
+    }
+
+
+
+    /* dashboard */
+
+    .intro {
         display: none;
     }
 
     .data_bar {
         width: 126%;
     }
+
+    /* #graphs_2 {
+        position: absolute;
+        top: 692px;
+        width: 1498px;
+    }*/
+
+    #graphs_3 {
+        position: relative;
+        /* position: absolute; */
+        top: -640px;
+        width: 1498px;
+    } 
+
+    #sig_box .graph_box {
+        width: 98%;
+        overflow: hidden;
+    }
+
+
+    #table_con {
+        margin-top: 140px;
+    }
+
+    
+
+    #comment {
+        /* position: relative; */
+        /* position: absolute; */
+        /* width: 1498px; */
+        width: 100%;
+        /* top: 1980px; */
+        /* top: 1980px; */
+        padding-top: 4000px;
+        page-break-inside: avoid;
+    }
+
+
+    #data_aly {
+        page-break-inside: avoid;
+    }
+
+    #security_rd {
+        padding-top: 30px;
+        page-break-inside: avoid;
+    }
+
+
+    .down_pdf {
+        display: none;
+    }
+
+
 
 
 }
