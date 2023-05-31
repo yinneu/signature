@@ -54,11 +54,8 @@ class DashboardView(View):
             saved_file_path = default_storage.save(
                 file_path, ContentFile(file_content))
 
-            # 파일과 UUID 연결 및 저장
-            # expiration_time = timezone.now() + timedelta(minutes=1)
-            # uploaded_file.expiration_time = expiration_time
-            # uploaded_file.save()
-            expiration_time = timezone.now() + timedelta(minutes=1)
+            # 파일과 UUID 연결 및 저장 (만료시간 설정)
+            expiration_time = timezone.now() + timedelta(minutes=30)
             uploaded_file = UploadedFile(
                 file_path=saved_file_path, user_uuid=user_uuid, expiration_time=expiration_time)
             uploaded_file.save()
@@ -106,12 +103,6 @@ def GetData(request):
             user_uuid=user_uuid)  # UUID에 해당하는 파일 가져오기
         file_path = uploaded_file.file_path
 
-        # 일정 시간이 경과한 경우 레코드와 파일 삭제
-        # expiration_time = timezone.now() - timedelta(minutes=1)
-        # if uploaded_file.uploaded_at < expiration_time:
-        #     print("파일삭제: ", uploaded_file)
-        #     uploaded_file.delete()
-        #     default_storage.delete(file_path)
         expired_files = UploadedFile.objects.filter(
             expiration_time__lt=timezone.now())
         for file in expired_files:

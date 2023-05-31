@@ -186,26 +186,49 @@ LOGGING = {
     'handlers': {
         'file': {
             'level': 'INFO',
-            'class': 'logging.FileHandler',
+            'class': 'logging.handlers.RotatingFileHandler',
             'filename': 'debug.log',
+            'maxBytes': 1024*1024*1,  # 1 MB
+            'backupCount': 1,
         },
-        # 'file': {
-        #     'level': 'INFO','DEBUG'
-        #     'class': 'logging.handlers.RotatingFileHandler',
-        #     'filename': 'logs/debug.log',
-        #     'maxBytes': 1024*1024*1,  # 5 MB
-        #     'backupCount': 1,
-        # },
     },
     'loggers': {
         'django': {
             'handlers': ['file'],
-            # 'level': 'DEBUG',
             'level': 'WARNING',
             'propagate': True,
         },
     },
 }
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'file': {
+#             'level': 'INFO',
+#             'class': 'logging.handlers.RotatingFileHandler',
+#             'class': 'logging.FileHandler',
+#             'filename': 'debug.log',
+#             'maxBytes': 1024*1024*1,  # 1 MB
+#             'backupCount': 1,
+#         },
+#         # 'file': {
+#         #     'level': 'INFO','DEBUG'
+#         #     'class': 'logging.handlers.RotatingFileHandler',
+#         #     'filename': 'logs/debug.log',
+#         #     'maxBytes': 1024*1024*1,  # 1 MB
+#         #     'backupCount': 1,
+#         # },
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['file'],
+#             # 'level': 'DEBUG',
+#             'level': 'WARNING',
+#             'propagate': True,
+#         },
+#     },
+# }
 
 
 ALLOWED_HOSTS = [
