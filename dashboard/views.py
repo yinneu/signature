@@ -55,7 +55,7 @@ class DashboardView(View):
                 file_path, ContentFile(file_content))
 
             # 파일과 UUID 연결 및 저장 (만료시간 설정)
-            expiration_time = timezone.now() + timedelta(minutes=30)
+            expiration_time = timezone.now() + timedelta(minutes=10)
             uploaded_file = UploadedFile(
                 file_path=saved_file_path, user_uuid=user_uuid, expiration_time=expiration_time)
             uploaded_file.save()
