@@ -36,10 +36,22 @@ hr {
     z-index: 2;
 }
 
-#intro img {
+#intro_img {
     position: absolute;
-    width: 500px;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    background-size: 500px;
+    background-image: url("/static/img/network/network_intro.png");
+    background-repeat: no-repeat;
+    background-position: center;
 }
+
+/* #intro img {
+    position: absolute;
+    width: 300px;
+} */
 
 
 /* 용어설명 */
@@ -162,7 +174,7 @@ td {
 /* 전체 박스 */
 .tcpmodel-exp {
     /* width: 100%; */
-    margin: 100px 10% 68px;
+    margin: 100px auto 68px;
     min-width: 250px;
 }
 
@@ -282,7 +294,6 @@ td {
 /* 카테고리별 content 영역 */
 .content-container {
     padding: 10px 6%;
-    align-self: center;
 }
 
 .content-container::-webkit-scrollbar {
@@ -388,6 +399,16 @@ div[data-category="Physical"] img {
 
 @media all and (max-width:767px) {
 
+    .osimodel-exp .exp-item {
+        min-width: 250px;
+        /* min-width: 300px; */
+        max-width: 400px;
+        margin: 10px 4px 10px 16px;
+        padding: 12px;
+    }
+
+
+
     .osimodel-exp {
         margin: 68px 0;
     }
@@ -423,7 +444,7 @@ div[data-category="Physical"] img {
     }
 
     .inner-box {
-        max-width: 1000px;
+        width: 90vw;
         /* height: 600px; */
         display: flex;
         justify-content: center;
@@ -432,6 +453,28 @@ div[data-category="Physical"] img {
         margin: 20px auto;
         border: 2px solid whitesmoke;
         padding: 0;
+    }
+
+    div[data-category="Application"] img {
+        margin-top: 30px;
+        width: 70%;
+    }
+
+    div[data-category="Network"] img {
+        width: 40%;
+        margin: 20px;
+    }
+
+    div[data-category="DataLink"] img {
+        width: 56%;
+        margin: 20px;
+        /* margin-top: auto; */
+    }
+    
+    div[data-category="Physical"] img {
+        width: 48%;
+        margin: 30px;
+ 
     }
 
 }

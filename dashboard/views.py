@@ -85,7 +85,7 @@ def PreProcessing(data):
     predict_df = new_dataset
 
     # ids 적용 : 모델 불러오기
-    model = joblib.load('./dashboard/media/new_model.pkl')
+    model = joblib.load('./dashboard/media/ids_model.pkl')
 
     # 예측하기
     y_pred = model.predict(predict_df)
