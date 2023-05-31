@@ -108,14 +108,14 @@ ul, li {
 @media all and (max-width:767px) {
 
     ::-webkit-scrollbar {
-        width: 2px;  /* 세로축 스크롤바 길이 */
+        width: 1px;  /* 세로축 스크롤바 길이 */
         background-color: black;
     }
     
     ::-webkit-scrollbar-thumb {
-        width: 2px;
+        width: 1px;
         border-radius: 10px;
-        margin: 2px;
+        margin: 1px;
     }
     
 

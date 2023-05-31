@@ -106,7 +106,7 @@ def get_secret(setting, secrets=secrets):
 #         'ENGINE': 'django.db.backends.mysql',  # 사용할 엔진 설정
 #         'NAME': 'sw_signature',                # 데이터베이스 이름
 #         'USER': 'root',                        # 데이터베이스 사용자 이름
-#         'PASSWORD': get_secret("PASSWORD"),
+#         # 'PASSWORD': 'rkskek',
 #         'HOST': '127.0.0.1',                   # 데이터베이스 호스트 주소 (실제 DB 주소)
 #         'PORT': '3306',                        # 데이터베이스 포트 번호
 #     }
@@ -125,9 +125,6 @@ DATABASES = {
 }
 
 SECRET_KEY = get_secret("SECRET_KEY")
-
-# DATABASES = my_settings.DATABASES
-# SECRET_KEY = my_settings.SECRET_KEY
 
 
 # Password validation

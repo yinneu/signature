@@ -26,6 +26,10 @@
     
 }
 
+#trafficCapture a {
+    word-break: break-all;
+}
+
 /* 다운로드 아이콘 */
 .download-icon {
     position: absolute;
@@ -54,11 +58,28 @@
 }
 
 
-/* 코드 박스 feat.채선생  */
+/* 코드 박스*/
+#trafficCapture code {
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+code::-webkit-scrollbar {
+    height: 12px;
+    padding: 2px;
+}
+
+/* 스크롤 막대 */
+code::-webkit-scrollbar-thumb { 
+    
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+
 .code-box {
     position: relative;
     max-width: 700px;
-    min-width: 300px;
+    min-width: 250px;
     border: 1px solid transparent;
     border-radius: 10px;
     overflow: hidden;
@@ -79,7 +100,7 @@
     position: relative;
     background-color: transparent;
     border: none;
-    padding: 5px 10px;
+    padding: 7px 10px 5px;
     color: rgb(192, 186, 186);
     /* font-weight: 600; */
 }
@@ -113,5 +134,8 @@ pre code {
     border: 1px solid transparent;
     border-radius: 0 0 10px 10px;
 }
+
+
+
 
 

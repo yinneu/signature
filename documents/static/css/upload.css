@@ -4,7 +4,7 @@
 #upload {
     position: relative;
     max-width: 700px;
-    min-width: 300px;
+    min-width: 250px;
     margin: 5px auto;
     display: flex;
     flex-direction: column;
@@ -71,15 +71,20 @@
 /* 주의사항 */
 .upload-box .info {
     height: 20px;
+
+    
+    margin-top: 0px;
+}
+
+.info p {
     font-size: 8px;
     color: var(--dark-grey);
     opacity: 0.5;
+    margin-top: 0;
     text-align: center;
 }
 
-.upload-box p {
-    margin-top: 0px;
-}
+
 
 
 /* 파일 submit 버튼 */
@@ -102,4 +107,23 @@
     background-color: rgba(64, 64, 65, 0.796);
     color: rgb(192, 186, 186);
     cursor: pointer;
+}
+
+
+@media all and (max-width:767px) {
+    .upload-box p {
+        position: absolute;
+        top: 60px;
+        word-break: break-all;
+    }
+
+    /* 파일 submit 버튼 */
+    .upload-btn {
+        position: relative;
+        width: 80px;
+        height: 28px;
+        margin: 10px auto;
+    }
+
+
 }
