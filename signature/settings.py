@@ -9,9 +9,10 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+import json
 import os
 from pathlib import Path
-from . import my_settings  # mysql
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -77,13 +78,54 @@ WSGI_APPLICATION = 'signature.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+# 여기 변경
+
+# database
+# my_settings.py
+secret_file = os.path.join(BASE_DIR, '.secrets.json')
+
+with open(secret_file) as f:
+    secrets = json.loads(f.read())
+
+
+def get_secret(setting, secrets=secrets):
+    try:
+        return secrets[setting]
+    except KeyError:
+        print("error: secrets")
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',  # 사용할 엔진 설정
+#         'NAME': 'sw_signature',                # 데이터베이스 이름
+#         'USER': 'root',                        # 데이터베이스 사용자 이름
+#         'PASSWORD': get_secret("PASSWORD"),
+#         'HOST': '127.0.0.1',                   # 데이터베이스 호스트 주소 (실제 DB 주소)
+#         'PORT': '3306',                        # 데이터베이스 포트 번호
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',  # 사용할 엔진 설정
+        'NAME': 'sig_db',                # 데이터베이스 이름
+        'USER': 'admin',                        # 데이터베이스 사용자 이름
+        'PASSWORD': get_secret("PASSWORD"),
+        # 데이터베이스 호스트 주소 (실제 DB 주소)
+        'HOST': 'signatur-mysql.c1vc93hburoi.ap-northeast-2.rds.amazonaws.com',
+        'PORT': '3306',                        # 데이터베이스 포트 번호
     }
 }
-# 여기 변경
+
+SECRET_KEY = get_secret("SECRET_KEY")
+
 # DATABASES = my_settings.DATABASES
 # SECRET_KEY = my_settings.SECRET_KEY
 
