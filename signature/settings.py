@@ -142,18 +142,18 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'handlers': {
-        # 'file': {
-        #     'level': 'DEBUG',
-        #     'class': 'logging.FileHandler',
-        #     'filename': 'debug.log',
-        # },
         'file': {
-            'level': 'INFO',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': 'logs/debug.log',
-            'maxBytes': 1024*1024*1,  # 5 MB
-            'backupCount': 1,
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'debug.log',
         },
+        # 'file': {
+        #     'level': 'INFO',
+        #     'class': 'logging.handlers.RotatingFileHandler',
+        #     'filename': 'logs/debug.log',
+        #     'maxBytes': 1024*1024*1,  # 5 MB
+        #     'backupCount': 1,
+        # },
     },
     'loggers': {
         'django': {
