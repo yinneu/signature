@@ -167,7 +167,8 @@ LOGGING = {
 
 
 ALLOWED_HOSTS = [
-    ".ap-northeast-2.compute.amazonaws.com"
+    ".ap-northeast-2.compute.amazonaws.com",
+    "ec2-3-35-103-217.ap-northeast-2.compute.amazonaws.com",
     'localhost',
     '127.0.0.1',
     '127.0.0.1:8000',
