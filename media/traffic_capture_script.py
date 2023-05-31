@@ -96,7 +96,7 @@ with open(filename, 'w', newline='') as csvfile:
             last_packet_dict[flow] = current_time
             last_packet_time_dict[flow] = current_time
 
-            print(f"{flow}")
+            print(f"{flow} : {flow_duration}, Timestamp: {timestamp}")
 
             # pcap 파일에 쓰기
             pcap_writer.write(packet)
@@ -113,6 +113,7 @@ with open(filename, 'w', newline='') as csvfile:
     # 실시간 캡처 시작
     flow_duration_dict = {}
     last_packet_dict = {}
+    last_packet_time_dict = {}
     start_time = time.time()
     capture_time = 600  # 기본값: 600초(10분)
 

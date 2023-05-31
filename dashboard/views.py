@@ -25,6 +25,8 @@ from datetime import timedelta
 # 데이터 처리 함수 불러오기
 from dashboard.dataprocess import dataProcess
 
+# pdf
+
 
 class DashboardView(View):
     def get(self, request):
@@ -121,3 +123,5 @@ def GetData(request):
 
     except UploadedFile.DoesNotExist:
         return HttpResponse("파일을 찾을 수 없습니다.")
+
+# pdf 다운

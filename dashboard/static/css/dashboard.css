@@ -227,6 +227,32 @@ canvas {
 /* pdf 설정 */
 @media print {
     .page-break { page-break-inside:avoid; page-break-after:auto }
+
+    @page {
+        size: A2;
+        margin: 0;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        transform: scale(0.76) translate(-12.8%, -20%);
+    }
+
+    #graphs_3 {
+        /* margin-top: 200px; */
+        transform: translateY(-100%);
+    }
+
+    footer {
+        display: none;
+    }
+
+    .data_bar {
+        width: 126%;
+    }
+
+
 }
 
 

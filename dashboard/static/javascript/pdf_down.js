@@ -46,32 +46,76 @@ window.onafterprint = function () {
 
 
 
-// pdf_btn.addEventListener('click', () => {
-//     // pdf 다운
-//     console.log("dd")
-//     window.print();
+// pdf 다운
+// pdf_btn.addEventListener('click', downloadPdf);
 
-// })
+// function downloadPdf() {
+//   var paperSize = 'A2'; // 클라이언트에서 설정한 용지 크기
+//   var marginTop = '40mm'; // 클라이언트에서 설정한 여백
+
+//     // CSRF 토큰 가져오기
+//     var csrfToken = Cookies.get('csrftoken');
+
+//   $.ajax({
+//     url: '/dashboard/download_template/',
+//     method: 'POST',
+//     data: {
+//       paper_size: paperSize,
+//       margin_top: marginTop
+//     },
+//     beforeSend: function(xhr, settings) {
+//         // CSRF 토큰을 요청 헤더에 포함
+//         xhr.setRequestHeader("X-CSRFToken", csrfToken);
+//     },
+//     success: function (response) {
+//       var blob = new Blob([response], { type: 'application/pdf' });
+//       var link = document.createElement('a');
+//       link.href = window.URL.createObjectURL(blob);
+//       link.download = 'output.pdf';
+//       link.click();
+//     },
+//     error: function (error) {
+//       console.error('PDF 다운로드 실패:', error);
+//     }
+//   });
+// }
+
+
 
 pdf_btn.addEventListener('click', () => {
+
+
     // pdf 다운
-    const mediaQueryList = window.matchMedia('print');
-    const originalSize = {
-        width: document.body.style.width,
-        height: document.body.style.height
-    };
-    document.body.style.width = '420mm'; // A2 너비 (기본 단위는 mm입니다)
-    document.body.style.height = '594mm'; // A2 높이 (기본 단위는 mm입니다)
-    const listener = function (mql) {
-        if (!mql.matches) {
-            // 인쇄 취소 시 원래 크기로 복구
-            document.body.style.width = originalSize.width;
-            document.body.style.height = originalSize.height;
-            mediaQueryList.removeEventListener('change', listener);
-        }
-    };
-    mediaQueryList.addEventListener('change', listener);
+    console.log("pdf 다운")
     window.print();
-});
+
+})
+
+
+
+// function downloadPdf() {
+//     var paperSize = 'A2'; // 클라이언트에서 설정한 용지 크기
+//     var marginTop = '40mm'; // 클라이언트에서 설정한 여백
+  
+//     $.ajax({
+//       url: '/download_template/',
+//       method: 'POST',
+//       data: {
+//         paper_size: paperSize,
+//         margin_top: marginTop
+//       },
+//       success: function (response) {
+//         var blob = new Blob([response], { type: 'application/pdf' });
+//         var link = document.createElement('a');
+//         link.href = window.URL.createObjectURL(blob);
+//         link.download = 'output.pdf';
+//         link.click();
+//       },
+//       error: function (error) {
+//         console.error('PDF 다운로드 실패:', error);
+//       }
+//     });
+//   }
+
 
 
