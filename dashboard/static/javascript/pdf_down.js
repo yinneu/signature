@@ -46,11 +46,32 @@ window.onafterprint = function () {
 
 
 
+// pdf_btn.addEventListener('click', () => {
+//     // pdf 다운
+//     console.log("dd")
+//     window.print();
+
+// })
+
 pdf_btn.addEventListener('click', () => {
     // pdf 다운
-    console.log("dd")
+    const mediaQueryList = window.matchMedia('print');
+    const originalSize = {
+        width: document.body.style.width,
+        height: document.body.style.height
+    };
+    document.body.style.width = '420mm'; // A2 너비 (기본 단위는 mm입니다)
+    document.body.style.height = '594mm'; // A2 높이 (기본 단위는 mm입니다)
+    const listener = function (mql) {
+        if (!mql.matches) {
+            // 인쇄 취소 시 원래 크기로 복구
+            document.body.style.width = originalSize.width;
+            document.body.style.height = originalSize.height;
+            mediaQueryList.removeEventListener('change', listener);
+        }
+    };
+    mediaQueryList.addEventListener('change', listener);
     window.print();
-
-})
+});
 
 
