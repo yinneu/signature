@@ -4,7 +4,7 @@
 
 [ <a href="http://3.35.103.217:8080/"> 💻 시그니처 사이트 보러가기</a> ]
 
-[ <a href="https://www.youtube.com/watch?v=O4IL-yggLj8">  🎬 시연 영상 보러가기 </a> ]
+[ <a href="https://www.youtube.com/watch?v=O4IL-yggLj8">  🎬  시연 영상 보러가기 </a> ]
   
 [ <a href="https://www.miricanvas.com/v/123i0l4"> 📑 발표자료 보러가기 </a> ]
   
