@@ -25,6 +25,9 @@ from datetime import timedelta
 # 데이터 처리 함수 불러오기
 from dashboard.dataprocess import dataProcess
 
+# 모델
+from documents.models import Vaccine, Vos, Attack
+
 # pdf
 
 
@@ -35,9 +38,55 @@ class DashboardView(View):
 
     def post(self, request):
         if request.method == 'POST' and request.FILES['csv_file']:
+            
+            
+            # request.post[]
+            use = request.POST['use']
+            user = request.POST['user']
+            price = request.POST['price']
+            keyword = request.POST['keyword']
+            print("\n옵션 정보fewfewf: ",use,user,price,keyword)
 
+                    
+            # use : 1,0
+            # user: 1,2,3
+            # keyword : string
+            # price : 0 (상관없음), 1 (저가), 2(고가)
+            
             csv_file = request.FILES['csv_file']
             df = pd.read_csv(csv_file)
+            
+            # 컴퓨터 사양 컬럼 정보 추출
+            myos = df.loc[0,['OS']][0]
+            myram = df.loc[0,'RAM']
+            myhd = df.loc[0,['HD']][0]
+            myb = df.loc[0,['Browser']][0]
+            print("사용자 정보: ",myos,myram,myhd,myb)
+            
+            # 컴퓨터 사양 컬럼 제외
+            columns_to_drop = ['Payload','OS','RAM','HD','Browser']
+            df.drop(columns_to_drop, axis=1, inplace=True)
+            
+
+            
+            # 사용자 유저 정보 필요 (백신을 추천 받을 경우)
+            if (use == '1'):
+              
+              #os 필터
+              #ram 필터
+              #hdd 필터
+              
+              
+              #공격이 있을 때, 공격 키워드와 솔루션 키워드 교집합 카운트별 순위화
+              
+             
+              #사용자 키워드 필터
+              if(keyword != ''):
+                #사용자 키워드 필터
+                # yess = Vaccine.objects.all().filter(keyword__contains=keyword)
+                print('keyword 출력/////',keyword)
+                
+            
 
             # 공격 유형 판별 (ids)
             labels = PreProcessing(df)

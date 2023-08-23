@@ -15,6 +15,115 @@
     <link rel="stylesheet" href="/static/css/document.css/?">
     <link rel="stylesheet" href="/static/css/index2.css">
     <link rel="stylesheet" href="/static/css/loading.css">
+    <style>
+        #add-area {
+            position: fixed;
+            /* display: block; */
+            display: none;
+            top: 0px;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #00000087;
+            z-index: 1000;
+        }
+        
+        
+        #add-area .exit {
+            position: absolute;
+            top: -48px;
+            right: 4px;
+            /* left: 700px; */
+            color: white;
+            font-size: 20px;
+            font-weight: 900px;
+            padding: 10px;
+        }
+        
+        #add-area .exit:hover {
+            cursor: pointer;
+        }
+        
+        
+        #add-data {
+            position: fixed;
+            display: flex;
+            /* display: none; */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            top: 50%;
+            left: 50%;
+            width: 700px;
+            height: 300px;
+            margin: 30px auto;
+            text-align: center;
+            background-color: white;
+            border: 1px solid grey;
+            border-radius: 10px;
+            z-index: 50;
+            transform: translate(-50%, -50%);
+        }
+        
+        #add-data h2 {
+            color: black;
+            margin: 10px 0 15px;
+        }
+        
+        #add-data fieldset {
+            border-color: transparent;
+        }
+        
+        
+        #add-data .input-data div {
+            margin: 6px 0;
+        }
+        
+        #add-data span {
+            font-weight: 600;
+            font-size: 17px;
+            padding-right: 10px;
+            border-right: 3px solid #a7a7a7;
+            margin-right: 16px;
+            color: #626262;
+        }
+        
+        #add-data label {
+            font-weight: 600;
+            font-size: 17px;
+            color: #626262;
+        }
+        
+        #add-data input:not(.upload-btn) {
+            margin-right: 6px;
+        }
+        
+        
+        input#keyword {
+            border: none;
+            background-color: #e5e5e5;
+            border-radius: 5px;
+            padding: 1px 6px;
+            height: 23px;
+            width: 300px;
+            text-align: center;
+        }
+        
+        input#keyword:focus-visible {
+            outline-color: lightgrey;
+        }
+        
+        
+        #add-data .upload-btn{
+            margin-top: 12px;
+        }
+        
+        
+        
+
+        
+        
+    </style>
 {% endblock %}
 
 <!-- Navbar -->
@@ -35,6 +144,62 @@
     </div>
 
 
+    <!-- 추가 input -->
+    <!-- <div id="add-data">
+        
+        <h2 class="font">Antivirus Software Recommendation</h2>
+        
+        <fieldset>
+            <span>
+                맞춤형 백신 추천 서비스 사용
+            </span>
+            <label for="useo">O</label>
+            <input type="radio" class="use-check" id="useo" name="use" value=1 checked />
+            <label for="usex">X</label>
+            <input type="radio" class="use-check" id="usex" name="use" value=0 />
+        </fieldset>
+        
+        
+        <fieldset class="input-data">
+            
+            <div>
+                <span>
+                사용고객
+                </span>
+                <label for="user2">개인용</label>
+                <input type="radio" id="user2" name="user" value=2 checked />
+
+                <label for="user1">가정용</label>
+                <input type="radio" id="user1" name="user" value=1 />
+
+                <label for="user3">기업용</label>
+                <input type="radio" id="user3" name="user" value=3 />
+
+            </div>
+            <div>
+                <span>
+                가격
+                </span>            
+                <label for="user2">상관없음</label>
+                <input type="radio" id="none" name="price" value=0 checked />
+
+                <label for="row">저가순</label>
+                <input type="radio" id="row" name="price" value=1 />
+
+                <label for="high">고가순</label>
+                <input type="radio" id="high" name="price" value=2 />
+            </div>
+            
+            <div>
+                <span>특정 공격 및 키워드 </span>  
+                <input type="text" id="keyword" name="keyword" />
+            </div>
+        
+        </fieldset>
+        
+        <button type="submit">CLICK</button>
+    </div> -->
+
 
     <!-- Upload -->
     <div id="upload" class="contents main_contents">
@@ -45,9 +210,66 @@
                 <input type="file" id="csv_file" name="csv_file">             
             </div>
             <p class="info">※ 파일 용량이 큰 경우 데이터 분석시간이 오래 소요될 수 있습니다.</p>
-            <input type="submit" value="Submit" class="upload-btn font">
+            <input type="button" value="Submit" class="upload-btn font add-file">
+            
+            <!-- 추가 input -->
+            <div id="add-area">
+                
+                <div id="add-data">
+                    <p class="exit">X</p>
+                    <h2 class="font">Antivirus Software Recommendation</h2>
+                    <!-- 백신 추천 여부 : 1 or 0 -->
+                    <fieldset>
+                        <span>
+                            맞춤형 백신 추천 서비스 사용
+                        </span>
+                        <label for="useo">O</label>
+                        <input type="radio" class="use-check" id="useo" name="use" value=1 checked />
+                        <label for="usex">X</label>
+                        <input type="radio" class="use-check" id="usex" name="use" value=0 />
+                    </fieldset>
+                    <!-- 사용고객 : 가정1, 개인2, 기업3 -->
+                    <fieldset class="input-data">
+                        <div>
+                            <span>
+                            사용고객
+                            </span>
+                            <label for="user2">개인용</label>
+                            <input type="radio" id="user2" name="user" value=2 checked />
+
+                            <label for="user1">가정용</label>
+                            <input type="radio" id="user1" name="user" value=1 />
+
+                            <label for="user3">기업용</label>
+                            <input type="radio" id="user3" name="user" value=3 />
+                        </div>
+                        <!-- 가격 : 상관없음0, 저가순1, 고가순2 -->
+                        <div>
+                            <span>
+                            가격
+                            </span>            
+                            <label for="user2">상관없음</label>
+                            <input type="radio" id="none" name="price" value=0 checked />
+
+                            <label for="row">저가순</label>
+                            <input type="radio" id="row" name="price" value=1 />
+
+                            <label for="high">고가순</label>
+                            <input type="radio" id="high" name="price" value=2 />
+                        </div>
+                        <div>
+                            <span>특정 공격 및 키워드 </span>  
+                            <input type="text" id="keyword" name="keyword" />
+                        </div>
+
+                    </fieldset>
+                    <input type="submit" value="Submit" class="upload-btn font submit-btn">
+                </div>
+            </div> <!-- end 추가 input  -->
         </form>
     </div>
+
+
 
 
     <!-- Explanation -->
@@ -121,4 +343,19 @@
 {% block extra_script %} 
     <script src="/static/javascript/index.js"></script> 
     <script src="/static/javascript/send_data.js"></script>
+
+
+    <script>
+        // $('.use-check').on('click', function() {
+        //     let valueCheck = $('.use-check:checked').val(); //체크된 value 값 가져오기
+
+        //     if ( valueCheck == 1 ) {
+        //         $('.input-data').attr('disabled', false); // input 활성화
+        //     } else {
+        //         $('#keyword').val('');
+        //         $('.input-data').attr('disabled', true);
+        //     }
+        // });
+    </script>
+
 {% endblock %}

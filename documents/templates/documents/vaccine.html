@@ -1,0 +1,101 @@
+<!-- document \ vaccine (상세페이지).html  -->
+
+<!-- extends common/base.html -->
+{% extends 'common/base.html' %}
+
+<!-- title -->
+{% block title %} SIGNATURE {% endblock %}
+
+{% block extra_css %}
+    
+    <style>
+        #vv {
+            height: 500px;
+            padding-top: 100px;
+            text-align: center;
+        }
+    
+    </style>
+
+
+{% endblock %}
+
+<!-- Contents -->
+{% block content %}
+
+<div id="vv">
+   <h1>
+        백신 나와라 짠.
+    </h1>
+    
+    
+    <form id="add-data">
+        
+        <h2>Antivirus Software Recommendation</h2>
+        
+        <fieldset>
+            <label for="useo">O</label>
+            <input type="radio" class="use-check" id="useo" name="use" value=1 checked />
+            <label for="usex">X</label>
+            <input type="radio" class="use-check" id="usex" name="use" value=0 />
+        </fieldset>
+        
+        
+        <fieldset class="input-data">
+            
+            <div>
+                <label for="user2">개인용</label>
+                <input type="radio" id="user2" name="user" value=2 checked />
+
+                <label for="user1">가정용</label>
+                <input type="radio" id="user1" name="user" value=1 />
+
+                <label for="user3">기업용</label>
+                <input type="radio" id="user3" name="user" value=3 />
+
+            </div>
+            <div>
+            
+                <label for="user2">상관없음</label>
+                <input type="radio" id="none" name="price" value=0 checked />
+
+                <label for="row">저가순</label>
+                <input type="radio" id="row" name="price" value=1 />
+
+                <label for="high">고가순</label>
+                <input type="radio" id="high" name="price" value=2 />
+            </div>
+            
+            <div>
+                <label for="keyword">특정 공격 및 키워드</label>
+                <input type="text" id="keyword" name="keyword" />
+            </div>
+        
+        </fieldset>
+        
+        <button type="submit">CLICK</button>
+    </form>
+    
+</div>
+
+
+<script>
+
+    // $('.use-check').on('click', function() {
+    //     let valueCheck = $('.use-check:checked').val(); //체크된 value 값 가져오기
+        
+        
+    //     if ( valueCheck == 1 ) {
+    //         $('.input-data').attr('disabled', false); // input 활성화
+    //     } else {
+    //         $('.input-data').attr('disabled', true); // 과일 종류를 입력하는 input 을 비활성화합니다.
+    //     }
+    // });
+
+
+
+</script>
+
+
+
+{% endblock %}

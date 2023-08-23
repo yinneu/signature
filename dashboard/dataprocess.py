@@ -34,7 +34,7 @@ def dataProcess(data):
     # 1.  시그니처
     sig = data[['Source_IP', 'Destination_IP',
                 'Destination_Port', 'Length', 'labels2']]
-    print(sig)
+    # print(sig)
     sig_attack = {}
     for atk in attacks:
         # 시그니처
@@ -139,6 +139,7 @@ def dataProcess(data):
     pro_ratio = data.groupby('Protocol2', as_index=True).agg(
         n=('Protocol2', 'count')).sort_values(by='n', ascending=False).reset_index()
     pro_ratio['ratio'] = round(pro_ratio['n']/pro_ratio['n'].sum()*100, 2)
+    
     pro_ratio = pro_ratio.to_dict('records')
 
     # 7. 패킷길이 빈도

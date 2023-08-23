@@ -1496,8 +1496,14 @@ $.ajax({
       maxpro_Node[1].innerHTML = data.pro_ratio[0].ratio;
       // top1 pro
       const maxpro_Node2= document.querySelectorAll('.pro-data2 .value');
-      maxpro_Node2[0].innerHTML = data.pro_ratio[1].Protocol2;
-      maxpro_Node2[1].innerHTML = data.pro_ratio[1].ratio;
+      if(data.pro_ratio[1] == null){
+        maxpro_Node2[0].innerHTML = "None"
+        maxpro_Node2[1].innerHTML = 0
+      }else{
+        maxpro_Node2[0].innerHTML = data.pro_ratio[1].Protocol2;
+        maxpro_Node2[1].innerHTML = data.pro_ratio[1].ratio;
+      }
+
 
 
       //iat 테이블

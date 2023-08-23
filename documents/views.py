@@ -11,6 +11,7 @@ import numpy as np
 import csv
 import json
 import os
+from documents.models import Vaccine, Vos
 
 
 class IndexView(View):  # 메인페이지
@@ -36,6 +37,22 @@ class ProtocolView(View):  # 프로토콜 설명 페이지
 class AttackView(View):  # 공격 유형 설명 페이지
     def get(self, request):
         return render(request, "documents/attack_exp.html")
+    
+    
+class VaccineView(View):  # 백신 데이터 테스트 페이지
+    def get(self, request):
+        
+    # name = models.CharField(max_length=100)     # 백신 이름
+    # exp = models.TextField()                    # 한줄소개
+    # image = models.CharField(max_length=255,null=True)   # 제품사진1
+    # price = models.IntegerField() # 가격비교
+    # price_str = models.CharField(max_length=50) #가격 string
+    # link = models.URLField(max_length = 255)    #링크
+    # created_at = models.DateTimeField(auto_now_add=True, auto_now=False) #등록일
+    # category = models.ManyToManyField(Category)
+    # browers = models.CharField(max_length=100,null=True)
+        
+        return render(request, "documents/vaccine.html")
 
 
 def file_download(request):

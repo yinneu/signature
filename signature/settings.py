@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'signature.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
-# 여기 변경
+
 
 # database
 # my_settings.py
@@ -100,31 +100,33 @@ def get_secret(setting, secrets=secrets):
     except KeyError:
         print("error: secrets")
 
-
+# aws mysql 포트 번호
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',  # 사용할 엔진 설정
-#         'NAME': 'sw_signature',                # 데이터베이스 이름
-#         'USER': 'root',                        # 데이터베이스 사용자 이름
-#         # 'PASSWORD': 'rkskek',
-#         'HOST': '127.0.0.1',                   # 데이터베이스 호스트 주소 (실제 DB 주소)
+#         'NAME': 'sig_db',                # 데이터베이스 이름
+#         'USER': 'admin',                        # 데이터베이스 사용자 이름
+#         'PASSWORD': get_secret("PASSWORD"),
+#         # 데이터베이스 호스트 주소 (실제 DB 주소)
+#         'HOST': 'signatur-mysql.c1vc93hburoi.ap-northeast-2.rds.amazonaws.com',
 #         'PORT': '3306',                        # 데이터베이스 포트 번호
 #     }
 # }
+SECRET_KEY = get_secret("SECRET_KEY")
 
+
+# 구름 ide 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # 사용할 엔진 설정
-        'NAME': 'sig_db',                # 데이터베이스 이름
-        'USER': 'admin',                        # 데이터베이스 사용자 이름
-        'PASSWORD': get_secret("PASSWORD"),
-        # 데이터베이스 호스트 주소 (실제 DB 주소)
-        'HOST': 'signatur-mysql.c1vc93hburoi.ap-northeast-2.rds.amazonaws.com',
+        'NAME': 'sw_signature',                # 데이터베이스 이름
+        'USER': 'root',                        # 데이터베이스 사용자 이름
+        'PASSWORD': 'rkskek',
+        'HOST': '127.0.0.1',                   # 데이터베이스 호스트 주소 (실제 DB 주소)
         'PORT': '3306',                        # 데이터베이스 포트 번호
     }
 }
 
-SECRET_KEY = get_secret("SECRET_KEY")
 
 
 # Password validation
@@ -162,7 +164,11 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+) 
 
 
 # Default primary key field type
@@ -228,14 +234,16 @@ LOGGING = {
 # }
 
 
-ALLOWED_HOSTS = [
-    ".ap-northeast-2.compute.amazonaws.com",
-    "ec2-3-35-103-217.ap-northeast-2.compute.amazonaws.com",
-    'localhost',
-    '127.0.0.1',
-    '127.0.0.1:8000',
-    '3.35.103.217',
-]
+ALLOWED_HOSTS = ['*']
+# [
+#     # ".ap-northeast-2.compute.amazonaws.com",
+#     # "ec2-3-35-103-217.ap-northeast-2.compute.amazonaws.com",
+#     # 'localhost',
+#     # '127.0.0.1',
+#     # '127.0.0.1:8000',
+#     # '3.35.103.217',
+#     *
+# ]
 
 
 FILE_UPLOAD_HANDLERS = [

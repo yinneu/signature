@@ -21,4 +21,6 @@ urlpatterns = [
          name='protocol_exp'),
     path('attack_exp/', views.AttackView.as_view(),     # 프로토콜 설명 페이지
          name='attack_exp'),
+    path('vaccine/', views.VaccineView.as_view(),     # 프로토콜 설명 페이지
+         name='vaccine'),
 ]
