@@ -7,95 +7,287 @@
 {% block title %} SIGNATURE {% endblock %}
 
 {% block extra_css %}
-    
-    <style>
-        #vv {
-            height: 500px;
-            padding-top: 100px;
-            text-align: center;
-        }
-    
-    </style>
-
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gugi&family=Mali:ital,wght@1,600&family=Noto+Sans+KR&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@300&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/vaccine_exp.css/?"> 
+<!--  셀렉터 스타일링  -->
+    <!-- Imports -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 {% endblock %}
 
 <!-- Contents -->
 {% block content %}
 
-<div id="vv">
-   <h1>
-        백신 나와라 짠.
-    </h1>
-    
-    
-    <form id="add-data">
+      <div id="intro-img">
+        <p class="font-in intro-t1">AI를 활용한 맞춤형 백신 선택, 안전한 인터넷 생활</p>
+        <p class="intro-title">Antivirus Software</p>
+        <p class="font-in intro-t2">자세히 보기</p>
+      </div>
+      
+
+      <!-- 백신 -->
+      <div id=vaccine>
+          <!-- 카테고리 필터 (추가하기) -->
+          
         
-        <h2>Antivirus Software Recommendation</h2>
+        <div id="filter-form">
         
-        <fieldset>
-            <label for="useo">O</label>
-            <input type="radio" class="use-check" id="useo" name="use" value=1 checked />
-            <label for="usex">X</label>
-            <input type="radio" class="use-check" id="usex" name="use" value=0 />
-        </fieldset>
+          <!-- 정렬 -->
+            <div id="sort_filter" class="drop-down">
+                <div class="header">
+                    <div class="filter_selected"><!-- 여기에 선택된 값도 받아서 보여주기 --></div>
+                </div>
+                <div class="filters">
+                    <div class="filter">추천순</div>
+                    <div class="filter">최신순</div>
+                </div>
+            </div>
+
+          <!-- 가격 -->
+            <div id="price_filter" class="drop-down">
+                <div class="header">
+                    <div class="filter_selected"></div>
+                </div>
+                <div class="filters">
+                    <div class="filter">가격</div>
+                    <div class="filter">저가순</div>
+                    <div class="filter">고가순</div>
+                </div>
+            </div>
+          
+          <!-- os -->
+             <div id="os_filter" class="drop-down">
+                <div class="header">
+                    <div class="filter_selected"></div>
+                </div>
+                <div class="filters">
+                    <div class="filter">OS</div>
+                    <div class="filter">Windows</div>
+                    <div class="filter">Mac</div>
+                    <div class="filter">Linux</div>
+                </div>
+            </div>         
+          
+            <!-- 사용자 -->
+             <div id="user_filter" class="drop-down">
+                <div class="header">
+                    <div class="filter_selected"></div>
+                </div>
+                <div class="filters">
+                    <div class="filter">사용자</div>
+                    <div class="filter">개인용</div>
+                    <div class="filter">가정용</div>
+                    <div class="filter">기업용</div>
+                </div>
+            </div>         
+          
+          
+        </div> <!-- end filter-form -->
         
         
-        <fieldset class="input-data">
+          <div class="vc-card-box">
+          {% for vc in vc_list %}
             
-            <div>
-                <label for="user2">개인용</label>
-                <input type="radio" id="user2" name="user" value=2 checked />
+            <div class="vc-card" 
+                 style="background-image: url('/static/img/vaccine/{{ vc.image }}');
+background-position:bottom;background-size: contain;
+background-repeat: no-repeat;" onclick="window.open('../get_vc_detail/?vc_id={{ vc.id }}')">
 
-                <label for="user1">가정용</label>
-                <input type="radio" id="user1" name="user" value=1 />
 
-                <label for="user3">기업용</label>
-                <input type="radio" id="user3" name="user" value=3 />
+              <div>
+                <p class="vc-category" style="float:none">
+                    {%  if vc.category == 1  %}
+                      가정용
+                    {%  elif vc.category == 2  %}
+                      개인용
+                    {%  else %}
+                      기업용
+                    {%  endif %}
+                </p>
+              </div>
+              <div class="vc-text">
+                <p class="vc-name">{{ vc.name }}</p>
+                <p class="vc-price">{{ vc.price_str }}</p>
+              </div>
 
             </div>
-            <div>
-            
-                <label for="user2">상관없음</label>
-                <input type="radio" id="none" name="price" value=0 checked />
+          {% endfor %}
+          </div>
 
-                <label for="row">저가순</label>
-                <input type="radio" id="row" name="price" value=1 />
+      </div>
 
-                <label for="high">고가순</label>
-                <input type="radio" id="high" name="price" value=2 />
-            </div>
-            
-            <div>
-                <label for="keyword">특정 공격 및 키워드</label>
-                <input type="text" id="keyword" name="keyword" />
-            </div>
-        
-        </fieldset>
-        
-        <button type="submit">CLICK</button>
-    </form>
-    
-</div>
+{% endblock %}
 
+
+
+
+{% block extra_script %}
 
 <script>
+  // 셀렉트 박스 변경 시 자동으로 폼 제출
+  // document.querySelectorAll('select').forEach(select => {
+  //   select.addEventListener('change', (e) => {
+      
+  //     console.log(e);
+  //     // document.getElementById('user-sel').value = '2';
+  //     // document.getElementById('os-sel').value = '2';
+  //     // document.getElementById('sort-sel').value = '2';
+      
+  //     document.getElementById('filter-form').submit();
+  //   });
+  // });
+  
+  
+  
+  // 자세히보기 버튼
+  const detailBtn = document.querySelector(".intro-t2");
+  const expBox = document.querySelector('#vaccine');
+  detailBtn.addEventListener('click', () => {
+      expBox.scrollIntoView({ behavior: "smooth", block: "start", inline: "center"});
+  })
+  
+  // 데이터를 이렇게 보낼때
+  // data = {
+  //     "vc_list": list(vaccines.values('id','name','price_str','exp','image','link','category')),
+  //     "sort_op": sort_option,
+  //     "os_op": os,
+  //     "user_op": user
+  // }
+  // 결과 업데이트 함수 => 해당 값들도 필터링된 데이터로 
+     
+  
+  
+  
+  
+  // 선택된 값으로 header값을 변경하는 함수 => 선택 후 이걸로 header 값 바꿔주면 될듯
+  function SelectedFilter(el){
+      el.siblings().removeClass('selected');
+      el.addClass('selected');
+      var filter_text = el.text();
+      el.closest('.drop-down').find('.filter_selected').text(filter_text);
+      console.log(`Filter ${filter_text} selected`);
+  }
+  
+  
+  //새로운 셀렉터 함수 (슬라이드 열렸다가 닫히는거)
+  $('.header').click(function(){
+      $(this).siblings('.filters').slideToggle();
+      // $(this).find('i').toggleClass('opened')
+  })
+  
+  
+  function updateFilteredResults(data) {
+          // 필터링된 결과를 이용하여 원하는 방식으로 화면을 업데이트
+          console.log("ok");
+          console.log($('.vc-card-box'));
+          $('.vc-card-box').empty();  // 결과 영역 초기화
+    
+          data.vc_list.forEach(function(vc) {
+              // 필요한 방식으로 결과 영역에 데이터를 추가
+              $('.vc-card-box').append(`
+                  <div class="vc-card" 
+                       style="background-image: url('/static/img/vaccine/${vc.image}');
+                              background-position:bottom;background-size: contain;
+                              background-repeat: no-repeat;">
 
-    // $('.use-check').on('click', function() {
-    //     let valueCheck = $('.use-check:checked').val(); //체크된 value 값 가져오기
-        
-        
-    //     if ( valueCheck == 1 ) {
-    //         $('.input-data').attr('disabled', false); // input 활성화
-    //     } else {
-    //         $('.input-data').attr('disabled', true); // 과일 종류를 입력하는 input 을 비활성화합니다.
-    //     }
-    // });
+                    <div>
+                      <p class="vc-category" style="float:none">
+                          ${
+                              vc.category == 1 ? '가정용' :
+                              vc.category == 2 ? '개인용' : '기업용'
+                          }
+                      </p>
+                    </div>
+                    <div class="vc-text">
+                      <p class="vc-name">${vc.name}</p>
+                      <p class="vc-price">${vc.price_str}</p>
+                    </div>
+                  </div>
+              `);
+          });
+    } 
+  
+  // 값변경시
+  $('.filters .filter').click(function(){
+      $(this).parent().slideToggle();
+      // $(this).parent().prev('.header').find('i').toggleClass('opened');
+      SelectedFilter($(this));
+    
+    
+      // 여기서 데이터 전달이 이루어지면 됨. ajax
+      const selectedFilters = {};
+      $('.drop-down').each(function() {
+        const filterType = $(this).attr('id');
+        const selectedValue = $(this).find('.filter_selected').text();
+        selectedFilters[filterType] = selectedValue;
+        console.log(filterType);
+        console.log(selectedValue);
+      });
+    
+     // AJAX 요청을 통해 선택된 값들을 백엔드로 전달 (이거 백에서 print로 먼저 확인)
+      $.ajax({
+          type: 'GET',
+          url: '/get_filtered_results/',  // 백엔드 URL
+          data: selectedFilters,
+          dataType: 'json',
+          success: function(data) {
+              console.log(data);
+              // console.log($('.vc-card-box'));
+               // $('.vc-card-box').empty();
+              updateFilteredResults(data);
+          },
+          error: function() {
+              console.log('Error occurred during AJAX request.');
+          }
+      });   
+    
+  })
+
+  
 
 
+  
+ 
+  
+  
+  
+    $(document).ready(function() {
+        $('.filters').hide();
+        $('.filters').each(function () {
+            SelectedFilter($(this).children().first());
+        });
+      
+      
+        // 필터 옵션을 클릭했을 때의 동작 설정
+        // $('.filter').click(function() {
+        //     const selectedFilter = $(this).data('value');
+        //     const filterType = $(this).closest('.drop-down').attr('id');
+
+        //     $.ajax({
+        //         type: 'GET',
+        //         url: '/get_filtered_results/',  // Django 뷰의 URL
+        //         data: { filter_type: filterType, selected_filter: selectedFilter },
+        //         dataType: 'json',  // 받아올 데이터의 타입
+        //         success: function(data) {
+        //             // JSON 데이터를 활용하여 필터링된 결과 업데이트
+        //             updateFilteredResults(data);
+        //         },
+        //         error: function() {
+        //             console.log('Error occurred during AJAX request.');
+        //         }
+        //     });
+          
+          
+        // });
+      
+    });
+  
 
 </script>
-
 
 
 {% endblock %}

@@ -1,0 +1,73 @@
+<!-- document \ vc_detail.html -->
+
+{% extends 'common/base.html' %}
+
+{% block title %} SIGNATURE {% endblock %}
+
+
+
+
+{% block extra_css %}
+
+  <style>
+    
+    .vc_img_box {
+      position: relative;
+      display: flex;
+      width: 1080px;
+      height: 2700px;
+      margin: 140px auto 0;
+      justify-content: center;
+    }
+    
+    #vc_img {
+      /* position: relative; */
+      width: 1080px;
+      margin: 0 auto;
+    }
+    
+
+  .link_btn {
+      font-size: 14px;
+      color: white;
+      position: absolute;
+      /* top: 384px; */
+      top: 400px;
+      left: 504px;
+      /* border: 2px solid #6c6ccec9; */
+      background-color: #7878bfc9;
+      padding: 7px 129px;
+  }
+    
+    .link_btn:hover {
+      cursor: pointer;
+    }
+    
+  </style>
+
+
+
+{% endblock %}
+
+
+<!-- Navbar -->
+
+<!-- Contents -->
+{% block content %}
+
+
+
+  <div class="vc_img_box">
+    <img id="vc_img" src="/static/img/vaccine/detail_{{ vc_id }}.png" alt="">
+    <div class="link_btn" onclick="window.open('{{ vc_link }}', '_blank')">상품 자세히 보러가기</div>
+  </div>
+
+
+{% endblock %}
+
+
+<!-- footer -->
+
+
+{% block extra_script %} 
+{% endblock %}

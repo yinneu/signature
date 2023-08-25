@@ -118,8 +118,9 @@ $(document).ready(function() {
               showNextElement();
             },
             success: function(data) {
+              // console.log(data);
+              // sessionStorage.setItem("data_key", JSON.stringify(data));
               window.location.href = '/dashboard/';
-              console.log('성공');
             },
             error: function(xhr, status, error) {
               console.log(error);

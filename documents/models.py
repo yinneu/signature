@@ -38,7 +38,7 @@ class Vos(models.Model):
     
     vc_id = models.ForeignKey("Vaccine", on_delete=models.CASCADE, null=True)
     # name = models.CharField(max_length=50, unique=True)
-    os_type = models.PositiveSmallIntegerField(default=0)  # 0: window, 1: mac, 2: linux
+    os_type = models.PositiveSmallIntegerField(default=0)  # 0: window, 1: mac, 2: linux, 3: all로 취급
     ram = models.FloatField(null=True) #gb
     hdd = models.FloatField(null=True) #gb
 
@@ -51,8 +51,21 @@ class Attack(models.Model):
     name = models.CharField(max_length=30)
     keyword = models.TextField(null=True)  #keyword
     
+    # 공격 유형별 백신 우선순위 필드 추가
+    vaccine_priorities = models.ManyToManyField(Vaccine, through='VaccinePriority')
 
-
+    
+    
+    
+    
+class VaccinePriority(models.Model):
+    attack = models.ForeignKey(Attack, on_delete=models.CASCADE)
+    vaccine = models.ForeignKey(Vaccine, on_delete=models.CASCADE)
+    priority = models.PositiveIntegerField()
+    
+    
+    
+    
 # class vaccine_document(models.Model):
 #     name = models.CharField(max_length=500)     # 백신 이름
 #     one_line_exp = models.TextField()           # 한줄소개

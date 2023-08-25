@@ -100,10 +100,10 @@
     text-align: center;
 }
 
-.navbar-list ul:first-child {
+/* .navbar-list ul:first-child {
     top: -40px;
 }
-
+ */
 
 .navbar-list ul li:first-child {
     margin: 20px 0;

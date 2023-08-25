@@ -23,4 +23,6 @@ urlpatterns = [
          name='attack_exp'),
     path('vaccine/', views.VaccineView.as_view(),     # 프로토콜 설명 페이지
          name='vaccine'),
+    path('get_filtered_results/', views.get_filtered_results, name='get_filtered_results'),
+    path('get_vc_detail/', views.get_vc_detail, name='get_vc_detail')
 ]

@@ -1,0 +1,352 @@
+/* 백신페이지 */
+
+body {
+  background-color: #e3e3e333;
+}
+
+/* 네비바 */
+
+
+
+
+
+#navbar {
+  background-color: white;
+  box-shadow: 0 3px 10px rgb(138 136 136 / 9%);
+}
+
+
+#navbar > a:first-child {
+  display: none;
+}
+
+
+#nav-title h2 {
+ margin: 0 0 0 30px;
+/* font-family: 'Gugi', cursive; */
+font-family: 'Mali', cursive;
+/* font-family: 'Noto Sans KR', sans-serif; */
+color: black;
+
+}
+
+.navbar-container {
+  background-color: #f7f7f7;
+}
+
+.navbar-list ul li:first-child {
+    color: #ebac12;
+    margin: 20px 0;
+    font-size: 38px;
+    text-shadow: 1px 1px 1px gray;
+    font-weight: 300;
+}
+
+.navbar-list li a {
+  color: black;
+  font-weight: 300;
+}
+
+
+.bar {
+  background-color: black;
+}
+
+
+
+/* 백신 페이지 인트로 */
+#intro-img {
+  position: relative;
+  width: 100%;
+  height: 640px;
+  background-image: url('/static/img/vaccine/intro_img.jpg');
+  background-size: cover;
+  background-position:center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 80px;
+}
+
+#intro-img::before{
+    content: "";
+    opacity: 0.6;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color: #000;
+}
+
+#intro-img p {
+  z-index: 2;
+}
+
+
+
+.intro-title {
+  color: white;
+  font-family: 'Mali', cursive;
+  font-size: 64px;
+  margin: 4px 0 8px;
+}
+
+
+/* 한글글꼴, 글씨크기 통일 */
+.font-in {
+  font-size: 20px;
+  font-family: 'Hahmlet', serif;
+}
+
+
+.intro-t2 {
+  font-size: 17px;
+  color: #B8E9FF;
+  text-align: center;
+  border: 2px solid #B8E9FF;
+  padding: 4px 10px 7px;
+  margin-top: 12px;
+
+}
+
+.intro-t2:hover {
+
+  cursor: pointer;
+
+}
+
+
+
+
+
+
+
+
+/* 백신페이지 */
+#vaccine {
+  
+    /* width: 1498px; */
+    /* width: 1200px; */
+    width: 100%;
+    margin: 50px auto 0;
+    /* background-color: grey; */
+    /* height: 100px; */
+    /* border-top: 1px solid var(--dark-grey); */
+}
+
+
+
+
+
+/* 카테고리 셀렉터 */
+#filter-form {
+  height: 40px;
+  width: 74%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  /* border-top: 2px solid darkgray; */
+  /* border-bottom: 2px solid darkgray; */
+  
+}
+
+
+/* 카테고리 스타일 */
+:root {
+    --main-color: #79aec5;
+    
+}
+
+#filter-form {
+    /* display: flex; */
+    /* justify-content: center; */
+    align-items: center;
+    flex-direction: row;
+    /* gap: 2rem; */
+    /* height: 100vh; */
+    /* margin: 0; */
+    font-family: Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.drop-down {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: fit-content;
+    /* min-width: 200px; */
+    width: 200px;
+    /* 추가 */
+    margin: 20px;
+}
+
+.drop-down .header {
+    display: flex;
+    flex-direction: row;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+    height: 2rem;
+    justify-content: center;
+    align-items: center;
+    padding: .2rem .5rem;
+    /* border-radius: 10px; */
+    border-radius: 16px;
+    cursor: pointer;
+    /* 추가 */
+    text-align: center;
+}
+
+.drop-down .header .filter_selected {
+    width: 100%;
+}
+
+.drop-down .header i {
+    font-size: .8rem;
+    color: var(--main-color);
+    transition: transform .5s;
+}
+.drop-down .header i.opened {
+    transform: rotate(180deg);
+    transition: transform .5s;
+}
+
+.drop-down .filters {
+    position: absolute;
+    top: 3rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+    justify-content: center;
+    border-radius: 10px;
+    /* border-radius: 16px; */
+    width: 100%;
+    overflow: hidden;
+    /* 추가 */
+    z-index:3;
+    background-color: white;
+    text-align: center;
+}
+
+.drop-down .filters .filter {
+    padding: .5rem;
+}
+
+.drop-down .filters .filter:hover {
+    background-color: var(--main-color);
+    color: white;
+    /* 추가 */
+    cursor: pointer;
+}
+.drop-down .filters .filter.selected {
+    background-color: var(--main-color);
+    color: white;
+    font-weight: bold;
+}
+
+
+
+
+
+.vc-card-box {
+  width: 100%;
+  /* height: 460px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0 50px;
+  box-sizing: border-box;
+  margin: 50px 0 180px;
+}
+
+
+
+.vc-card {
+  width: 300px;
+  height: 396px;
+  /* height: 100%; */
+  /* background-color: #5959594d; */
+  /* background-color: #eeeeee2e; */
+  background-color: white;
+  box-sizing: border-box;
+  padding: 18px;
+  /* border: 1px solid rgba(255, 255, 255, 0.245); */
+  /* border: 1px solid transparent; */
+  margin: 10px;
+  transition: all 0.2s ease-in-out;
+  /* box-shadow: 0.1px 0.2px 1px 1px #e3e3e3; */
+  box-shadow: 0.1px 1px 10px 10px #e3e3e347;
+  border-radius: 14px;
+}
+
+.vc-card:hover {
+  /* box-shadow: 1px 1px 5px 1px darkgray; */
+  cursor: pointer;
+  transform: scale(1.02);
+  box-shadow: 0.1px 1px 10px 10px #e3e3e380;
+}
+
+
+.vc-img {
+  width: 100%;
+  height: 62%;
+  overflow: hidden;
+  background-color: white;
+  /* border: 1px solid darkgray; */
+  box-shadow: 0.1px 0 1px 1px #e3e3e39c;
+}
+
+.vc-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+.vc-text {
+  overflow: hidden;
+  /* padding: 8px 14px 12px ; */
+  height: 27%;
+  font-weight: 600;
+}
+
+
+
+.vc-text p {
+  margin: 4px 0;
+}
+
+
+.vc-price {
+  font-weight: 600;
+  color: #343434;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+
+.vc-name {
+  font-size: 16px;
+  /* color: #898686; */
+  /* color: #f0ac00; */
+  color: black;
+  font-weight: 900;
+}
+
+.vc-exp {
+  font-size: 14px;
+  color: #898686;
+}
+
+
+
+.vc-category {
+  float: right;
+  font-weight: 600;
+  color: darkgray;
+  font-size: 14px;
+}
+
+

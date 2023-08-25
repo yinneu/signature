@@ -31,11 +31,12 @@
         
         #add-area .exit {
             position: absolute;
-            top: -48px;
-            right: 4px;
+            /* top: -48px; */
+            top: -8px;
+            right: 5px;
             /* left: 700px; */
-            color: white;
-            font-size: 20px;
+            color: #c5c5c5;
+            font-size: 24px;
             font-weight: 900px;
             padding: 10px;
         }
@@ -76,7 +77,7 @@
         
         
         #add-data .input-data div {
-            margin: 6px 0;
+            margin: 6px 0 8px;
         }
         
         #add-data span {
@@ -144,63 +145,6 @@
     </div>
 
 
-    <!-- 추가 input -->
-    <!-- <div id="add-data">
-        
-        <h2 class="font">Antivirus Software Recommendation</h2>
-        
-        <fieldset>
-            <span>
-                맞춤형 백신 추천 서비스 사용
-            </span>
-            <label for="useo">O</label>
-            <input type="radio" class="use-check" id="useo" name="use" value=1 checked />
-            <label for="usex">X</label>
-            <input type="radio" class="use-check" id="usex" name="use" value=0 />
-        </fieldset>
-        
-        
-        <fieldset class="input-data">
-            
-            <div>
-                <span>
-                사용고객
-                </span>
-                <label for="user2">개인용</label>
-                <input type="radio" id="user2" name="user" value=2 checked />
-
-                <label for="user1">가정용</label>
-                <input type="radio" id="user1" name="user" value=1 />
-
-                <label for="user3">기업용</label>
-                <input type="radio" id="user3" name="user" value=3 />
-
-            </div>
-            <div>
-                <span>
-                가격
-                </span>            
-                <label for="user2">상관없음</label>
-                <input type="radio" id="none" name="price" value=0 checked />
-
-                <label for="row">저가순</label>
-                <input type="radio" id="row" name="price" value=1 />
-
-                <label for="high">고가순</label>
-                <input type="radio" id="high" name="price" value=2 />
-            </div>
-            
-            <div>
-                <span>특정 공격 및 키워드 </span>  
-                <input type="text" id="keyword" name="keyword" />
-            </div>
-        
-        </fieldset>
-        
-        <button type="submit">CLICK</button>
-    </div> -->
-
-
     <!-- Upload -->
     <div id="upload" class="contents main_contents">
         <h2 class="font upload-title">File Upload</h2>
@@ -216,7 +160,7 @@
             <div id="add-area">
                 
                 <div id="add-data">
-                    <p class="exit">X</p>
+                    <p class="exit">x</p>
                     <h2 class="font">Antivirus Software Recommendation</h2>
                     <!-- 백신 추천 여부 : 1 or 0 -->
                     <fieldset>
@@ -343,19 +287,4 @@
 {% block extra_script %} 
     <script src="/static/javascript/index.js"></script> 
     <script src="/static/javascript/send_data.js"></script>
-
-
-    <script>
-        // $('.use-check').on('click', function() {
-        //     let valueCheck = $('.use-check:checked').val(); //체크된 value 값 가져오기
-
-        //     if ( valueCheck == 1 ) {
-        //         $('.input-data').attr('disabled', false); // input 활성화
-        //     } else {
-        //         $('#keyword').val('');
-        //         $('.input-data').attr('disabled', true);
-        //     }
-        // });
-    </script>
-
 {% endblock %}

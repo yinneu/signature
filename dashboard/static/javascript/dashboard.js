@@ -42,7 +42,6 @@ function getRandomColor() {
   
 }
 
-
 // 색 랜덤 지정
 // function getRandomColor() {
 
@@ -69,11 +68,7 @@ const colorlt = {
   'FTP-Patator': '#9D96F5',
   'SSH-Patator': '#8378EA',
   'QPS': '#96BFFF',
-  // 'ICMP': '#F5C3CB',
-    // 'UDP': '#FADEA5',
-  // 'TCP': '#A5FAD2',
   'ICMP': '#E06280',
-  // 'UDP': 'yellow',
   'UDP': '#ffaa00',
   'TCP': '#00fff2',
   // 자식
@@ -84,8 +79,11 @@ const colorlt = {
 };
 
 
-// id 받아오는 방식
 
+
+
+
+// id 받아오는 방식
 let file_id = document.getElementById('file-id').dataset.file;
 console.log("File ID:", file_id);
 
