@@ -56,6 +56,7 @@ function getRandomColor() {
 // 공격유형별 색상이 다르게
 const colorlt = {
   'DDoS': '#E06280',
+  'DoS': '#FF9F7F',
   'DoS_Slowhttptest': '#32C5E9',
   'DoS_slowloris': '#67E0E3',
   'DoS_Hulk': '#9FE6B8',
@@ -155,14 +156,26 @@ $.ajax({
           let atkcol = 'white';
 
           // 공격유형별색
-          if (atk != "Normal") {
-            atkcol = colorlt[atk];
-          }
+          // if (atk != "Normal") {
+          //   atkcol = colorlt[atk];
+          //   // console.log(atk);
+          // }
     
-          // 시그니처
-          if (atk == "Normal") {
-            atkcol = '#4CA6FF';
-          }
+          // // 시그니처
+          // if (atk == "Normal") {
+          //   atkcol = '#4CA6FF';
+          // }
+          if(only_normal){
+              atkcol = '#4CA6FF';
+            }else {
+              if (atk == "Normal") {
+                // atkcol = '#E6205D';
+                atkcol = '#4CA6FF'
+              } else {
+                // atkcol = '#E68FAA';
+                atkcol = colorlt[atk];
+              }
+            }
           let sig_data = data.sig_attack[atk].map(function(item) {
               return [item.Source_IP, item.Destination_IP, item.Destination_Port, item.Length];
           });
@@ -415,6 +428,7 @@ $.ajax({
       };
       let sig_option = {
           backgroundColor: 'transparent', // 배경색
+          // backgroundColor: 'white',
           legend: {
               //index (범례)
               bottom: 20,
@@ -422,6 +436,7 @@ $.ajax({
               itemGap: 26,    
               textStyle: {
                 color: '#fff',
+                // color: '#000',
                 fontSize: 14
               },
               bottom : 20
@@ -446,8 +461,10 @@ $.ajax({
             },
             // borderColor: '#777',
             backgroundColor: '#000000be',
+            // backgroundColor: '#ffffffbe',
             textStyle: {
               color: 'lightgrey'
+              // color: '#000',
             }
           },
           parallelAxis: [
@@ -480,7 +497,14 @@ $.ajax({
                   dim: 2, //포트
                   name: schema[2].text,
                   min: 0,
-                  max: 65535
+                  max: 65535,
+                //추가
+                  // axisLabel: {
+                  //     //축을 투명으로 지정
+                  //     textStyle: {
+                  //         color: '#000',
+                  //     }
+                  // },
                   // type: 'category'
                   //  data: ['ICMP']
               },
@@ -489,6 +513,12 @@ $.ajax({
                   min: 0,
                   max: max_len,
                   name: schema[3].text,
+                  // axisLabel: {
+                  //     //축을 투명으로 지정
+                  //     textStyle: {
+                  //         color: '#000',
+                  //     }
+                  // },
                   // type: 'category'
                   // data: ['1442']
               } //size
@@ -504,6 +534,7 @@ $.ajax({
                   nameGap: 20,
                   nameTextStyle: {
                       color: '#fff',
+                      // color: '#000',
                       fontSize: 12
                   },
                   axisLine: {
@@ -1312,6 +1343,10 @@ $.ajax({
           label: {
             show: false,
             formatter: '{b}',
+            //추가
+            // itemStyle: {  
+            //   color: '#000',
+            // }
             // show: false
           },
         }
@@ -1371,6 +1406,7 @@ $.ajax({
 
       let net_option = {
         backgroundColor: 'transparent',
+        // backgroundColor: 'white',
         tooltip: {
           formatter: function(params) {
             if (params.dataType === 'edge') {
@@ -1382,7 +1418,8 @@ $.ajax({
               return `IP: ${params.name} <br> Value: ${params.data.value}`;
             }
           },
-          backgroundColor: '#00000060',
+          // backgroundColor: '#00000060',
+          backgroundColor: '#00000080',
           textStyle: {
             color: 'white' // 툴팁의 글씨색 설정
           }
@@ -1403,14 +1440,18 @@ $.ajax({
             links: net_link,
             roam: true,
             label: {
-              position: 'right'
+              position: 'right',
+              //추가
+              // textStyle: {
+              //   color: '#000',
+              // },
             },
             lineStyle: {
               color: 'source',
               // color: '#2D4834',
               curveness: 0.3
             },
-            emphasis: { // 강조 효과를 설정합니다.
+            emphasis: { // 강조 효과를 설정
               focus: 'adjacency', // 인접한 노드와 링크에만 강조 효과 적용
               emphasisLineStyle: {
                 opacity: 1, // 강조된 엣지의 투명도

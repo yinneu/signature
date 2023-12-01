@@ -356,25 +356,25 @@
 
                       <div id="iat-table" class="data-table">
                           <div class="data-box">
-                              <p>Mean IAT</p>
+                              <p>Mean Flow Duration</p>
                               <div class="data-inner-box mean-data">
                                   <p><span class="value mean"></span>per sec</p>
                               </div>
                           </div>
                           <div class="data-box">
-                              <p>Std IAT</p>
+                              <p>Std Flow Duration</p>
                               <div class="data-inner-box std-data">
                                   <p><span class="value std"></span>per sec</p>
                               </div>
                           </div>
                           <div class="data-box">
-                              <p>Max IAT</p>
+                              <p>Max Flow Duration</p>
                               <div class="data-inner-box max-data">
                                   <p><span class="value max"></span>per sec</p>
                               </div>
                           </div>
                           <div class="data-box">
-                              <p>Min IAT</p>
+                              <p>Min Flow Duration</p>
                               <div class="data-inner-box min-data">
                                   <p><span class="value min"></span>per sec</p>
                               </div>
@@ -385,7 +385,7 @@
                       <div id="iat-box">
                           <div id="graph_iat" class="graph"></div>
                           <div class="info-box">
-                              <p>IAT</p>
+                              <p>Flow Duration</p>
                               <div class="info">i</div>
                               <div class="info-contents">
                                   <p>패킷의 도착 시간 간격을 확인하여 <br>트래픽의 규칙성/불규칙성을 파악합니다.</p>
@@ -609,7 +609,7 @@
       <hr id="vc_hr">
     
       <!-- 백신 -->
-      <div id=vaccine {% if use == "1" %} style="display:block;" {% endif %}>
+      <div id=vaccine {% if use == "1" %} style="display:block;" {% endif %} class="page-break">
           
           <p class="vc-title">Antivirus Sotfware Recommendations</p>
           <p class="sm-gr">AI를 사용한 맞춤형 백신 제품을 추천해드리도록 하겠습니다.</p>
@@ -650,9 +650,9 @@
 
   
     <!-- arrow -->
-    <div id="arrow-up">
+    <!-- <div id="arrow-up">
         <img src="/static/img/top.png" alt="arrow-up">
-    </div>
+    </div> -->
   
     <!-- footer -->
      {% include 'common/footer.html' %}

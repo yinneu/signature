@@ -100,15 +100,15 @@ def get_filtered_results(request):
           print("pass1")
           pass
               
-        # 가격 필터
-        if price != "가격" :
-          if price == "저가순":
-              vaccines = vaccines.order_by('price')
-          elif price == "고가순":
-              vaccines = vaccines.order_by('-price')
-        else: 
-          print("pass2")
-          pass        
+        # # 가격 필터
+        # if price != "가격" :
+        #   if price == "저가순":
+        #       vaccines = vaccines.order_by('price')
+        #   elif price == "고가순":
+        #       vaccines = vaccines.order_by('-price')
+        # else: 
+        #   print("pass2")
+        #   pass        
         
         # user 필터링
         if user != "사용자":
@@ -123,12 +123,36 @@ def get_filtered_results(request):
           print("pass3")
           pass              
               
-        # 정렬 필터링
-        if sort != "추천순" :
-            vaccines = vaccines.order_by('-created_at')
+        # # 정렬 필터링
+        # if sort != "추천순" :
+        #     vaccines = vaccines.order_by('-created_at')
+        # else: 
+        #   print("pass4")
+        #   pass
+
+        
+        
+        # 가격 필터
+        if price != "가격" :
+          if price == "저가순":
+              vaccines = vaccines.order_by('price')
+          elif price == "고가순":
+              vaccines = vaccines.order_by('-price')
+              
         else: 
-          print("pass4")
-          pass
+          # 정렬 필터링
+          if sort != "추천순" :
+              vaccines = vaccines.order_by('-created_at')
+          else: 
+            print("pass4")
+            pass 
+
+
+        
+        
+
+        
+        
         
         # print(vaccines)
   

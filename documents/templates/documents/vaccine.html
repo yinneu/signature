@@ -93,9 +93,10 @@
           {% for vc in vc_list %}
             
             <div class="vc-card" 
-                 style="background-image: url('/static/img/vaccine/{{ vc.image }}');
-background-position:bottom;background-size: contain;
-background-repeat: no-repeat;" onclick="window.open('../get_vc_detail/?vc_id={{ vc.id }}')">
+                 style="background-image: url('/static/img/vaccine/{{ vc.image }}'); 
+                        background-position:bottom;background-size: contain; 
+                        background-repeat: no-repeat;" 
+                 onclick="window.open('../get_vc_detail/?vc_id={{ vc.id }}')">
 
 
               <div>
@@ -109,6 +110,7 @@ background-repeat: no-repeat;" onclick="window.open('../get_vc_detail/?vc_id={{ 
                     {%  endif %}
                 </p>
               </div>
+              
               <div class="vc-text">
                 <p class="vc-name">{{ vc.name }}</p>
                 <p class="vc-price">{{ vc.price_str }}</p>
@@ -192,7 +194,8 @@ background-repeat: no-repeat;" onclick="window.open('../get_vc_detail/?vc_id={{ 
                   <div class="vc-card" 
                        style="background-image: url('/static/img/vaccine/${vc.image}');
                               background-position:bottom;background-size: contain;
-                              background-repeat: no-repeat;">
+                              background-repeat: no-repeat;"
+                       onclick="window.open('../get_vc_detail/?vc_id=${vc.id}')">
 
                     <div>
                       <p class="vc-category" style="float:none">

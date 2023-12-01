@@ -38,7 +38,7 @@ $(document).ready(function() {
         return;
       }
         $('#add-area').css("display", "block");
-         console.log('cl');
+         // console.log('cl');
  
      });
     
@@ -157,7 +157,7 @@ $(document).ready(function() {
         // 최근 스크립트
           var expectedColumns = ['Source IP', 'Destination IP', 'Protocol', 'Source Port', 'Destination Port', 'Timestamp','FIN Flag Count',
                                  'SYN Flag Count', 'RST Flag Count', 'PSH Flag Count', 'ACK Flag Count','URG Flag Count', 'CWE Flag Count',
-                                 'ECE Flag Count', 'SYN_ACK_Count', 'Length', 'IAT','Payload','OS','RAM','HD','Browser']
+                                 'ECE Flag Count', 'SYN_ACK_Count', 'Length', 'IAT','OS','RAM','HDD','Browser']
         // 구버전 스크립트
         // let expectedColumns = ['Source IP', 'Destination IP', 'Protocol', 'Source Port', 'Destination Port', 'Flow Duration', 'Timestamp',
         // 'FIN Flag Count', 'SYN Flag Count', 'RST Flag Count','PSH Flag Count', 'ACK Flag Count','URG Flag Count', 'SYN ACK Count','CWE Flag Count', 'ECE Flag Count'

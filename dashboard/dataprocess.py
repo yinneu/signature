@@ -19,7 +19,7 @@ def dataProcess(data):
         protocol_mapping).fillna("undetermined")
 
     #  공격유형 라벨 맵핑 : labels2
-    attacks_mapping = {0: "Normal", 1: "DDoS", 2: "PortScan", 3: "Bornet", 4: "Infiltration", 5: "FTP-Patator",
+    attacks_mapping = {0: "Normal", 1: "DoS", 2: "PortScan", 3: "Bornet", 4: "Infiltration", 5: "FTP-Patator",
                        6: "SSH-Patator", 7: "DoS_Hulk", 8: "Dos_GoldenEye", 9: "DoS_slowloris",
                        10: "DoS_Slowhttptest", 11: "Heartbleed", 12: "ICMP_Flooding"}  # 레이블에 대한 매핑 정보
     data['labels2'] = data['labels'].map(

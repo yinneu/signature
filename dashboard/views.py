@@ -72,13 +72,13 @@ class DashboardView(View):
             # 컴퓨터 사양 컬럼 정보 추출
             myos = df.loc[0,['OS']][0]
             myram = df.loc[0,'RAM']
-            myhd = df.loc[0,['HD']][0] 
+            myhd = df.loc[0,['HDD']][0] 
             myb = df.loc[0,['Browser']][0]
             print("사용자 정보: ",myos,myram,myhd,myb)
             
             
             # 컴퓨터 사양 컬럼 제외
-            columns_to_drop = ['Payload','OS','RAM','HD','Browser']
+            columns_to_drop = ['OS','RAM','HDD','Browser']
             df.drop(columns_to_drop, axis=1, inplace=True)
               
             
@@ -106,7 +106,7 @@ class DashboardView(View):
                 file_path, ContentFile(file_content))
 
             # 파일과 UUID 연결 및 저장 (만료시간 설정)
-            expiration_time = timezone.now() + timedelta(minutes=10)
+            expiration_time = timezone.now() + timedelta(minutes=60)
             uploaded_file = UploadedFile(
                 file_path=saved_file_path, user_uuid=user_uuid, expiration_time=expiration_time)
             uploaded_file.save()

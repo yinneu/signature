@@ -137,5 +137,19 @@ pre code {
 
 
 
+.explanation .img-box {
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%
+ 
+}
+
+
+.img-box img{
+  max-width: 700px;
+  margin-top: 10px;
+}
 
 
