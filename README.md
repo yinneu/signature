@@ -4,11 +4,13 @@
 
 <!-- [ <a href="http://3.35.103.217:8080/"> 💻 시그니처 사이트 보러가기</a> ] -->
 
-[ <a href="https://www.youtube.com/watch?v=O4IL-yggLj8">  🎬  시연 영상 보러가기 </a> ]
-  
-[ <a href="https://www.miricanvas.com/v/123i0l4"> 📑 발표자료 보러가기 </a> ]
-  
+<!--[ <a href="https://www.youtube.com/watch?v=O4IL-yggLj8">  🎬  시연 영상 보러가기 </a> ]  -->
 
+[ <a href="https://youtu.be/nW9IdfyRd8o">  🎬  시연 영상 보러가기 </a> ]
   
+[ <a href="https://www.miricanvas.com/v/123i0l4"> 📑 발표자료 보러가기 </a> ]  <!-- 추후 논문 발표 자료로 수정할 것 -->
+
 <img src="https://github.com/yinneu/signature/assets/99879845/7b2440a7-59da-4bf6-9113-c4f72af793ea" width="1000">
+
+<img src="https://github.com/yinneu/signature/assets/99879845/0c2f4da1-ba82-4fa7-b63a-28a007077e71" width="500">
 
