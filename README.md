@@ -1,6 +1,8 @@
-<img src="https://github.com/yinneu/signature/assets/99879845/9c4665bc-8f90-4e7b-80ba-d89501cdd4a4" width="1000">
+<!-- <img src="https://github.com/yinneu/signature/assets/99879845/9c4665bc-8f90-4e7b-80ba-d89501cdd4a4" width="1000"> -->
 
-# <p align="center">2023-1 소프트웨어캡스톤디자인</p>
+# 침입 탐지 시스템(IDS)과 시각화를 통한 <br>네트워크 트래픽 분석 및 보안 솔루션 제공 사이트
+
+### <p align="">2023-1 소프트웨어캡스톤디자인</p>
 
 <!-- [ <a href="http://3.35.103.217:8080/"> 💻 시그니처 사이트 보러가기</a> ] -->
 
@@ -10,7 +12,13 @@
   
 [ <a href="https://www.miricanvas.com/v/123i0l4"> 📑 발표자료 보러가기 </a> ]  <!-- 추후 논문 발표 자료로 수정할 것 -->
 
-<img src="https://github.com/yinneu/signature/assets/99879845/7b2440a7-59da-4bf6-9113-c4f72af793ea" width="1000">
 
-<img src="https://github.com/yinneu/signature/assets/99879845/0c2f4da1-ba82-4fa7-b63a-28a007077e71" width="500">
+<img src="https://github.com/yinneu/signature/assets/99879845/98fab79b-0ad5-4bee-90a1-17e7ba72c3d2" width="600">
+<img src="https://github.com/yinneu/signature/assets/99879845/c5cf20e2-1c16-4471-9da4-cf763d7daf98" width="600">
+<img src="https://github.com/yinneu/signature/assets/99879845/8742c774-9ed4-4177-8823-361660e6436e" width="600">
+
+
+<img src="https://github.com/yinneu/signature/assets/99879845/7b2440a7-59da-4bf6-9113-c4f72af793ea" width="600">
+
+<img src="https://github.com/yinneu/signature/assets/99879845/0c2f4da1-ba82-4fa7-b63a-28a007077e71" width="600">
 
