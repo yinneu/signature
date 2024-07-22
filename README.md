@@ -10,7 +10,8 @@
 
 [ <a href="https://youtu.be/nW9IdfyRd8o">  🎬  시연 영상 보러가기 </a> ]
   
-[ <a href="https://www.miricanvas.com/v/123i0l4"> 📑 발표자료 보러가기 </a> ]  <!-- 추후 논문 발표 자료로 수정할 것 -->
+[ <a href="https://www.miricanvas.com/v/123i0l4"> 📑 캡스톤디자인 발표자료 보러가기 </a> ]   <br>
+[ <a href="https://www.miricanvas.com/ko/v/12eoqfz"> 📑 동계학술대회 발표자료 보러가기 </a> ] <!-- 추가 -->
 
 ### 2023-1 소프트웨어 캡스톤 디자인 포스터
 <img src="https://github.com/yinneu/signature/assets/99879845/7b2440a7-59da-4bf6-9113-c4f72af793ea" width="600">
