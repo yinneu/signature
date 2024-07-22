@@ -12,13 +12,14 @@
   
 [ <a href="https://www.miricanvas.com/v/123i0l4"> 📑 발표자료 보러가기 </a> ]  <!-- 추후 논문 발표 자료로 수정할 것 -->
 
-
-<img src="https://github.com/yinneu/signature/assets/99879845/98fab79b-0ad5-4bee-90a1-17e7ba72c3d2" width="600">
-<img src="https://github.com/yinneu/signature/assets/99879845/c5cf20e2-1c16-4471-9da4-cf763d7daf98" width="600">
-<img src="https://github.com/yinneu/signature/assets/99879845/8742c774-9ed4-4177-8823-361660e6436e" width="600">
-
-
+### 2023-1 소프트웨어 캡스톤 디자인 포스터
 <img src="https://github.com/yinneu/signature/assets/99879845/7b2440a7-59da-4bf6-9113-c4f72af793ea" width="600">
 
+### 강원 SW 인재페스티벌 참가 포스터
+<img src="https://github.com/yinneu/signature/assets/99879845/98fab79b-0ad5-4bee-90a1-17e7ba72c3d2" width="600">
+<img src="https://github.com/yinneu/signature/assets/99879845/c5cf20e2-1c16-4471-9da4-cf763d7daf98" width="600">
+<img src="https://github.com/yinneu/signature/assets/99879845/0f5fa7bb-fcc4-40cb-a61c-81f259ad4927" width="600">
+
+### 정보보호학회 동계학술대회 우수논문상 수상
 <img src="https://github.com/yinneu/signature/assets/99879845/0c2f4da1-ba82-4fa7-b63a-28a007077e71" width="600">
 
